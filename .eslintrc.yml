@@ -5,3 +5,5 @@ env:
 parser: babel-eslint
 rules:
   react/jsx-filename-extension: off
+  react/prefer-stateless-function: off
+  react/forbid-prop-types: off

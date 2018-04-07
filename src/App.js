@@ -1,7 +1,5 @@
 import React from 'react';
-import './App.css';
-
-import Configurator from './components/Configurator';
+import Configurator from './Configurator';
 
 const App = () => (
   <Configurator />
