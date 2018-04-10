@@ -1,4 +1,4 @@
 export default {
-  BUTTON: 'Option',
+  OPTION: 'Option',
   MENU: 'Menu',
 };

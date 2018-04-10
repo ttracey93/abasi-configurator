@@ -1,0 +1,99 @@
+{
+  "general": {
+    "label": "General",
+    "type": "Menu",
+    "icon": "fa-gear",
+    "options": {
+      "strings": {
+        "label": "Strings",
+        "type": "Menu",
+        "icon": "fa-bars",
+        "options": {
+          "six": {
+            "label": "6",
+            "type": "Option",
+            "key": "strings",
+            "value": 6
+          },
+          "seven": {
+            "label": "7",
+            "type": "Option",
+            "key": "strings",
+            "value": 7
+          },
+          "eight": {
+            "label": "8",
+            "type": "Option",
+            "key": "strings",
+            "value": 8
+          }
+        }
+      },
+      "scale": {
+        "label": "Scale",
+        "type": "Menu",
+        "icon": "fa-ruler",
+        "options": {
+          "standard": {
+            "label": "Standard",
+            "type": "Option",
+            "key": "scale",
+            "value": "Standard"
+          },
+          "multilscale": {
+            "label": "Multi-Scale",
+            "type": "Option",
+            "key": "scale",
+            "value": "Multiscale"
+          }
+        }
+      }
+    }
+  },
+  "body": {
+    "label": "Body",
+    "type": "Menu",
+    "icon": "fa-android"
+  },
+  "neck": {
+    "label": "Neck",
+    "type": "Menu",
+    "icon": "fa-window-restore"
+  },
+  "headstock": {
+    "label": "Headstock",
+    "type": "Menu",
+    "icon": "fa-book",
+    "options": {
+      "style": {
+        "label": "Style",
+        "type": "Menu",
+        "icon": "fa-bars",
+        "options": {
+          "headstock": {
+            "label": "Headstock",
+            "type": "Option",
+            "key": "headstyle",
+            "value": "Headstock"
+          },
+          "headless": {
+            "label": "Headless",
+            "type": "Option",
+            "key": "headstyle",
+            "value": "Headless"
+          }
+        }
+      }
+    }
+  },
+  "hardware": {
+    "label": "Hardware",
+    "type": "Menu",
+    "icon": "fa-angle-down"
+  },
+  "extras": {
+    "label": "Extras",
+    "type": "Menu",
+    "icon": "fa-archive"
+  }
+}

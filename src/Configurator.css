@@ -19,7 +19,6 @@ body {
   height: inherit;
   display: flex;
   border: 1px solid black;
-  flex-direction: row;
 }
 
 .columns {
@@ -50,6 +49,47 @@ body {
   height: 100%;
 }
 
+.btn {
+  font-size: 18px;
+  color: white;
+  border-radius: 2px;
+  height: 36px;
+  line-height: 36px;
+  background-color: rgb(0, 188, 212);
+  transition: background-color 2s;
+}
+
+.btn:hover {
+  cursor: pointer;
+  background-color: rgb(1, 115, 130);
+}
+
+/* Tooltip text */
+.tooltip {
+  position:relative;
+}
+
+.tooltiptext {
+  position: absolute;
+  right: 20px;
+  bottom: 0;
+  width: 100px;
+  font-size: 20px;
+  visibility: hidden;
+  background-color: rgba(47, 46, 46, 1);
+  color: #fff;
+  padding: 5px;
+  border-radius: 6px;
+
+  /* Position the tooltip text - see examples below! */
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
 /**** Component Views ****/
 
 /* Home View */
@@ -64,10 +104,33 @@ body {
 }
 
 /* Option View */
+.option-menu {
+  position: relative;
+  width: 166%;
+  flex-flow: row wrap;
+}
+
+.back-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.option-viewport {
+
+}
+
+.option-info {
+
+}
 
 /**** Widgets ****/
 
 /* Viewport */
+.viewport {
+  position: relative;
+}
+
 .viewport-price {
   align-self: flex-end;
   position: absolute;
@@ -97,24 +160,42 @@ body {
 }
 
 /* Price */
+.price {
+  font-size: 20px;
+}
+
 .price-container * {
   align-self: center;
+}
+
+.price-icon {
+  cursor: pointer;
 }
 
 /* Menu */
 .menu {
   /* flex-basis: 0; */
+  display: flex;
+  flex-grow: 1;
+  align-content: flex-start;
+  justify-content: flex-start;
+  flex-flow: row wrap;
 }
 
 /* Tile */
 .tile {
   display: flex;
-  flex-grow: 1;
+  flex: 1;
   border-right: 1px solid black;
+  transition: all 1.5s;
+  height: 150px;
+  min-width: 150px;
 }
 
 .tile:hover {
-  color: blue;
+  color: rgba(47, 46, 46, 1);
+  font-size: 2em;
+  cursor: pointer;
 }
 
 .tile-label {
@@ -123,6 +204,8 @@ body {
   align-self: center;
 }
 
-.tile-img {
-
+.tile-icon {
+  width: 100%;
+  text-align: center;
+  align-self: center;
 }

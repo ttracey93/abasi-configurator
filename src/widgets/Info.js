@@ -4,4 +4,8 @@ export default class Info extends React.Component {
   constructor(props) {
     super(props);
   }
+
+  render() {
+    return 'Info pane';
+  }
 }
