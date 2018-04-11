@@ -13,19 +13,22 @@
             "label": "6",
             "type": "Option",
             "key": "strings",
-            "value": 6
+            "value": 6,
+            "price": 2999
           },
           "seven": {
             "label": "7",
             "type": "Option",
             "key": "strings",
-            "value": 7
+            "value": 7,
+            "price": 3149
           },
           "eight": {
             "label": "8",
             "type": "Option",
             "key": "strings",
-            "value": 8
+            "value": 8,
+            "price": 3299
           }
         }
       },
@@ -38,13 +41,15 @@
             "label": "Standard",
             "type": "Option",
             "key": "scale",
-            "value": "Standard"
+            "value": "Standard",
+            "price": 0
           },
           "multilscale": {
             "label": "Multi-Scale",
             "type": "Option",
             "key": "scale",
-            "value": "Multiscale"
+            "value": "Multiscale",
+            "price": 100
           }
         }
       }
@@ -53,12 +58,206 @@
   "body": {
     "label": "Body",
     "type": "Menu",
-    "icon": "fa-android"
+    "icon": "fa-android",
+    "options": {
+      "wood": {
+        "label": "Wood",
+        "type": "Menu",
+        "icon": "fa-wood",
+        "options": {
+          "poplar": {
+            "label": "Poplar",
+            "type": "Option",
+            "icon": "",
+            "key": "body-wood",
+            "value": "poplar",
+            "price": 0
+          },
+          "swamp-ash": {
+            "label": "Swamp Ash",
+            "type": "Option",
+            "icon": "",
+            "key": "body-wood",
+            "value": "swamp-ash",
+            "price": 50
+          },
+          "mahogany": {
+            "label": "Mahogany",
+            "type": "Option",
+            "icon": "",
+            "key": "body-wood",
+            "value": "mahogany",
+            "price": 50
+          },
+          "walnut": {
+            "label": "Walnut",
+            "type": "Option",
+            "icon": "",
+            "key": "body-wood",
+            "value": "walnut",
+            "price": 120
+          },
+          "other": {
+            "label": "Other",
+            "type": "Option",
+            "icon": "",
+            "key": "body-wood",
+            "value": "other",
+            "price": "Inquiry"
+          }
+        }
+      },
+      "top-wood": {
+        "label": "Top Wood",
+        "type": "Menu",
+        "icon": "",
+        "options": {
+          "flamed-maple": {
+            "label": "Flamed Maple",
+            "type": "Option",
+            "icon": "",
+            "key": "top-wood",
+            "value": "flamed-maple",
+            "price": 250
+          },
+          "burled-marple": {
+            "label": "Burled Maple",
+            "type": "Option",
+            "icon": "",
+            "key": "top-wood",
+            "value": "burled-maple",
+            "price": 300
+          },
+          "figured-koa": {
+            "label": "Figured Koa",
+            "type": "Option",
+            "icon": "",
+            "key": "top-wood",
+            "value": "figured-koa",
+            "price": 350
+          },
+          "wenge": {
+            "label": "Wenge",
+            "type": "Option",
+            "icon": "",
+            "key": "top-wood",
+            "value": "wenge",
+            "price": 250
+          },
+          "walnut": {
+            "label": "Walnut",
+            "type": "Option",
+            "icon": "",
+            "key": "top-wood",
+            "value": "walnut",
+            "price": 125
+          },
+          "other": {
+            "label": "Other",
+            "type": "Option",
+            "icon": "",
+            "key": "top-wood",
+            "value": "other",
+            "price": "Inquiry"
+          }
+        }
+      },
+      "finish": {
+        "label": "Finish",
+        "type": "Menu",
+        "options": {
+          "black-pearl": {
+            "label": "Black Pearl",
+            "type": "Option",
+            "key": "finish",
+            "value": "black-pearl",
+            "price": 0
+          },
+          "sports-classic-grey": {
+            "label": "Sports Classic Grey",
+            "type": "Option",
+            "key": "finish",
+            "value": "sports-classic-grey",
+            "price": 0
+          },
+          "white-pearl": {
+            "label": "White Pearl",
+            "type": "Option",
+            "key": "finish",
+            "value": "white-pearl",
+            "price": 0
+          }
+        }
+      }
+    }
   },
   "neck": {
     "label": "Neck",
     "type": "Menu",
-    "icon": "fa-window-restore"
+    "icon": "fa-window-restore",
+    "options": {
+      "wood": {
+        "label": "Wood",
+        "type": "Menu",
+        "options": {
+          "two-piece-wenge": {
+            "label": "2 piece Wenge",
+            "type": "Option",
+            "key": "neck-wood",
+            "value": "2-piece-wenge",
+            "price": 0
+          },
+          "two-piece-maple": {
+            "label": "2 piece Maple",
+            "type": "Option",
+            "key": "neck-wood",
+            "value": "2-piece-maple",
+            "price": 0
+          },
+          "two-piece-mahogany": {
+            "label": "2 piece Mahogany",
+            "type": "Option",
+            "key": "neck-wood",
+            "value": "2-piece-mahogany",
+            "price": 0
+          },
+          "other": {
+            "label": "Other",
+            "type": "Option",
+            "key": "neck-wood",
+            "value": "Other",
+            "price": "Inquiry"
+          }
+        }
+      },
+      "fingerboard": {
+        "label": "Material",
+        "type": "Menu",
+        "options": {
+          "katalox": {
+            "label": "Katalox",
+            "type": "Option",
+            "key": "fingerboard",
+            "value": "katalox",
+            "price": 0
+          },
+          "richlite": {
+            "label": "Richlite",
+            "type": "Option",
+            "key": "fingerboard",
+            "value": "richlite",
+            "price": 30
+          },
+          "rosewood": {
+            "label": "Rosewood",
+            "type": "Option",
+            "key": "fingerboard",
+            "value": "rosewood",
+            "price": 30
+          }
+        }
+      }
+    }
   },
   "headstock": {
     "label": "Headstock",
@@ -74,13 +273,15 @@
             "label": "Headstock",
             "type": "Option",
             "key": "headstyle",
-            "value": "Headstock"
+            "value": "Headstock",
+            "price": 0
           },
           "headless": {
             "label": "Headless",
             "type": "Option",
             "key": "headstyle",
-            "value": "Headless"
+            "value": "Headless",
+            "price": 100
           }
         }
       }
@@ -89,7 +290,73 @@
   "hardware": {
     "label": "Hardware",
     "type": "Menu",
-    "icon": "fa-angle-down"
+    "icon": "fa-angle-down",
+    "options": {
+      "color": {
+        "label": "Color",
+        "type": "Menu",
+        "options": {
+          "chrome": {
+            "label": "Chrome",
+            "type": "Option",
+            "key": "hardware-color",
+            "value": "chrome",
+            "price": 0
+          },
+          "black": {
+            "label": "Black",
+            "type": "Option",
+            "key": "hardware-color",
+            "value": "black",
+            "price": 0
+          },
+          "gold": {
+            "label": "Gold",
+            "type": "Option",
+            "key": "hardware-color",
+            "value": "gold",
+            "price": 100
+          }
+        }
+      },
+      "fretwire": {
+        "label": "Frets",
+        "type": "Menu",
+        "options": {
+          "nickel-silver": {
+            "label": "Nickel Silver",
+            "type": "Option",
+            "key": "fretwire",
+            "value": "nickel-silver"
+          },
+          "custom-nickel": {
+            "label": "Custom Gauge Nickel Silver",
+            "type": "Option",
+            "key": "fretwire",
+            "value": "nickel-silver"
+          },
+          "custom-stainless": {
+            "label": "Custom Gauge Stainless Stel",
+            "type": "Option",
+            "key": "fretwire",
+            "value": "nickel-silver"
+          }
+        }
+      },
+      "nut": {
+        "label": "Nut Width",
+        "type": "Menu",
+        "options": {
+          "custom": {
+            "label": "Custom Nut Width",
+            "type": "Option",
+            "key": "nut-width",
+            "value": "custom",
+            "price": 100
+          }
+        }
+      }
+    }
   },
   "extras": {
     "label": "Extras",

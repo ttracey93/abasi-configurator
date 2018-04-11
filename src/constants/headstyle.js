@@ -1,4 +1,4 @@
 export default {
-  HEADSTOCK: 'headstock',
-  HEADLESS: 'headless',
+  HEADSTOCK: 'Headstock',
+  HEADLESS: 'Headless',
 };

@@ -31,7 +31,6 @@ export default class Configurator extends React.Component {
       mode: Modes.HOME,
     };
 
-
     this.setData = this.setData.bind(this);
     this.getItems = this.getItems.bind(this);
     this.setItems = this.setItems.bind(this);
@@ -57,7 +56,7 @@ export default class Configurator extends React.Component {
   // Reset guitar options
   reset() {
     this.setState({
-      data: Configurator.getInitialData,
+      data: Configurator.getInitialData(),
     });
   }
 

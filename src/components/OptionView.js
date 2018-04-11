@@ -39,8 +39,8 @@ export default class OptionView extends React.Component {
           />
         </div>
 
-        <div className="container columns">
-          <div className="container option-viewport">
+        <div className="container option-viewport columns">
+          <div className="container ">
             <ViewPort
               data={this.props.data}
               setData={this.handleChange}
