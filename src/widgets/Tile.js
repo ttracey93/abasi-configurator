@@ -20,7 +20,7 @@ export default class Tile extends React.Component {
         </div>
 
         <div className="tile-icon">
-          <i className={`fa fa-2x ${this.props.data.icon}`} />
+          ${this.props.data.variants[0].price} USD
         </div>
       </div>
     );

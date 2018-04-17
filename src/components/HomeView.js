@@ -29,6 +29,9 @@ export default class HomeView extends React.Component {
             setData={this.handleChange}
             changeMode={this.changeMode}
             reset={this.props.reset}
+            goBack={this.props.goBack}
+            goForward={this.props.goForward}
+            itemIndex={this.props.itemIndex}
           />
         </div>
 
@@ -53,4 +56,5 @@ HomeView.propTypes = {
   goForward: PropTypes.func.isRequired,
   changeMode: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
+  itemIndex: PropTypes.number.isRequired,
 };

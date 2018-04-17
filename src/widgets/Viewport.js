@@ -80,13 +80,13 @@ export default class Viewport extends React.Component {
           <canvas id="render-canvas" />
         </div>
 
-        {this.props.reset && (
+        {/* {this.props.reset && (
           <div className="reset-button">
             <button className="btn" onClick={this.props.reset}>
               Reset
             </button>
           </div>
-        )}
+        )} */}
 
         <div className="rotate-button">
           <button className="btn" onClick={this.rotate}>
@@ -94,11 +94,17 @@ export default class Viewport extends React.Component {
           </button>
         </div>
 
-        <div className="purchase-button">
-          <button className="btn" onClick={this.purchase}>
-            Purchase
+        <div className="back-button">
+          <button className="btn" disabled={this.props.itemIndex === 0} onClick={this.props.goBack}>
+            Previous
           </button>
         </div>
+
+        {/* <div className="forward-button">
+          <button className="btn" onClick={this.props.goForward}>
+            Next
+          </button>
+        </div> */}
 
         <div className="viewport-price">
           <Price data={this.props.data} changeMode={this.changeMode} />
@@ -109,9 +115,12 @@ export default class Viewport extends React.Component {
 }
 
 Viewport.propTypes = {
-  reset: PropTypes.func,
+  // reset: PropTypes.func,
   setData: PropTypes.func.isRequired,
   changeMode: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
+  goBack: PropTypes.func.isRequired,
+  goForward: PropTypes.func.isRequired,
+  itemIndex: PropTypes.number.isRequired,
 };
 

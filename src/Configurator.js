@@ -12,7 +12,6 @@ import './Configurator.css';
 import HomeView from './components/HomeView';
 import OptionView from './components/OptionView';
 import ConfirmationView from './components/ConfirmationView';
-import PaymentView from './components/PaymentView';
 
 import Options from './constants/options-wizard.json';
 
@@ -23,6 +22,7 @@ export default class Configurator extends React.Component {
       scale: Scale.STANDARD,
       headstyle: Headstyle.HEADSTOCK,
       price: 0,
+      itemIndex: 1,
     };
   }
 
@@ -35,6 +35,7 @@ export default class Configurator extends React.Component {
       items: Options,
       itemIndex: 0,
       mode: Modes.HOME,
+      lineItems: [],
     };
 
     // Event bindings
@@ -50,7 +51,6 @@ export default class Configurator extends React.Component {
       [Modes.HOME]: HomeView,
       [Modes.OPTION]: OptionView,
       [Modes.CONFIRMATION]: ConfirmationView,
-      [Modes.PAYMENT]: PaymentView,
     };
 
     // Setup Shopify Client
@@ -65,11 +65,16 @@ export default class Configurator extends React.Component {
   }
 
   async setData(data) {
+    console.log(data);
+
+    const object = Object.values(data)[0];
+    const variantId = object.variants[0].id;
     const lineItemsToAdd = [{
-      variantId: Object.values(data)[0].variants[0].id,
+      variantId,
       quantity: 1,
     }];
 
+    this.state.lineItems.push(variantId);
     this.checkout = await this.client.checkout.addLineItems(this.checkout.id, lineItemsToAdd);
 
     Object.assign(this.state.data, data);
@@ -111,7 +116,23 @@ export default class Configurator extends React.Component {
     });
   }
 
-  goBack() {
+  async goBack() {
+    const lineItemsToRemove = [this.state.lineItems[this.state.lineItems.length - 1]];
+    this.state.lineItems.pop();
+
+    console.log(this.checkout.id);
+    console.log(lineItemsToRemove);
+
+    try {
+      this.checkout = await this.client.checkout.removeLineItems(
+        this.checkout.id,
+        lineItemsToRemove,
+      );
+    } catch (ex) {
+      console.log('asdasd');
+      console.log(ex);
+    }
+
     this.setState({
       itemIndex: this.state.itemIndex - 1,
     });
@@ -153,6 +174,7 @@ export default class Configurator extends React.Component {
             changeMode={this.changeMode}
             reset={this.reset}
             checkout={this.checkout}
+            itemIndex={this.state.itemIndex}
           />
         }
       </div>

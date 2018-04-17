@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
+// TODO: Viewport on confirmation page?
 // import ViewPort from '../widgets/Viewport';
-import Menu from '../widgets/Menu';
 
 export default class ConfirmationView extends React.Component {
   constructor(props) {
@@ -26,11 +27,28 @@ export default class ConfirmationView extends React.Component {
   }
 
   render() {
+    console.log(this.props.checkout.lineItems);
+
+    const lineItems = _.map(_.orderBy(this.props.checkout.lineItems, 'addedAt'), (lineItem, index) => (
+      <div key={index}>
+        {index + 1}: {lineItem.title} - {lineItem.variant.price}
+      </div>
+    ));
+
     return (
       <div className="container columns">
-        <p>Dis da conf winder</p>
+        <h1>Confirmation View</h1>
 
-        <button onClick={this.checkout}>
+        {lineItems}
+
+        <hr />
+
+        <p>Total: ${this.props.checkout.totalPrice}</p>
+
+        <hr />
+
+        <p>This will take you to Shopify to pay for your guitar</p>
+        <button className="btn checkout-button" onClick={this.checkout}>
           Checkout
         </button>
       </div>
