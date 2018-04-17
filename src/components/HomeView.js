@@ -36,7 +36,7 @@ export default class HomeView extends React.Component {
           <Menu
             items={this.props.getItems()}
             setData={this.handleChange}
-            setItems={this.props.setItems}
+            goForward={this.props.goForward}
             changeMode={this.changeMode}
           />
         </div>
@@ -49,7 +49,8 @@ HomeView.propTypes = {
   reset: PropTypes.func.isRequired,
   setData: PropTypes.func.isRequired,
   getItems: PropTypes.func.isRequired,
-  setItems: PropTypes.func.isRequired,
+  goBack: PropTypes.func.isRequired,
+  goForward: PropTypes.func.isRequired,
   changeMode: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import Client from 'shopify-buy';
+import _ from 'lodash';
 
 import Strings from './constants/strings';
 import Scale from './constants/scale';
@@ -21,7 +22,7 @@ export default class Configurator extends React.Component {
       strings: Strings.SIX,
       scale: Scale.STANDARD,
       headstyle: Headstyle.HEADSTOCK,
-      price: 3259.69,
+      price: 0,
     };
   }
 
@@ -39,8 +40,8 @@ export default class Configurator extends React.Component {
     // Event bindings
     this.setData = this.setData.bind(this);
     this.getItems = this.getItems.bind(this);
-    this.setItems = this.setItems.bind(this);
     this.goBack = this.goBack.bind(this);
+    this.goForward = this.goForward.bind(this);
     this.changeMode = this.changeMode.bind(this);
     this.reset = this.reset.bind(this);
 
@@ -57,19 +58,50 @@ export default class Configurator extends React.Component {
       domain: 'tyify.myshopify.com',
       storefrontAccessToken: '4100223db918b0a9731e5ddfa63e014c',
     });
-    this.checkout = this.client.checkout.create();
-
-    // Pull items from shopify API based on configuration
-    this.propogateItems();
   }
 
-  setData(data) {
+  componentDidMount() {
+    this.getShopifyData();
+  }
+
+  async setData(data) {
+    const lineItemsToAdd = [{
+      variantId: Object.values(data)[0].variants[0].id,
+      quantity: 1,
+    }];
+
+    this.checkout = await this.client.checkout.addLineItems(this.checkout.id, lineItemsToAdd);
+
     Object.assign(this.state.data, data);
+    this.state.data.price = this.checkout.totalPrice;
     this.forceUpdate();
   }
 
   getItems() {
     return this.state.items[this.state.itemIndex];
+  }
+
+  /* eslint-disable guard-for-in */
+  /* eslint-disable no-restricted-syntax */
+  /* eslint-disable no-await-in-loop */
+  // Pull items from shopify API
+  async getShopifyData() {
+    this.checkout = await this.client.checkout.create();
+    this.collections = await this.client.collection.fetchAllWithProducts();
+    this.propogateItems();
+  }
+
+  propogateItems() {
+    const item = this.state.items[this.state.itemIndex];
+
+    // Grab products from shopify data
+    const collection = _.find(this.collections, c => c.id === item.collectionId);
+
+    // Place products on item
+    this.state.items[this.state.itemIndex].products = _.orderBy(collection.products, 'createdAt');
+
+    // Update
+    this.forceUpdate();
   }
 
   // Reset guitar options
@@ -80,31 +112,20 @@ export default class Configurator extends React.Component {
   }
 
   goBack() {
-    this.state.itemIndex -= 1;
-
-    if (this.state.itemIndex === 0) {
-      this.setState({
-        mode: Modes.HOME,
-      });
-    } else {
-      this.forceUpdate();
-    }
-
-    this.propogateItems();
+    this.setState({
+      itemIndex: this.state.itemIndex - 1,
+    });
   }
 
   goForward() {
-    this.state.itemIndex += 1;
+    const newIndex = this.state.itemIndex + 1;
 
-    if (this.state.itemIndex !== 0) {
-      this.setState({
-        mode: Modes.OPTION,
-      });
+    if (newIndex < this.state.items.length) {
+      this.state.itemIndex = newIndex;
+      this.propogateItems();
     } else {
-      this.forceUpdate();
+      this.changeMode(Modes.CONFIRMATION);
     }
-
-    this.propogateItems();
   }
 
   changeMode(mode) {
@@ -122,15 +143,18 @@ export default class Configurator extends React.Component {
 
     return (
       <div className="configurator">
-        <Component
-          data={this.state.data}
-          setData={this.setData}
-          getItems={this.getItems}
-          setItems={this.setItems}
-          goBack={this.goBack}
-          changeMode={this.changeMode}
-          reset={this.reset}
-        />
+        {this.getItems().products &&
+          <Component
+            data={this.state.data}
+            setData={this.setData}
+            getItems={this.getItems}
+            goBack={this.goBack}
+            goForward={this.goForward}
+            changeMode={this.changeMode}
+            reset={this.reset}
+            checkout={this.checkout}
+          />
+        }
       </div>
     );
   }

@@ -33,7 +33,6 @@ PaymentView.propTypes = {
   reset: PropTypes.func.isRequired,
   setData: PropTypes.func.isRequired,
   getItems: PropTypes.func.isRequired,
-  setItems: PropTypes.func.isRequired,
   changeMode: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
 };

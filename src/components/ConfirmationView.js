@@ -21,8 +21,8 @@ export default class ConfirmationView extends React.Component {
     this.props.changeMode(mode);
   }
 
-  async checkout() {
-
+  checkout() {
+    window.open(this.props.checkout.webUrl);
   }
 
   render() {
@@ -42,7 +42,7 @@ ConfirmationView.propTypes = {
   reset: PropTypes.func.isRequired,
   setData: PropTypes.func.isRequired,
   getItems: PropTypes.func.isRequired,
-  setItems: PropTypes.func.isRequired,
   changeMode: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
+  checkout: PropTypes.object.isRequired,
 };

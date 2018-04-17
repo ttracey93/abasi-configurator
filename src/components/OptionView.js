@@ -34,7 +34,6 @@ export default class OptionView extends React.Component {
           <Menu
             items={this.props.getItems()}
             setData={this.handleChange}
-            setItems={this.props.setItems}
             changeMode={this.changeMode}
           />
         </div>
@@ -64,7 +63,6 @@ export default class OptionView extends React.Component {
 OptionView.propTypes = {
   setData: PropTypes.func.isRequired,
   getItems: PropTypes.func.isRequired,
-  setItems: PropTypes.func.isRequired,
   changeMode: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
   goBack: PropTypes.func.isRequired,

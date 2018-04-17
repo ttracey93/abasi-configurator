@@ -15,17 +15,11 @@ export default class Menu extends React.Component {
   }
 
   handleChange(tile) {
-    console.log(tile);
+    this.props.setData({
+      [this.props.items.key]: tile,
+    });
 
-    // TODO: Expand tile types?
-    if (tile.options && typeof tile.options === 'object') {
-      this.props.setItems(tile.options);
-      this.changeMode(Modes.OPTION);
-    } else {
-      this.props.setData({
-        [tile.key]: tile.value,
-      });
-    }
+    this.props.goForward();
   }
 
   changeMode(mode) {
@@ -33,7 +27,8 @@ export default class Menu extends React.Component {
   }
 
   render() {
-    const tiles = _.map(this.props.items, (item, i) => <Tile key={i} data={item} callback={this.handleChange} />);
+    const { products } = this.props.items;
+    const tiles = _.map(products, (product, i) => <Tile key={i} data={product} callback={this.handleChange} />);
 
     return (
       <div className="menu">
@@ -47,5 +42,5 @@ Menu.propTypes = {
   items: PropTypes.object.isRequired,
   setData: PropTypes.func.isRequired,
   changeMode: PropTypes.func.isRequired,
-  setItems: PropTypes.func.isRequired,
+  goForward: PropTypes.func.isRequired,
 };
