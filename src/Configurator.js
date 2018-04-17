@@ -9,6 +9,8 @@ import './Configurator.css';
 
 import HomeView from './components/HomeView';
 import OptionView from './components/OptionView';
+import ConfirmationView from './components/ConfirmationView';
+import PaymentView from './components/PaymentView';
 
 import OPTIONS from './constants/options.json';
 
@@ -37,6 +39,15 @@ export default class Configurator extends React.Component {
     this.goBack = this.goBack.bind(this);
     this.changeMode = this.changeMode.bind(this);
     this.reset = this.reset.bind(this);
+
+    this.components = {
+      [Modes.HOME]: HomeView,
+      [Modes.OPTION]: OptionView,
+      [Modes.CONFIRMATION]: ConfirmationView,
+      [Modes.PAYMENT]: PaymentView,
+    };
+
+    console.log(this.components);
   }
 
   setData(data) {
@@ -79,32 +90,24 @@ export default class Configurator extends React.Component {
   }
 
   render() {
+    const Component = this.components[this.state.mode];
+
+    if (!Component) {
+      throw new Error(`Component missing for mode ${this.state.mode}`);
+    }
+
     return (
       <div className="configurator">
-        {this.state.mode === Modes.HOME &&
-          <HomeView
-            data={this.state.data}
-            setData={this.setData}
-            getItems={this.getItems}
-            setItems={this.setItems}
-            goBack={this.goBack}
-            changeMode={this.changeMode}
-            reset={this.reset}
-          />
-        }
-
-        {this.state.mode === Modes.OPTION &&
-          <OptionView
-            data={this.state.data}
-            setData={this.setData}
-            getItems={this.getItems}
-            setItems={this.setItems}
-            goBack={this.goBack}
-            changeMode={this.changeMode}
-          />
-        }
+        <Component
+          data={this.state.data}
+          setData={this.setData}
+          getItems={this.getItems}
+          setItems={this.setItems}
+          goBack={this.goBack}
+          changeMode={this.changeMode}
+          reset={this.reset}
+        />
       </div>
-
     );
   }
 }

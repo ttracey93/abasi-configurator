@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ViewPort from '../widgets/Viewport';
+// import ViewPort from '../widgets/Viewport';
 import Menu from '../widgets/Menu';
 
-export default class HomeView extends React.Component {
+export default class PaymentView extends React.Component {
   constructor(props) {
     super(props);
 
@@ -23,31 +23,13 @@ export default class HomeView extends React.Component {
   render() {
     return (
       <div className="container columns">
-        <div className="container home-viewport">
-          <div id="viewport-thing" />
-
-          <ViewPort
-            data={this.props.data}
-            setData={this.handleChange}
-            changeMode={this.changeMode}
-            reset={this.props.reset}
-          />
-        </div>
-
-        <div className="container home-menu">
-          <Menu
-            items={this.props.getItems()}
-            setData={this.handleChange}
-            setItems={this.props.setItems}
-            changeMode={this.changeMode}
-          />
-        </div>
+        <p>Dis da conf winder</p>
       </div>
     );
   }
 }
 
-HomeView.propTypes = {
+PaymentView.propTypes = {
   reset: PropTypes.func.isRequired,
   setData: PropTypes.func.isRequired,
   getItems: PropTypes.func.isRequired,

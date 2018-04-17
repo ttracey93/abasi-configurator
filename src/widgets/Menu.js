@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import Tile from './Tile';
-import TileTypes from '../constants/tile-types';
+// import TileTypes from '../constants/tile-types';
 import Modes from '../constants/modes';
 
 export default class Menu extends React.Component {
@@ -17,10 +17,11 @@ export default class Menu extends React.Component {
   handleChange(tile) {
     console.log(tile);
 
-    if (tile.type === TileTypes.MENU) {
+    // TODO: Expand tile types?
+    if (tile.options && typeof tile.options === 'object') {
       this.props.setItems(tile.options);
       this.changeMode(Modes.OPTION);
-    } else if (tile.type === TileTypes.OPTION) {
+    } else {
       this.props.setData({
         [tile.key]: tile.value,
       });

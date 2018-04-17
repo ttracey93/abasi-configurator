@@ -1,15 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ViewPort from '../widgets/Viewport';
+import Client from 'shopify-buy';
+
+// import ViewPort from '../widgets/Viewport';
 import Menu from '../widgets/Menu';
 
-export default class HomeView extends React.Component {
+export default class ConfirmationView extends React.Component {
   constructor(props) {
     super(props);
 
     this.handleChange = this.handleChange.bind(this);
     this.changeMode = this.changeMode.bind(this);
+    this.checkout = this.checkout.bind(this);
+
+    this.client = Client.buildClient({
+      domain: 'tyify.myshopify.com',
+      storefrontAccessToken: '4100223db918b0a9731e5ddfa63e014c',
+    });
   }
 
   handleChange(data) {
@@ -20,34 +28,28 @@ export default class HomeView extends React.Component {
     this.props.changeMode(mode);
   }
 
+  async checkout() {
+    const checkout = await this.client.checkout.create();
+    console.log(checkout);
+
+    checkout.note = this.props.data;
+    console.log(checkout);
+  }
+
   render() {
     return (
       <div className="container columns">
-        <div className="container home-viewport">
-          <div id="viewport-thing" />
+        <p>Dis da conf winder</p>
 
-          <ViewPort
-            data={this.props.data}
-            setData={this.handleChange}
-            changeMode={this.changeMode}
-            reset={this.props.reset}
-          />
-        </div>
-
-        <div className="container home-menu">
-          <Menu
-            items={this.props.getItems()}
-            setData={this.handleChange}
-            setItems={this.props.setItems}
-            changeMode={this.changeMode}
-          />
-        </div>
+        <button onClick={this.checkout}>
+          Checkout
+        </button>
       </div>
     );
   }
 }
 
-HomeView.propTypes = {
+ConfirmationView.propTypes = {
   reset: PropTypes.func.isRequired,
   setData: PropTypes.func.isRequired,
   getItems: PropTypes.func.isRequired,
