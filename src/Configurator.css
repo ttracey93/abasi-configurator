@@ -137,7 +137,8 @@ body {
   right: 0px;
 
   width: 150px;
-  border: 1px solid black;
+  border: 1px solid white;
+  color: white;
   height: 50px;
 
   text-align: center;
@@ -145,6 +146,13 @@ body {
 
 .viewport-view {
   align-self: center;
+  width: 100%;
+  height: 100%;
+}
+
+#render-canvas {
+  width: 100%;
+  height: 100%;
 }
 
 .reset-button {

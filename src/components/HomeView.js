@@ -24,8 +24,6 @@ export default class HomeView extends React.Component {
     return (
       <div className="container columns">
         <div className="container home-viewport">
-          <div id="viewport-thing" />
-
           <ViewPort
             data={this.props.data}
             setData={this.handleChange}

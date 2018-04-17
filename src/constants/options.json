@@ -3,27 +3,34 @@
     "label": "General",
     "icon": "fa-gear",
     "options": {
-      "strings": {
-        "label": "Strings",
+      "body-style": {
+        "label": "Body Style",
         "icon": "fa-bars",
         "options": {
-          "six": {
+          "six-standard": {
             "label": "6",
             "key": "strings",
-            "value": 6,
-            "price": 2999
+            "value": 6
           },
-          "seven": {
+          "six-multiscale": {
             "label": "7",
             "key": "strings",
-            "value": 7,
-            "price": 3149
+            "value": 7
           },
-          "eight": {
+          "seven-standard": {
             "label": "8",
             "key": "strings",
-            "value": 8,
-            "price": 3299
+            "value": 8
+          },
+          "seven-mutliscale": {
+            "label": "8",
+            "key": "strings",
+            "value": 8
+          },
+          "eight-multiscale": {
+            "label": "8",
+            "key": "strings",
+            "value": 8
           }
         }
       },
@@ -34,14 +41,12 @@
           "standard": {
             "label": "Standard",
             "key": "scale",
-            "value": "Standard",
-            "price": 0
+            "value": "Standard"
           },
           "multilscale": {
             "label": "Multi-Scale",
             "key": "scale",
-            "value": "Multiscale",
-            "price": 100
+            "value": "Multiscale"
           }
         }
       }
@@ -59,29 +64,25 @@
             "label": "Poplar",
             "icon": "",
             "key": "body-wood",
-            "value": "poplar",
-            "price": 0
+            "value": "poplar"
           },
           "swamp-ash": {
             "label": "Swamp Ash",
             "icon": "",
             "key": "body-wood",
-            "value": "swamp-ash",
-            "price": 50
+            "value": "swamp-ash"
           },
           "mahogany": {
             "label": "Mahogany",
             "icon": "",
             "key": "body-wood",
-            "value": "mahogany",
-            "price": 50
+            "value": "mahogany"
           },
           "walnut": {
             "label": "Walnut",
             "icon": "",
             "key": "body-wood",
-            "value": "walnut",
-            "price": 120
+            "value": "walnut"
           },
           "other": {
             "label": "Other",
@@ -100,36 +101,31 @@
             "label": "Flamed Maple",
             "icon": "",
             "key": "top-wood",
-            "value": "flamed-maple",
-            "price": 250
+            "value": "flamed-maple"
           },
           "burled-marple": {
             "label": "Burled Maple",
             "icon": "",
             "key": "top-wood",
-            "value": "burled-maple",
-            "price": 300
+            "value": "burled-maple"
           },
           "figured-koa": {
             "label": "Figured Koa",
             "icon": "",
             "key": "top-wood",
-            "value": "figured-koa",
-            "price": 350
+            "value": "figured-koa"
           },
           "wenge": {
             "label": "Wenge",
             "icon": "",
             "key": "top-wood",
-            "value": "wenge",
-            "price": 250
+            "value": "wenge"
           },
           "walnut": {
             "label": "Walnut",
             "icon": "",
             "key": "top-wood",
-            "value": "walnut",
-            "price": 125
+            "value": "walnut"
           },
           "other": {
             "label": "Other",
@@ -146,20 +142,17 @@
           "black-pearl": {
             "label": "Black Pearl",
             "key": "finish",
-            "value": "black-pearl",
-            "price": 0
+            "value": "black-pearl"
           },
           "sports-classic-grey": {
             "label": "Sports Classic Grey",
             "key": "finish",
-            "value": "sports-classic-grey",
-            "price": 0
+            "value": "sports-classic-grey"
           },
           "white-pearl": {
             "label": "White Pearl",
             "key": "finish",
-            "value": "white-pearl",
-            "price": 0
+            "value": "white-pearl"
           }
         }
       }
@@ -175,20 +168,17 @@
           "two-piece-wenge": {
             "label": "2 piece Wenge",
             "key": "neck-wood",
-            "value": "2-piece-wenge",
-            "price": 0
+            "value": "2-piece-wenge"
           },
           "two-piece-maple": {
             "label": "2 piece Maple",
             "key": "neck-wood",
-            "value": "2-piece-maple",
-            "price": 0
+            "value": "2-piece-maple"
           },
           "two-piece-mahogany": {
             "label": "2 piece Mahogany",
             "key": "neck-wood",
-            "value": "2-piece-mahogany",
-            "price": 0
+            "value": "2-piece-mahogany"
           },
           "other": {
             "label": "Other",
@@ -204,20 +194,17 @@
           "katalox": {
             "label": "Katalox",
             "key": "fingerboard",
-            "value": "katalox",
-            "price": 0
+            "value": "katalox"
           },
           "richlite": {
             "label": "Richlite",
             "key": "fingerboard",
-            "value": "richlite",
-            "price": 30
+            "value": "richlite"
           },
           "rosewood": {
             "label": "Rosewood",
             "key": "fingerboard",
-            "value": "rosewood",
-            "price": 30
+            "value": "rosewood"
           }
         }
       }
@@ -234,14 +221,12 @@
           "headstock": {
             "label": "Headstock",
             "key": "headstyle",
-            "value": "Headstock",
-            "price": 0
+            "value": "Headstock"
           },
           "headless": {
             "label": "Headless",
             "key": "headstyle",
-            "value": "Headless",
-            "price": 100
+            "value": "Headless"
           }
         }
       }
@@ -257,20 +242,17 @@
           "chrome": {
             "label": "Chrome",
             "key": "hardware-color",
-            "value": "chrome",
-            "price": 0
+            "value": "chrome"
           },
           "black": {
             "label": "Black",
             "key": "hardware-color",
-            "value": "black",
-            "price": 0
+            "value": "black"
           },
           "gold": {
             "label": "Gold",
             "key": "hardware-color",
-            "value": "gold",
-            "price": 100
+            "value": "gold"
           }
         }
       },
@@ -280,20 +262,17 @@
           "nickel-silver": {
             "label": "Nickel Silver",
             "key": "fretwire",
-            "value": "nickel-silver",
-            "price": 0
+            "value": "nickel-silver"
           },
           "custom-nickel": {
             "label": "Custom Gauge Nickel Silver",
             "key": "fretwire",
-            "value": "nickel-silver",
-            "price": 0            
+            "value": "nickel-silver"      
           },
           "custom-stainless": {
             "label": "Custom Gauge Stainless Steel",
             "key": "fretwire",
-            "value": "nickel-silver",
-            "price": 0            
+            "value": "nickel-silver"        
           }
         }
       },
@@ -303,8 +282,7 @@
           "custom": {
             "label": "Custom Nut Width",
             "key": "nut-width",
-            "value": "custom",
-            "price": 100
+            "value": "custom"
           }
         }
       }
