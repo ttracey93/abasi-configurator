@@ -1,4 +1,5 @@
 {
+  "homepage": "https://ttracey93.github.io/abasi-configurator",
   "name": "abasi-configurator",
   "version": "0.1.0",
   "private": true,
@@ -14,6 +15,8 @@
     "three": "^0.91.0"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
@@ -25,6 +28,7 @@
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.10.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.7.0"
+    "eslint-plugin-react": "^7.7.0",
+    "gh-pages": "^1.1.0"
   }
 }
