@@ -74,8 +74,9 @@ export default class Configurator extends React.Component {
       quantity: 1,
     }];
 
-    this.state.lineItems.push(variantId);
+    console.log(object.id);
     this.checkout = await this.client.checkout.addLineItems(this.checkout.id, lineItemsToAdd);
+    this.state.lineItems.push(this.checkout.lineItems[this.checkout.lineItems.length - 1]);
 
     Object.assign(this.state.data, data);
     this.state.data.price = this.checkout.totalPrice;
@@ -117,10 +118,9 @@ export default class Configurator extends React.Component {
   }
 
   async goBack() {
-    const lineItemsToRemove = [this.state.lineItems[this.state.lineItems.length - 1]];
+    const lineItemsToRemove = [this.state.lineItems[this.state.lineItems.length - 1].id];
     this.state.lineItems.pop();
 
-    console.log(this.checkout.id);
     console.log(lineItemsToRemove);
 
     try {
@@ -129,9 +129,10 @@ export default class Configurator extends React.Component {
         lineItemsToRemove,
       );
     } catch (ex) {
-      console.log('asdasd');
       console.log(ex);
     }
+
+    this.state.data.price = this.checkout.totalPrice;
 
     this.setState({
       itemIndex: this.state.itemIndex - 1,
