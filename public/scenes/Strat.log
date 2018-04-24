@@ -1,0 +1,1414 @@
+Exporter version: 5.6.2, Blender version: 2.79 (sub 0)
+========= Conversion from Blender to Babylon.js =========
+	Scene settings used:
+		selected layers only:  false
+		inline textures:  false
+		Positions Precision :  4
+		Normals Precision   :  3
+		UVs Precision       :  3
+		Vert Color Precision:  3
+		Mat Weight Precision:  2
+		texture directory:  /Users/ttracey/projects/abasi-configurator/public/scenes/
+	Python World class constructor completed
+	processing begun of mesh:  Box032
+		processing begun of Standard material:  03 - Default
+		num positions      :  183
+		num normals        :  183
+		num uvs            :  366
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  540
+	processing begun of mesh:  Box033
+		registered as also a user of material:  03 - Default
+		num positions      :  183
+		num normals        :  183
+		num uvs            :  366
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  540
+	processing begun of mesh:  Cylinder179
+		processing begun of Standard material:  05 - Default
+		num positions      :  539
+		num normals        :  539
+		num uvs            :  1078
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1440
+	processing begun of mesh:  Box034
+		registered as also a user of material:  03 - Default
+		num positions      :  183
+		num normals        :  183
+		num uvs            :  366
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  540
+	processing begun of mesh:  Cylinder180
+		registered as also a user of material:  05 - Default
+		num positions      :  539
+		num normals        :  539
+		num uvs            :  1078
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1440
+	processing begun of mesh:  Box035
+		registered as also a user of material:  03 - Default
+		num positions      :  183
+		num normals        :  183
+		num uvs            :  366
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  540
+	processing begun of mesh:  Box036
+		registered as also a user of material:  03 - Default
+		num positions      :  183
+		num normals        :  183
+		num uvs            :  366
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  540
+	processing begun of node:  Line019
+	processing begun of mesh:  vrat004
+		processing begun of Standard material:  vrat
+			Diffuse texture found "Map #7"
+				Image texture found, type:  diffuseTexture, mapped using: "UVChannel_1"
+			Bump texture found "Map #8"
+				Image texture found, type:  bumpTexture, mapped using: "UVChannel_1"
+		num positions      :  794
+		num normals        :  794
+		num uvs            :  1588
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  3276
+	processing begun of mesh:  Cylinder181
+		registered as also a user of material:  05 - Default
+		num positions      :  539
+		num normals        :  539
+		num uvs            :  1078
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1440
+	processing begun of node:  Line013
+	processing begun of node:  Line014
+	processing begun of mesh:  Box060
+		processing begun of Standard material:  tuners
+			Bump texture found "Map #10"
+				Image texture found, type:  bumpTexture, mapped using: "UVChannel_1"
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: '/Users/ttracey/Downloads/Stratocaster Free 3D Model/Cuda razna/materijali/Zid_Bump.jpg'
+		num positions      :  224
+		num normals        :  224
+		num uvs            :  448
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1044
+	processing begun of mesh:  Line016
+		processing begun of Standard material:  zica
+			Bump texture found "Map #11"
+				Image texture found, type:  bumpTexture, mapped using: "UVChannel_1"
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: '/Users/ttracey/Downloads/Stratocaster Free 3D Model/Cuda razna/knjiga bump.jpg'
+		num positions      :  1512
+		num normals        :  1512
+		num uvs            :  3024
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  9060
+		WARNING: # of 0 area faces found:  4
+	processing begun of mesh:  Line017
+		registered as also a user of material:  zica
+		num positions      :  3295
+		num normals        :  3295
+		num uvs            :  6590
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  9060
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  Line018
+		registered as also a user of material:  zica
+		num positions      :  2083
+		num normals        :  2083
+		num uvs            :  4166
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  7188
+	processing begun of mesh:  Line021
+		registered as also a user of material:  tuners
+		num positions      :  401
+		num normals        :  401
+		num uvs            :  0
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  2394
+	processing begun of mesh:  Cylinder226
+		registered as also a user of material:  tuners
+		num positions      :  680
+		num normals        :  680
+		num uvs            :  1360
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  2820
+	processing begun of mesh:  Cylinder228
+		registered as also a user of material:  tuners
+		num positions      :  130
+		num normals        :  130
+		num uvs            :  260
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  360
+	processing begun of mesh:  Sphere113
+		registered as also a user of material:  tuners
+		num positions      :  372
+		num normals        :  372
+		num uvs            :  744
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  2130
+	processing begun of mesh:  Box061
+		registered as also a user of material:  tuners
+		num positions      :  224
+		num normals        :  224
+		num uvs            :  448
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1044
+	processing begun of mesh:  Box062
+		registered as also a user of material:  tuners
+		num positions      :  224
+		num normals        :  224
+		num uvs            :  448
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1044
+	processing begun of mesh:  Cylinder219
+		registered as also a user of material:  tuners
+		num positions      :  680
+		num normals        :  680
+		num uvs            :  1360
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  2820
+	processing begun of mesh:  Cylinder217
+		registered as also a user of material:  tuners
+		num positions      :  680
+		num normals        :  680
+		num uvs            :  1360
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  2820
+	processing begun of mesh:  Cylinder216
+		registered as also a user of material:  tuners
+		num positions      :  680
+		num normals        :  680
+		num uvs            :  1360
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  2820
+	processing begun of mesh:  Cylinder215
+		registered as also a user of material:  tuners
+		num positions      :  680
+		num normals        :  680
+		num uvs            :  1360
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  2820
+	processing begun of mesh:  Cylinder213
+		registered as also a user of material:  tuners
+		num positions      :  680
+		num normals        :  680
+		num uvs            :  1360
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  2820
+	processing begun of mesh:  Box059
+		registered as also a user of material:  tuners
+		num positions      :  224
+		num normals        :  224
+		num uvs            :  448
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1044
+	processing begun of mesh:  Cylinder211
+		registered as also a user of material:  03 - Default
+		num positions      :  196
+		num normals        :  196
+		num uvs            :  392
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  720
+	processing begun of mesh:  Box058
+		registered as also a user of material:  tuners
+		num positions      :  224
+		num normals        :  224
+		num uvs            :  448
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1044
+	processing begun of mesh:  Cylinder210
+		registered as also a user of material:  03 - Default
+		num positions      :  196
+		num normals        :  196
+		num uvs            :  392
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  720
+	processing begun of mesh:  Box057
+		registered as also a user of material:  tuners
+		num positions      :  224
+		num normals        :  224
+		num uvs            :  448
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1044
+	processing begun of mesh:  Cylinder208
+		registered as also a user of material:  03 - Default
+		num positions      :  196
+		num normals        :  196
+		num uvs            :  392
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  720
+	processing begun of mesh:  Cylinder207
+		registered as also a user of material:  03 - Default
+		num positions      :  196
+		num normals        :  196
+		num uvs            :  392
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  720
+	processing begun of mesh:  Cylinder206
+		registered as also a user of material:  03 - Default
+		num positions      :  196
+		num normals        :  196
+		num uvs            :  392
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  720
+	processing begun of mesh:  Cylinder188
+		registered as also a user of material:  05 - Default
+		num positions      :  539
+		num normals        :  539
+		num uvs            :  1078
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1440
+	processing begun of mesh:  Cylinder187
+		registered as also a user of material:  05 - Default
+		num positions      :  539
+		num normals        :  539
+		num uvs            :  1078
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1440
+	processing begun of mesh:  Cylinder186
+		registered as also a user of material:  05 - Default
+		num positions      :  539
+		num normals        :  539
+		num uvs            :  1078
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1440
+	processing begun of mesh:  Cylinder185
+		registered as also a user of material:  05 - Default
+		num positions      :  539
+		num normals        :  539
+		num uvs            :  1078
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1440
+	processing begun of mesh:  Cylinder184
+		registered as also a user of material:  05 - Default
+		num positions      :  539
+		num normals        :  539
+		num uvs            :  1078
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1440
+	processing begun of mesh:  Cylinder183
+		registered as also a user of material:  05 - Default
+		num positions      :  539
+		num normals        :  539
+		num uvs            :  1078
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1440
+	processing begun of mesh:  Cylinder182
+		registered as also a user of material:  05 - Default
+		num positions      :  539
+		num normals        :  539
+		num uvs            :  1078
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1440
+	processing begun of mesh:  bridge
+		WARNING: No materials have been assigned: 
+		num positions      :  735
+		num normals        :  735
+		num uvs            :  1470
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1716
+	processing begun of mesh:  Box049
+		registered as also a user of material:  03 - Default
+		num positions      :  183
+		num normals        :  183
+		num uvs            :  366
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  540
+	processing begun of mesh:  Box048
+		registered as also a user of material:  03 - Default
+		num positions      :  183
+		num normals        :  183
+		num uvs            :  366
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  540
+	processing begun of mesh:  Box047
+		registered as also a user of material:  03 - Default
+		num positions      :  183
+		num normals        :  183
+		num uvs            :  366
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  540
+	processing begun of mesh:  Box046
+		registered as also a user of material:  03 - Default
+		num positions      :  183
+		num normals        :  183
+		num uvs            :  366
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  540
+	processing begun of mesh:  Box045
+		registered as also a user of material:  03 - Default
+		num positions      :  183
+		num normals        :  183
+		num uvs            :  366
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  540
+	processing begun of mesh:  Box044
+		registered as also a user of material:  03 - Default
+		num positions      :  183
+		num normals        :  183
+		num uvs            :  366
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  540
+	processing begun of mesh:  Box043
+		registered as also a user of material:  03 - Default
+		num positions      :  183
+		num normals        :  183
+		num uvs            :  366
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  540
+	processing begun of mesh:  Box042
+		registered as also a user of material:  03 - Default
+		num positions      :  183
+		num normals        :  183
+		num uvs            :  366
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  540
+	processing begun of mesh:  Box041
+		registered as also a user of material:  03 - Default
+		num positions      :  183
+		num normals        :  183
+		num uvs            :  366
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  540
+	processing begun of mesh:  Box040
+		registered as also a user of material:  03 - Default
+		num positions      :  183
+		num normals        :  183
+		num uvs            :  366
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  540
+	processing begun of mesh:  Box039
+		registered as also a user of material:  03 - Default
+		num positions      :  183
+		num normals        :  183
+		num uvs            :  366
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  540
+	processing begun of mesh:  Box038
+		registered as also a user of material:  03 - Default
+		num positions      :  183
+		num normals        :  183
+		num uvs            :  366
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  540
+	processing begun of mesh:  Box037
+		registered as also a user of material:  03 - Default
+		num positions      :  183
+		num normals        :  183
+		num uvs            :  366
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  540
+	processing begun of mesh:  Box031
+		registered as also a user of material:  03 - Default
+		num positions      :  183
+		num normals        :  183
+		num uvs            :  366
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  540
+	processing begun of mesh:  Box030
+		registered as also a user of material:  03 - Default
+		num positions      :  183
+		num normals        :  183
+		num uvs            :  366
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  540
+	processing begun of mesh:  Box029
+		registered as also a user of material:  03 - Default
+		num positions      :  183
+		num normals        :  183
+		num uvs            :  366
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  540
+	processing begun of mesh:  Cylinder209
+		registered as also a user of material:  03 - Default
+		num positions      :  196
+		num normals        :  196
+		num uvs            :  392
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  720
+	processing begun of mesh:  saraf044
+		processing begun of Standard material:  saraf
+			Bump texture found "Map #10"
+				Image texture found, type:  bumpTexture, mapped using: "UVChannel_1"
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: '/Users/ttracey/Downloads/Stratocaster Free 3D Model/Cuda razna/materijali/Zid_Bump.jpg'
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf043
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf042
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf041
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf040
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf039
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf038
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf037
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf036
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf035
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  Plane009
+		registered as also a user of material:  05 - Default
+		num positions      :  4
+		num normals        :  4
+		num uvs            :  8
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  6
+	processing begun of mesh:  Box064
+		registered as also a user of material:  tuners
+		num positions      :  366
+		num normals        :  366
+		num uvs            :  732
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1170
+	processing begun of mesh:  Box063
+		registered as also a user of material:  tuners
+		num positions      :  146
+		num normals        :  146
+		num uvs            :  292
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  324
+	processing begun of mesh:  saraf034
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf033
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf032
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf031
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf030
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf029
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf028
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf027
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf026
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf025
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf024
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf023
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf022
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf021
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf020
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf019
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf018
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf017
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf016
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf015
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf014
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf013
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf012
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf011
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf010
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf009
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf008
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf007
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf006
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf005
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf004
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  saraf1
+		registered as also a user of material:  saraf
+		num positions      :  261
+		num normals        :  261
+		num uvs            :  522
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  936
+		WARNING: # of 0 area faces found:  2
+	processing begun of mesh:  Plane008
+		registered as also a user of material:  05 - Default
+		num positions      :  4
+		num normals        :  4
+		num uvs            :  8
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  6
+	processing begun of mesh:  body backup 22
+		processing begun of Standard material:  02 - Default
+		num positions      :  795
+		num normals        :  795
+		num uvs            :  1590
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  2946
+	processing begun of mesh:  Plane007
+		registered as also a user of material:  05 - Default
+		num positions      :  4
+		num normals        :  4
+		num uvs            :  8
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  6
+	processing begun of mesh:  Cylinder227
+		registered as also a user of material:  05 - Default
+		num positions      :  85
+		num normals        :  85
+		num uvs            :  170
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  432
+	processing begun of mesh:  kopca za kais gornja bekap002
+		registered as also a user of material:  03 - Default
+		num positions      :  306
+		num normals        :  306
+		num uvs            :  612
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1728
+	processing begun of mesh:  kopca za kais gornja bekap001
+		registered as also a user of material:  03 - Default
+		num positions      :  468
+		num normals        :  468
+		num uvs            :  936
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  2322
+	processing begun of mesh:  donji dio bekap004
+		registered as also a user of material:  tuners
+		num positions      :  14958
+		num normals        :  14958
+		num uvs            :  29916
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  65136
+	processing begun of mesh:  tone 1m003
+		processing begun of Standard material:  TONE
+			Diffuse texture found "Map #4.001"
+				Image texture found, type:  diffuseTexture, mapped using: "UVChannel_1"
+			Bump texture found "Map #4.001"
+				Image texture found, type:  bumpTexture, mapped using: "UVChannel_1"
+		num positions      :  4947
+		num normals        :  4947
+		num uvs            :  9894
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  15840
+		WARNING: # of 0 area faces found:  480
+	processing begun of mesh:  Cylinder205
+		registered as also a user of material:  03 - Default
+		num positions      :  2450
+		num normals        :  2450
+		num uvs            :  4900
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  12096
+		WARNING: # of 0 area faces found:  432
+	processing begun of mesh:  Cylinder204
+		registered as also a user of material:  03 - Default
+		num positions      :  2450
+		num normals        :  2450
+		num uvs            :  4900
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  12096
+		WARNING: # of 0 area faces found:  432
+	processing begun of mesh:  Cylinder203
+		registered as also a user of material:  03 - Default
+		num positions      :  107
+		num normals        :  107
+		num uvs            :  214
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  288
+	processing begun of mesh:  Cylinder202
+		registered as also a user of material:  03 - Default
+		num positions      :  107
+		num normals        :  107
+		num uvs            :  214
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  288
+	processing begun of mesh:  Cylinder201
+		registered as also a user of material:  03 - Default
+		num positions      :  107
+		num normals        :  107
+		num uvs            :  214
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  288
+	processing begun of mesh:  Cylinder200
+		registered as also a user of material:  03 - Default
+		num positions      :  107
+		num normals        :  107
+		num uvs            :  214
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  288
+	processing begun of mesh:  Cylinder199
+		registered as also a user of material:  03 - Default
+		num positions      :  107
+		num normals        :  107
+		num uvs            :  214
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  288
+	processing begun of mesh:  Object017
+		processing begun of Standard material:  19 - Default
+		num positions      :  18534
+		num normals        :  18534
+		num uvs            :  37068
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  43758
+	processing begun of mesh:  Cylinder198
+		registered as also a user of material:  03 - Default
+		num positions      :  107
+		num normals        :  107
+		num uvs            :  214
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  288
+	processing begun of mesh:  Cylinder197
+		registered as also a user of material:  03 - Default
+		num positions      :  107
+		num normals        :  107
+		num uvs            :  214
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  288
+	processing begun of mesh:  Cylinder196
+		registered as also a user of material:  03 - Default
+		num positions      :  107
+		num normals        :  107
+		num uvs            :  214
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  288
+	processing begun of mesh:  Cylinder195
+		registered as also a user of material:  03 - Default
+		num positions      :  107
+		num normals        :  107
+		num uvs            :  214
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  288
+	processing begun of mesh:  Cylinder194
+		registered as also a user of material:  03 - Default
+		num positions      :  107
+		num normals        :  107
+		num uvs            :  214
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  288
+	processing begun of mesh:  Cylinder193
+		registered as also a user of material:  03 - Default
+		num positions      :  107
+		num normals        :  107
+		num uvs            :  214
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  288
+	processing begun of mesh:  Cylinder192
+		registered as also a user of material:  03 - Default
+		num positions      :  107
+		num normals        :  107
+		num uvs            :  214
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  288
+	processing begun of mesh:  Object016
+		registered as also a user of material:  19 - Default
+		num positions      :  18534
+		num normals        :  18534
+		num uvs            :  37068
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  43758
+	processing begun of mesh:  Cylinder148
+		registered as also a user of material:  03 - Default
+		num positions      :  107
+		num normals        :  107
+		num uvs            :  214
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  288
+	processing begun of mesh:  Cylinder147
+		registered as also a user of material:  03 - Default
+		num positions      :  107
+		num normals        :  107
+		num uvs            :  214
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  288
+	processing begun of mesh:  Cylinder146
+		registered as also a user of material:  03 - Default
+		num positions      :  107
+		num normals        :  107
+		num uvs            :  214
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  288
+	processing begun of mesh:  Cylinder145
+		registered as also a user of material:  03 - Default
+		num positions      :  107
+		num normals        :  107
+		num uvs            :  214
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  288
+	processing begun of mesh:  Object015
+		registered as also a user of material:  19 - Default
+		num positions      :  18534
+		num normals        :  18534
+		num uvs            :  37068
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  43758
+	processing begun of mesh:  Cylinder144
+		registered as also a user of material:  03 - Default
+		num positions      :  107
+		num normals        :  107
+		num uvs            :  214
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  288
+	processing begun of mesh:  Cylinder143
+		registered as also a user of material:  03 - Default
+		num positions      :  107
+		num normals        :  107
+		num uvs            :  214
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  288
+	processing begun of mesh:  Ploca Bekap005
+		processing begun of Standard material:  04 - Default
+		registered as also a user of material:  05 - Default
+		registered as also a user of material:  03 - Default
+		processing begun of multimaterial:  Strat.Multimaterial#0
+		num positions      :  25559
+		num normals        :  25559
+		num uvs            :  51118
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  118896
+	processing begun of node:  saraf003
+	processing begun of mesh:  Gengon004
+		registered as also a user of material:  03 - Default
+		num positions      :  291
+		num normals        :  291
+		num uvs            :  582
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  708
+	processing begun of mesh:  Cylinder189
+		registered as also a user of material:  03 - Default
+		num positions      :  1424
+		num normals        :  1424
+		num uvs            :  2848
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  7068
+	processing begun of mesh:  prikljucak003
+		registered as also a user of material:  03 - Default
+		num positions      :  157
+		num normals        :  157
+		num uvs            :  314
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  858
+	processing begun of mesh:  Cylinder168
+		registered as also a user of material:  03 - Default
+		num positions      :  2450
+		num normals        :  2450
+		num uvs            :  4900
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  12096
+		WARNING: # of 0 area faces found:  432
+	processing begun of mesh:  Cylinder167
+		registered as also a user of material:  03 - Default
+		num positions      :  2450
+		num normals        :  2450
+		num uvs            :  4900
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  12096
+		WARNING: # of 0 area faces found:  432
+	processing begun of mesh:  Cylinder166
+		registered as also a user of material:  03 - Default
+		num positions      :  2450
+		num normals        :  2450
+		num uvs            :  4900
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  12096
+		WARNING: # of 0 area faces found:  432
+	processing begun of mesh:  Cylinder165
+		registered as also a user of material:  03 - Default
+		num positions      :  2450
+		num normals        :  2450
+		num uvs            :  4900
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  12096
+		WARNING: # of 0 area faces found:  432
+	processing begun of mesh:  magnet?021
+		processing begun of Standard material:  dolje ono
+			WARNING: Mesh has no UV maps, material:  "Map #9" ignored
+		num positions      :  1368
+		num normals        :  1368
+		num uvs            :  0
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  7980
+	processing begun of mesh:  Cylinder164
+		registered as also a user of material:  03 - Default
+		num positions      :  250
+		num normals        :  250
+		num uvs            :  500
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1152
+	processing begun of mesh:  Cylinder163
+		registered as also a user of material:  03 - Default
+		num positions      :  250
+		num normals        :  250
+		num uvs            :  500
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1152
+	processing begun of mesh:  magnet?020
+		registered as also a user of material:  dolje ono
+		num positions      :  1368
+		num normals        :  1368
+		num uvs            :  0
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  7980
+	processing begun of mesh:  Cylinder162
+		registered as also a user of material:  03 - Default
+		num positions      :  250
+		num normals        :  250
+		num uvs            :  500
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1152
+	processing begun of mesh:  Cylinder161
+		registered as also a user of material:  03 - Default
+		num positions      :  250
+		num normals        :  250
+		num uvs            :  500
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1152
+	processing begun of mesh:  magnet?019
+		registered as also a user of material:  dolje ono
+		num positions      :  1368
+		num normals        :  1368
+		num uvs            :  0
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  7980
+	processing begun of mesh:  Cylinder160
+		registered as also a user of material:  03 - Default
+		num positions      :  250
+		num normals        :  250
+		num uvs            :  500
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1152
+	processing begun of mesh:  Cylinder159
+		registered as also a user of material:  03 - Default
+		num positions      :  250
+		num normals        :  250
+		num uvs            :  500
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1152
+	processing begun of mesh:  magnet?018
+		registered as also a user of material:  dolje ono
+		num positions      :  1368
+		num normals        :  1368
+		num uvs            :  0
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  7980
+	processing begun of mesh:  Cylinder158
+		registered as also a user of material:  03 - Default
+		num positions      :  250
+		num normals        :  250
+		num uvs            :  500
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1152
+	processing begun of mesh:  Cylinder157
+		registered as also a user of material:  03 - Default
+		num positions      :  250
+		num normals        :  250
+		num uvs            :  500
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1152
+	processing begun of mesh:  magnet?017
+		registered as also a user of material:  dolje ono
+		num positions      :  1368
+		num normals        :  1368
+		num uvs            :  0
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  7980
+	processing begun of mesh:  Cylinder156
+		registered as also a user of material:  03 - Default
+		num positions      :  250
+		num normals        :  250
+		num uvs            :  500
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1152
+	processing begun of mesh:  Cylinder155
+		registered as also a user of material:  03 - Default
+		num positions      :  250
+		num normals        :  250
+		num uvs            :  500
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1152
+	processing begun of mesh:  magnet?016
+		registered as also a user of material:  dolje ono
+		num positions      :  1368
+		num normals        :  1368
+		num uvs            :  0
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  7980
+	processing begun of mesh:  Cylinder154
+		registered as also a user of material:  03 - Default
+		num positions      :  250
+		num normals        :  250
+		num uvs            :  500
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1152
+	processing begun of mesh:  Cylinder153
+		registered as also a user of material:  03 - Default
+		num positions      :  250
+		num normals        :  250
+		num uvs            :  500
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  1152
+	processing begun of mesh:  tone 1m002
+		registered as also a user of material:  TONE
+		num positions      :  4947
+		num normals        :  4947
+		num uvs            :  9894
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  15840
+		WARNING: # of 0 area faces found:  480
+	processing begun of mesh:  volume002
+		processing begun of Standard material:  volume
+			Diffuse texture found "Map #4"
+				Image texture found, type:  diffuseTexture, mapped using: "UVChannel_1"
+			Bump texture found "Map #4"
+				Image texture found, type:  bumpTexture, mapped using: "UVChannel_1"
+		num positions      :  4947
+		num normals        :  4947
+		num uvs            :  9894
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  15840
+		WARNING: # of 0 area faces found:  480
+	processing begun of node:  Line006
+	processing begun of mesh:  Cylinder140
+		registered as also a user of material:  04 - Default
+		num positions      :  266
+		num normals        :  266
+		num uvs            :  532
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  864
+	processing begun of node:  prekidac002
+	processing begun of mesh:  Box006
+		registered as also a user of material:  03 - Default
+		num positions      :  239
+		num normals        :  239
+		num uvs            :  478
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  588
+	processing begun of mesh:  Cylinder133
+		registered as also a user of material:  04 - Default
+		num positions      :  266
+		num normals        :  266
+		num uvs            :  532
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  864
+	processing begun of camera (UniversalCamera):  Camera
+	processing begun of light (POINT):  Lamp
+========= Writing of scene file started =========
+========= Writing of scene file completed =========
+========= end of processing =========
+elapsed time:  0 min, 37.9419 secs
