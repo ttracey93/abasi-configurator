@@ -90,7 +90,7 @@ body {
   visibility: visible;
 }
 
-/**** Component Views ****/
+/**** Views ****/
 
 /* Home View */
 .home-viewport {
@@ -124,7 +124,7 @@ body {
 
 }
 
-/**** Widgets ****/
+/**** Components ****/
 
 /* Viewport */
 .viewport {

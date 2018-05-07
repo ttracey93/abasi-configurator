@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 // TODO: Viewport on confirmation page?
-// import ViewPort from '../widgets/Viewport';
+// import ViewPort from '../components/Viewport';
 
 export default class ConfirmationView extends React.Component {
   constructor(props) {
@@ -27,8 +27,6 @@ export default class ConfirmationView extends React.Component {
   }
 
   render() {
-    console.log(this.props.checkout.lineItems);
-
     const lineItems = _.map(_.orderBy(this.props.checkout.lineItems, 'addedAt'), (lineItem, index) => (
       <div key={index}>
         {index + 1}: {lineItem.title} - {lineItem.variant.price}

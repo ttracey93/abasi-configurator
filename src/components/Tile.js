@@ -16,12 +16,14 @@ export default class Tile extends React.Component {
     return (
       <div className="container columns evenly tile" role="presentation" onClick={this.handleClick}>
         <div className="tile-label">
-          {this.props.data.title}
+          {this.props.data.label}
         </div>
 
-        <div className="tile-icon">
-          ${this.props.data.variants[0].price} USD
-        </div>
+        {this.props.data.variants &&
+          <div className="tile-icon">
+            ${this.props.data.variants[0].price} USD
+          </div>
+        }
       </div>
     );
   }

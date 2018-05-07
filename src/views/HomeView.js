@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ViewPort from '../widgets/Viewport';
-import Menu from '../widgets/Menu';
+import ViewPort from '../components/Viewport';
+import Menu from '../components/Menu';
 
 export default class HomeView extends React.Component {
   constructor(props) {
@@ -29,8 +29,6 @@ export default class HomeView extends React.Component {
             setData={this.handleChange}
             changeMode={this.changeMode}
             reset={this.props.reset}
-            goBack={this.props.goBack}
-            goForward={this.props.goForward}
             itemIndex={this.props.itemIndex}
           />
         </div>
@@ -39,7 +37,6 @@ export default class HomeView extends React.Component {
           <Menu
             items={this.props.getItems()}
             setData={this.handleChange}
-            goForward={this.props.goForward}
             changeMode={this.changeMode}
           />
         </div>
@@ -52,8 +49,6 @@ HomeView.propTypes = {
   reset: PropTypes.func.isRequired,
   setData: PropTypes.func.isRequired,
   getItems: PropTypes.func.isRequired,
-  goBack: PropTypes.func.isRequired,
-  goForward: PropTypes.func.isRequired,
   changeMode: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
   itemIndex: PropTypes.number.isRequired,

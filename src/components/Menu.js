@@ -15,11 +15,7 @@ export default class Menu extends React.Component {
   }
 
   handleChange(tile) {
-    this.props.setData({
-      [this.props.items.key]: tile,
-    });
-
-    this.props.goForward();
+    this.props.setData(tile);
   }
 
   changeMode(mode) {
@@ -27,8 +23,8 @@ export default class Menu extends React.Component {
   }
 
   render() {
-    const { products } = this.props.items;
-    const tiles = _.map(products, (product, i) => <Tile key={i} data={product} callback={this.handleChange} />);
+    const { items } = this.props;
+    const tiles = _.map(items.products || items, (item, i) => <Tile key={i} data={item} callback={this.handleChange} />);
 
     return (
       <div className="menu">
@@ -42,5 +38,4 @@ Menu.propTypes = {
   items: PropTypes.object.isRequired,
   setData: PropTypes.func.isRequired,
   changeMode: PropTypes.func.isRequired,
-  goForward: PropTypes.func.isRequired,
 };

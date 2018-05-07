@@ -1,0 +1,68 @@
+{
+  "body-style": {
+    "label": "Body Style",
+    "icon": "fa-gear",
+    "collectionId": "Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzM1MTAzMDE0OTc4",
+    "key": "body-style"
+  },
+  "body": {
+    "label": "Body",
+    "icon": "fa-android",
+    "collections": {
+      "wood": {
+        "label": "Wood",
+        "icon": "fa-wood",
+        "collectionId": "Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzM2MzIxMDM0MzA2",
+        "key": "body-wood"
+      },
+      "top-wood": {
+        "label": "Top Wood",
+        "icon": "",
+        "collectionId": "Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzM2MzIxMzI5MjE4",
+        "key": "top-wood"
+      },
+      "finish": {
+        "label": "Finish",
+        "icon": "",
+        "collectionId": "Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzM2MzIyNjM5OTM4",
+        "key": "finish"
+      }
+    }
+  },
+  "neck": {
+    "label": "Neck",
+    "icon": "fa-window-restore",
+    "collections": {
+      "wood": {
+        "label": "Wood",
+        "icon": "",
+        "collectionId": "Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzM2MzIxNTU4NTk0",
+        "key": "neck-wood"
+      },
+      "fingerboard": {
+        "label": "Material",
+        "icon": "",
+        "collectionId": "Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzM2MzIxODIwNzM4",
+        "key": "fingerboard"
+      }
+    }
+  },
+  "hardware": {
+    "label": "Hardware",
+    "icon": "fa-angle-down",
+    "collections": {
+      "color": {
+        "label": "Color",
+        "icon": "",
+        "collectionId": "Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzM2MzIyMTE1NjUw",
+        "key": "hardware-color"
+      },
+      "fretwire": {
+        "label": "Frets",
+        "icon": "",
+        "collectionId": "Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzM2MzIyMzc3Nzk0",
+        "key": "fretwire" 
+      }
+    }
+  }
+}

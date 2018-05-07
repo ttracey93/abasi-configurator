@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ViewPort from '../widgets/Viewport';
-import Menu from '../widgets/Menu';
-import Info from '../widgets/Info';
+import ViewPort from '../components/Viewport';
+import Menu from '../components/Menu';
+import Info from '../components/Info';
 
 export default class OptionView extends React.Component {
   constructor(props) {

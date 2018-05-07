@@ -9,11 +9,12 @@ import Modes from './constants/modes';
 
 import './Configurator.css';
 
-import HomeView from './components/HomeView';
-import OptionView from './components/OptionView';
-import ConfirmationView from './components/ConfirmationView';
+import HomeView from './views/HomeView';
+import OptionView from './views/OptionView';
+import ConfirmationView from './views/ConfirmationView';
 
-import Options from './constants/options-wizard.json';
+// import Options from './constants/options.json';
+import NewOptions from './constants/new-options.json';
 
 export default class Configurator extends React.Component {
   static getInitialData() {
@@ -22,7 +23,6 @@ export default class Configurator extends React.Component {
       scale: Scale.STANDARD,
       headstyle: Headstyle.HEADSTOCK,
       price: 0,
-      itemIndex: 1,
     };
   }
 
@@ -32,19 +32,18 @@ export default class Configurator extends React.Component {
     // Initial State
     this.state = {
       data: Configurator.getInitialData(),
-      items: Options,
+      items: [NewOptions],
       itemIndex: 0,
       mode: Modes.HOME,
-      lineItems: [],
+      lineItems: {},
     };
 
     // Event bindings
     this.setData = this.setData.bind(this);
     this.getItems = this.getItems.bind(this);
-    this.goBack = this.goBack.bind(this);
-    this.goForward = this.goForward.bind(this);
     this.changeMode = this.changeMode.bind(this);
     this.reset = this.reset.bind(this);
+    this.goBack = this.goBack.bind(this);
 
     // Setup components to use for different views
     this.components = {
@@ -65,22 +64,34 @@ export default class Configurator extends React.Component {
   }
 
   async setData(data) {
-    console.log(data);
+    // If menu selection, set items and change mode
+    // Push items onto menu?
+    if (data.collectionId) {
+      console.log('This is a menu item');
+      this.state.items.push(data);
+      this.state.itemIndex += 1;
+      this.propogateItems();
+    } else if (data.collections) {
+      this.state.items.push(data.collections);
+      this.propogateItems();
+    } else {
+      // If product selection, deal with shopify
+      console.log(data);
 
-    const object = Object.values(data)[0];
-    const variantId = object.variants[0].id;
-    const lineItemsToAdd = [{
-      variantId,
-      quantity: 1,
-    }];
+      const object = Object.values(data)[0];
+      const variantId = object.variants[0].id;
+      const lineItemsToAdd = [{
+        variantId,
+        quantity: 1,
+      }];
 
-    console.log(object.id);
-    this.checkout = await this.client.checkout.addLineItems(this.checkout.id, lineItemsToAdd);
-    this.state.lineItems.push(this.checkout.lineItems[this.checkout.lineItems.length - 1]);
+      this.checkout = await this.client.checkout.addLineItems(this.checkout.id, lineItemsToAdd);
+      this.state.lineItems[data.key] = this.checkout.lineItems[this.checkout.lineItems.length - 1];
 
-    Object.assign(this.state.data, data);
-    this.state.data.price = this.checkout.totalPrice;
-    this.forceUpdate();
+      Object.assign(this.state.data, data);
+      this.state.data.price = this.checkout.totalPrice;
+      this.forceUpdate();
+    }
   }
 
   getItems() {
@@ -103,11 +114,18 @@ export default class Configurator extends React.Component {
     // Grab products from shopify data
     const collection = _.find(this.collections, c => c.id === item.collectionId);
 
-    // Place products on item
-    this.state.items[this.state.itemIndex].products = _.orderBy(collection.products, 'createdAt');
+    // If this is a collection and not a menu item
+    if (collection) {
+      // Place products on item
+      this.state.items[this.state.itemIndex].products = _.orderBy(collection.products, 'createdAt');
+    }
 
     // Update
     this.forceUpdate();
+  }
+
+  goBack() {
+    console.log('Back');
   }
 
   // Reset guitar options
@@ -115,39 +133,6 @@ export default class Configurator extends React.Component {
     this.setState({
       data: Configurator.getInitialData(),
     });
-  }
-
-  async goBack() {
-    const lineItemsToRemove = [this.state.lineItems[this.state.lineItems.length - 1].id];
-    this.state.lineItems.pop();
-
-    console.log(lineItemsToRemove);
-
-    try {
-      this.checkout = await this.client.checkout.removeLineItems(
-        this.checkout.id,
-        lineItemsToRemove,
-      );
-    } catch (ex) {
-      console.log(ex);
-    }
-
-    this.state.data.price = this.checkout.totalPrice;
-
-    this.setState({
-      itemIndex: this.state.itemIndex - 1,
-    });
-  }
-
-  goForward() {
-    const newIndex = this.state.itemIndex + 1;
-
-    if (newIndex < this.state.items.length) {
-      this.state.itemIndex = newIndex;
-      this.propogateItems();
-    } else {
-      this.changeMode(Modes.CONFIRMATION);
-    }
   }
 
   changeMode(mode) {
@@ -165,17 +150,16 @@ export default class Configurator extends React.Component {
 
     return (
       <div className="configurator">
-        {this.getItems().products &&
+        {this.getItems() &&
           <Component
             data={this.state.data}
             setData={this.setData}
             getItems={this.getItems}
-            goBack={this.goBack}
-            goForward={this.goForward}
             changeMode={this.changeMode}
             reset={this.reset}
             checkout={this.checkout}
             itemIndex={this.state.itemIndex}
+            goBack={this.goBack}
           />
         }
       </div>
