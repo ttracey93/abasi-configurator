@@ -13,8 +13,8 @@ export default class OptionView extends React.Component {
     this.changeMode = this.changeMode.bind(this);
   }
 
-  handleChange(data) {
-    this.props.setData(data);
+  handleChange(data, key) {
+    this.props.setData(data, key);
   }
 
   changeMode(mode) {

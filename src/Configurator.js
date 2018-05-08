@@ -59,38 +59,63 @@ export default class Configurator extends React.Component {
     });
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.getShopifyData();
   }
 
-  async setData(data) {
+  async setData(data, key) {
+    console.log(key);
+
     // If menu selection, set items and change mode
     // Push items onto menu?
-    if (data.collectionId) {
-      console.log('This is a menu item');
-      this.state.items.push(data);
+    if (data.collectionId || data.collections) {
+      this.state.mode = Modes.OPTION;
+      this.state.items.push(data.collections || data);
       this.state.itemIndex += 1;
-      this.propogateItems();
-    } else if (data.collections) {
-      this.state.items.push(data.collections);
       this.propogateItems();
     } else {
       // If product selection, deal with shopify
-      console.log(data);
+      if (!key) {
+        throw new Error('No item key supplied!');
+      }
 
-      const object = Object.values(data)[0];
-      const variantId = object.variants[0].id;
+      // Prepare shopify data
+      const variantId = data.variants[0].id;
+
+      // Record accurate selection info by key in global state
+      const { lineItems } = this.state;
+
+      // If it exists, update cart?
+      if (lineItems[key]) {
+        if (!lineItems[key].lineItemId) {
+          throw new Error('Changing existing selection with no Line Item ID!!');
+        }
+
+        const lineItemsToRemove = [lineItems[key].lineItemId];
+        this.checkout = await this.client.checkout.removeLineItems(this.checkout.id, lineItemsToRemove);
+      } else {
+        lineItems[key] = {
+          variantId,
+        };
+      }
+
+      // Update state of shopify cart to reflect current selections
       const lineItemsToAdd = [{
         variantId,
         quantity: 1,
       }];
 
       this.checkout = await this.client.checkout.addLineItems(this.checkout.id, lineItemsToAdd);
-      this.state.lineItems[data.key] = this.checkout.lineItems[this.checkout.lineItems.length - 1];
+      this.state.lineItems[key].lineItemId = this.checkout.lineItems[this.checkout.lineItems.length - 1].id;
 
-      Object.assign(this.state.data, data);
-      this.state.data.price = this.checkout.totalPrice;
-      this.forceUpdate();
+      const dataCopy = { ...this.state.data };
+      dataCopy[key] = data.handle;
+      dataCopy.price = this.checkout.totalPrice;
+      this.state.data = dataCopy;
+
+      this.setState({
+        data: dataCopy,
+      });
     }
   }
 
@@ -121,11 +146,22 @@ export default class Configurator extends React.Component {
     }
 
     // Update
-    this.forceUpdate();
+    this.setState({
+      items: this.state.items,
+    });
   }
 
   goBack() {
-    console.log('Back');
+    const itemIndex = this.state.itemIndex - 1;
+    const mode = itemIndex === 0 ? Modes.HOME : Modes.OPTION;
+
+    // Pop last menu set off
+    this.state.items.pop();
+
+    this.setState({
+      itemIndex,
+      mode,
+    });
   }
 
   // Reset guitar options
@@ -142,6 +178,7 @@ export default class Configurator extends React.Component {
   }
 
   render() {
+    // TODO: Pre-rendered components?
     const Component = this.components[this.state.mode];
 
     if (!Component) {

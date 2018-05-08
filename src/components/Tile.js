@@ -13,10 +13,12 @@ export default class Tile extends React.Component {
   }
 
   render() {
+    const label = this.props.data.label || this.props.data.title;
+
     return (
       <div className="container columns evenly tile" role="presentation" onClick={this.handleClick}>
         <div className="tile-label">
-          {this.props.data.label}
+          {label}
         </div>
 
         {this.props.data.variants &&

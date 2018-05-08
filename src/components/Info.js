@@ -3,9 +3,13 @@ import React from 'react';
 export default class Info extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      something: undefined,
+    };
   }
 
   render() {
-    return 'Info pane';
+    return this.state.something || 'Info pane';
   }
 }

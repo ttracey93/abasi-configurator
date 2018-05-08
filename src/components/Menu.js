@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import Tile from './Tile';
-// import TileTypes from '../constants/tile-types';
-import Modes from '../constants/modes';
 
 export default class Menu extends React.Component {
   constructor(props) {
@@ -15,7 +13,7 @@ export default class Menu extends React.Component {
   }
 
   handleChange(tile) {
-    this.props.setData(tile);
+    this.props.setData(tile, this.props.items.key);
   }
 
   changeMode(mode) {
