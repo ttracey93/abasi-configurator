@@ -13,6 +13,8 @@ import HomeView from './views/HomeView';
 import OptionView from './views/OptionView';
 import ConfirmationView from './views/ConfirmationView';
 
+import Renderer from './components/Renderer';
+
 // import Options from './constants/options.json';
 import NewOptions from './constants/new-options.json';
 
@@ -57,10 +59,34 @@ export default class Configurator extends React.Component {
       domain: 'tyify.myshopify.com',
       storefrontAccessToken: '4100223db918b0a9731e5ddfa63e014c',
     });
+
+    this.renderer = new Renderer(this.state.data);
   }
 
   componentWillMount() {
     this.getShopifyData();
+  }
+
+  componentDidMount() {
+    // Startup/attach renderer
+    this.rendererContainer = document.getElementById('renderer-container');
+    this.renderer.container = this.rendererContainer;
+
+    // Initialize the scene if we haven't already done so
+    if (!this.renderer.scene) {
+      this.renderer.createScene();
+    }
+
+    this.rendererContainer.appendChild(this.renderer.getRendererElement());
+  }
+
+  componentDidUpdate() {
+    // Update/re-attach renderer
+    this.rendererContainer = document.getElementById('renderer-container');
+    this.renderer.container = this.rendererContainer;
+    this.renderer.resize();
+    this.renderer.update(this.state.data);
+    this.rendererContainer.appendChild(this.renderer.getRendererElement());
   }
 
   async setData(data, key) {
@@ -197,6 +223,7 @@ export default class Configurator extends React.Component {
             checkout={this.checkout}
             itemIndex={this.state.itemIndex}
             goBack={this.goBack}
+            renderer={this.renderer}
           />
         }
       </div>

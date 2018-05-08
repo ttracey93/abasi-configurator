@@ -137,8 +137,8 @@ body {
   right: 0px;
 
   width: 150px;
-  /* border: 1px solid white; */
-  color: black;
+  border: 1px solid white;
+  color: white;
   height: 50px;
 
   text-align: center;
