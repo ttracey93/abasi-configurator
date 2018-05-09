@@ -42,6 +42,12 @@ export default class Viewport extends React.Component {
       <div className="container evenly viewport">
         <div id="renderer-container" className="viewport-view" />
 
+        <div className="back-button">
+          <button className="btn" onClick={this.props.goBack}>
+              Back
+          </button>
+        </div>
+
         {this.props.reset && (
           <div className="reset-button">
             <button className="btn" onClick={this.props.reset}>
@@ -69,5 +75,6 @@ Viewport.propTypes = {
   setData: PropTypes.func.isRequired,
   changeMode: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
+  goBack: PropTypes.func.isRequired,
 };
 

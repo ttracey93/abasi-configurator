@@ -106,18 +106,13 @@ body {
 /* Option View */
 .option-menu {
   position: relative;
-  width: 166%;
+  width: 50%;
   flex-flow: row wrap;
+  overflow: scroll;
 }
 
-/* .back-button {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-} */
-
 .option-viewport {
-
+  
 }
 
 .option-info {
@@ -204,6 +199,11 @@ body {
   justify-content: flex-start;
   flex-flow: row wrap;
 }
+
+.menu.columns {
+  flex-flow: column wrap;  
+}
+
 
 /* Tile */
 .tile {

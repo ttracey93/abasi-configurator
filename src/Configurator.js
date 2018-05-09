@@ -90,12 +90,10 @@ export default class Configurator extends React.Component {
   }
 
   async setData(data, key) {
-    console.log(key);
-
     // If menu selection, set items and change mode
     // Push items onto menu?
     if (data.collectionId || data.collections) {
-      this.state.mode = Modes.OPTION;
+      // this.state.mode = Modes.OPTION;
       this.state.items.push(data.collections || data);
       this.state.itemIndex += 1;
       this.propogateItems();
@@ -111,28 +109,9 @@ export default class Configurator extends React.Component {
       // Record accurate selection info by key in global state
       const { lineItems } = this.state;
 
-      // If it exists, update cart?
-      if (lineItems[key]) {
-        if (!lineItems[key].lineItemId) {
-          throw new Error('Changing existing selection with no Line Item ID!!');
-        }
-
-        const lineItemsToRemove = [lineItems[key].lineItemId];
-        this.checkout = await this.client.checkout.removeLineItems(this.checkout.id, lineItemsToRemove);
-      } else {
-        lineItems[key] = {
-          variantId,
-        };
-      }
-
-      // Update state of shopify cart to reflect current selections
-      const lineItemsToAdd = [{
-        variantId,
-        quantity: 1,
-      }];
-
-      this.checkout = await this.client.checkout.addLineItems(this.checkout.id, lineItemsToAdd);
-      this.state.lineItems[key].lineItemId = this.checkout.lineItems[this.checkout.lineItems.length - 1].id;
+      // Create empty object if undefined
+      lineItems[key] = lineItems[key] || {};
+      lineItems[key].variantId = variantId;
 
       const dataCopy = { ...this.state.data };
       dataCopy[key] = data.handle;
@@ -141,7 +120,10 @@ export default class Configurator extends React.Component {
 
       this.setState({
         data: dataCopy,
+        lineItems,
       });
+
+      this.updateCart();
     }
   }
 
@@ -157,6 +139,13 @@ export default class Configurator extends React.Component {
     this.checkout = await this.client.checkout.create();
     this.collections = await this.client.collection.fetchAllWithProducts();
     this.propogateItems();
+  }
+
+  async updateCart() {
+    // Handle shopify cart logic
+    console.log('updating cart');
+    // this.checkout = await this.client.checkout.removeLineItems(this.checkout.id, lineItemsToRemove);
+    // this.checkout = await this.client.checkout.addLineItems(this.checkout.id, lineItemsToAdd);
   }
 
   propogateItems() {
@@ -178,16 +167,18 @@ export default class Configurator extends React.Component {
   }
 
   goBack() {
-    const itemIndex = this.state.itemIndex - 1;
-    const mode = itemIndex === 0 ? Modes.HOME : Modes.OPTION;
+    if (this.state.itemIndex > 0) {
+      const itemIndex = this.state.itemIndex - 1;
+      // const mode = itemIndex === 0 ? Modes.HOME : Modes.OPTION;
 
-    // Pop last menu set off
-    this.state.items.pop();
+      // Pop last menu set off
+      this.state.items.pop();
 
-    this.setState({
-      itemIndex,
-      mode,
-    });
+      this.setState({
+        itemIndex,
+        // mode,
+      });
+    }
   }
 
   // Reset guitar options

@@ -4,6 +4,8 @@ import OrbitControls from 'three-orbitcontrols';
 
 export default class Renderer {
   constructor(data) {
+    this.TEXTURE_ANISOTROPY = 16;
+
     this.data = data;
 
     // Event bindings
@@ -11,24 +13,37 @@ export default class Renderer {
     this.resize = this.resize.bind(this);
 
     // Need to set container on instance
+    this.renderer = new Three.WebGLRenderer();
     this.container = undefined;
     this.loader = new ColladaLoader(this.loadingManager);
     this.textureLoader = new Three.TextureLoader();
 
     this.textures = {
-      'mahogany-body': this.textureLoader.load('scenes/textures/mahogany.jpg'),
-      'walnut-body': this.textureLoader.load('scenes/textures/sapele.jpg'),
-      'swamp-ash-body': this.textureLoader.load('scenes/textures/spruce.jpg'),
-      'west-red-cedar-body': this.textureLoader.load('scenes/textures/flamedMaple.jpg'),
-      'poplar-body': this.textureLoader.load('scenes/textures/quiltedMaple.jpg'),
+      'mahogany-body': this.loadTexture('scenes/textures/mahogany.jpg'),
+      'walnut-body': this.loadTexture('scenes/textures/sapele.jpg'),
+      'swamp-ash-body': this.loadTexture('scenes/textures/spruce.jpg'),
+      'west-red-cedar-body': this.loadTexture('scenes/textures/flamedMaple.jpg'),
+      'poplar-body': this.loadTexture('scenes/textures/quiltedMaple.jpg'),
     };
 
     this.currentTexture = this.textures['mahogany-body'];
 
+    // Load reflection map
+    const urls = [
+      'scenes/reflection/0001.png',
+      'scenes/reflection/0002.png',
+      'scenes/reflection/0003.png',
+      'scenes/reflection/0004.png',
+      'scenes/reflection/0005.png',
+      'scenes/reflection/0006.png',
+    ];
+
+    this.reflectionCube = new Three.CubeTextureLoader().load(urls);
+
     this.material = new Three.MeshPhongMaterial({
       shininess: 40,
       map: this.textures['mahogany-body'],
-      // envMap: reflectionCube,
+      envMap: this.reflectionCube,
       combine: Three.MixOperation,
       reflectivity: 0.12,
     });
@@ -50,7 +65,6 @@ export default class Renderer {
   }
 
   async createScene() {
-    this.renderer = new Three.WebGLRenderer();
     this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
 
     this.scene = new Three.Scene();
@@ -59,10 +73,10 @@ export default class Renderer {
 
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
 
-    this.ambientLight = new Three.AmbientLight(0xcccccc, 1);
+    this.ambientLight = new Three.AmbientLight(0xcccccc, 0.5);
     this.scene.add(this.ambientLight);
 
-    this.directionalLight = new Three.DirectionalLight(0xffffff, 1);
+    this.directionalLight = new Three.DirectionalLight(0xffffff, 0.8);
     this.directionalLight.position.set(1, 1, 0).normalize();
     this.scene.add(this.directionalLight);
 
@@ -93,6 +107,15 @@ export default class Renderer {
     window.addEventListener('resize', this.resize, false);
   }
 
+  loadTexture(path) {
+    const texture = this.textureLoader.load(path);
+    texture.anisotropy = this.renderer.capabilities.getMaxAnisotropy();
+    texture.wrapS = Three.ClampToEdgeWrapping;
+    texture.wrapT = Three.ClampToEdgeWrapping;
+
+    return texture;
+  }
+
   resize() {
     this.camera.aspect = this.container.clientWidth / this.container.clientHeight;
     this.camera.updateProjectionMatrix();
@@ -114,6 +137,8 @@ export default class Renderer {
   }
 
   animate() {
+    this.directionalLight.position.copy(this.camera.position);
+
     requestAnimationFrame(this.animate);
     this.controls.update();
     this.renderScene();
