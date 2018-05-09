@@ -24,7 +24,7 @@ export default class Configurator extends React.Component {
       strings: Strings.SIX,
       scale: Scale.STANDARD,
       headstyle: Headstyle.HEADSTOCK,
-      price: 0,
+      price: '0.00',
     };
   }
 
@@ -141,11 +141,51 @@ export default class Configurator extends React.Component {
     this.propogateItems();
   }
 
+  async initializeCart() {
+    // Place checkout ID in localStorage
+  }
+
+  async emptyCart() {
+
+  }
+
   async updateCart() {
-    // Handle shopify cart logic
-    console.log('updating cart');
-    // this.checkout = await this.client.checkout.removeLineItems(this.checkout.id, lineItemsToRemove);
-    // this.checkout = await this.client.checkout.addLineItems(this.checkout.id, lineItemsToAdd);
+    // Retrieve line items from state
+    const { lineItems } = this.state;
+    const shopifyLineItems = this.checkout.lineItems;
+
+    // Reduce variantIds
+    const variants = _.keys(_.groupBy(lineItems, 'variantId'));
+
+    // Reduce shopify line items to variantIds
+    const existingShopifyVariants = _.keys(_.groupBy(shopifyLineItems, 'variant.id'));
+
+    // List of items NOT yet in cart
+    const itemsToAdd = _.filter(variants, v => !_.includes(existingShopifyVariants, v));
+
+    // List of items in cart that should NOT be
+    const shopifyItemsToRemove = _.filter(shopifyLineItems, sli => !_.includes(variants, sli.variant.id));
+
+    // Add missing items to shopify cart
+    const lineItemsToAdd = [];
+    _.each(itemsToAdd, (i) => {
+      lineItemsToAdd.push({
+        variantId: i,
+        quantity: 1,
+      });
+    });
+
+    this.checkout = await this.client.checkout.addLineItems(this.checkout.id, lineItemsToAdd);
+
+    // Remove any excess items from shopify cart
+    this.checkout = await this.client.checkout.removeLineItems(this.checkout.id, _.keys(_.groupBy(shopifyItemsToRemove, 'id')));
+
+    const dataCopy = { ...this.state.data };
+    dataCopy.price = this.checkout.totalPrice;
+
+    this.setState({
+      data: dataCopy,
+    });
   }
 
   propogateItems() {

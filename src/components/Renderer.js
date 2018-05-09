@@ -68,6 +68,8 @@ export default class Renderer {
     this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
 
     this.scene = new Three.Scene();
+    this.scene.background = new Three.Color(0x464646);
+
     this.camera = new Three.PerspectiveCamera(75, this.container.clientWidth / this.container.clientHeight, 0.1, 1000);
     this.camera.position.set(0, -50, 0);
 
@@ -103,6 +105,9 @@ export default class Renderer {
       this.update(this.data);
       this.animate();
     });
+
+    // Load neck/fretboard/headstock/strings
+
 
     window.addEventListener('resize', this.resize, false);
   }

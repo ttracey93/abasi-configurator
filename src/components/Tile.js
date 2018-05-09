@@ -21,8 +21,12 @@ export default class Tile extends React.Component {
           {label}
         </div>
 
+        <div className="tile-icon">
+          <i className="fa fa-bars" />
+        </div>
+
         {this.props.data.variants &&
-          <div className="tile-icon">
+          <div className="tile-price">
             ${this.props.data.variants[0].price} USD
           </div>
         }

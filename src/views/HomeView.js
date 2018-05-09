@@ -22,7 +22,16 @@ export default class HomeView extends React.Component {
 
   render() {
     return (
-      <div className="container columns">
+      <div className="container">
+        <div className="container home-menu">
+          <Menu
+            items={this.props.getItems()}
+            setData={this.handleChange}
+            changeMode={this.changeMode}
+            columns
+          />
+        </div>
+
         <div className="container home-viewport">
           <ViewPort
             data={this.props.data}
@@ -31,14 +40,6 @@ export default class HomeView extends React.Component {
             reset={this.props.reset}
             itemIndex={this.props.itemIndex}
             goBack={this.props.goBack}
-          />
-        </div>
-
-        <div className="container home-menu">
-          <Menu
-            items={this.props.getItems()}
-            setData={this.handleChange}
-            changeMode={this.changeMode}
           />
         </div>
       </div>

@@ -3,6 +3,7 @@ html {
   width: 100%;
   height: 100%;
   margin: 0;
+  padding: 0;
 }
 
 body {
@@ -16,9 +17,8 @@ body {
 
 .container {
   width: 100%;
-  height: inherit;
+  height: 100%;
   display: flex;
-  border: 1px solid black;
 }
 
 .columns {
@@ -51,17 +51,19 @@ body {
 
 .btn {
   font-size: 18px;
-  color: white;
+  border: 1px solid #696969;
   border-radius: 2px;
   height: 36px;
   line-height: 36px;
-  background-color: rgb(0, 188, 212);
-  transition: background-color 2s;
+  background-color: white;
+  color: black;
+  transition: all 0.5s;
 }
 
 .btn:hover {
   cursor: pointer;
-  background-color: rgb(1, 115, 130);
+  background-color: rgb(70, 70, 70);
+  color: white;
 }
 
 /* Tooltip text */
@@ -100,7 +102,8 @@ body {
 
 .home-menu {
   /* align-self: bottom; */
-  height: 150px;
+  /* height: 150px; */
+  width: 15%;
 }
 
 /* Option View */
@@ -132,12 +135,13 @@ body {
   right: 0px;
 
   width: 150px;
-  border: 1px solid white;
   color: white;
   height: 50px;
 
   text-align: center;
   z-index: 100;
+
+  background-color: #696969;
 }
 
 .viewport-view {
@@ -201,36 +205,73 @@ body {
 }
 
 .menu.columns {
-  flex-flow: column wrap;  
+  flex-flow: column wrap;
+  overflow-y: scroll;
 }
-
 
 /* Tile */
 .tile {
+  position: relative;
   display: flex;
   flex: 1;
-  border-right: 1px solid black;
-  transition: all 0.5s;
-  height: 150px;
+  min-height: 150px;
   min-width: 150px;
   font-family: 'Open Sans', sans-serif;
-}
+  background-color:white;
+  color: black;
 
-.tile:hover {
-  color: rgb(19, 201, 233);
+  box-sizing: border-box;
+  border-top: 1px solid #464646;
+  border-bottom: 1px solid #464646;
+
+  transition: all 0.5s linear;
   cursor: pointer;
 }
 
+.tile:hover {
+  /* color: rgb(124, 18, 196); */
+  background-color: rgb(70, 70, 70);
+  color: white;
+}
+
 .tile-label {
+  position: absolute;
   width: 100%;
   text-align: center;
   align-self: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.5s linear;
 }
 
 .tile-icon {
   width: 100%;
   text-align: center;
   align-self: center;
+  transition: all 0.5s linear;
+}
+
+.tile-price {
+  position: absolute;
+  bottom: 10%;
+  width: 100%;
+  text-align: center;
+  align-self: center;
+}
+
+/* Tile Hovering */
+.tile:hover .tile-label {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tile:hover .tile-icon {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.tile:hover .tile-price {
+  
 }
 
 /* Confirmatio */
