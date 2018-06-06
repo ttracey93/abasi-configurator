@@ -24,6 +24,7 @@ export default class Renderer {
       'swamp-ash-body': this.loadTexture('scenes/textures/spruce.jpg'),
       'west-red-cedar-body': this.loadTexture('scenes/textures/flamedMaple.jpg'),
       'poplar-body': this.loadTexture('scenes/textures/quiltedMaple.jpg'),
+      'wenge-body': this.loadTexture('scenes/textures/mahogany.jpg'),
     };
 
     this.currentTexture = this.textures['mahogany-body'];
@@ -55,10 +56,34 @@ export default class Renderer {
     return this.renderer.domElement;
   }
 
+  getTextureImage(key) {
+    console.log(key);
+    if (this.textures[key]) {
+      return this.textures[key].image;
+    }
+  }
+
   update(data) {
     // TODO: Auto-retrieval/constants?
     const bodyStyle = data['body-style'];
     const bodyWood = data['body-wood'];
+
+    if (bodyStyle) {
+      this.scene.remove(this.models.fretboard);
+      this.scene.remove(this.models.fannedFretboard);
+      this.scene.remove(this.models.frets);
+      this.scene.remove(this.models.fretsFanned);
+      this.scene.remove(this.models.neck);
+      this.scene.remove(this.models.neckFanned);
+
+      this.currentFretboardModel = bodyStyle.includes('multi') ? this.models.fannedFretboard : this.models.fretboard;
+      this.currentFretsModel = bodyStyle.includes('multi') ? this.models.fretsFanned : this.models.frets;
+      this.currentNeckModel = bodyStyle.includes('multi') ? this.models.neckFanned : this.models.neck;
+
+      this.scene.add(this.currentFretboardModel);
+      this.scene.add(this.currentNeckModel);
+      this.scene.add(this.currentFretsModel);
+    }
 
     this.currentTexture = this.textures[bodyWood] || this.currentTexture;
     this.setModel(this.models[bodyStyle] || this.models.archtop);
@@ -71,7 +96,7 @@ export default class Renderer {
     this.scene.background = new Three.Color(0x464646);
 
     this.camera = new Three.PerspectiveCamera(75, this.container.clientWidth / this.container.clientHeight, 0.1, 1000);
-    this.camera.position.set(0, -50, 0);
+    this.camera.position.set(0, -80, 0);
 
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
 
@@ -107,9 +132,103 @@ export default class Renderer {
     });
 
     // Load neck/fretboard/headstock/strings
+    this.loader.load('scenes/models/neck.dae', (collada) => {
+      this.models.neck = collada.scene;
+      this.currentNeckModel = this.models.neck;
 
+      this.scene.add(this.currentNeckModel);
+
+      this.models.neck.traverse((node) => {
+        if (node.isMesh) {
+          node.material.map = this.textures['mahogany-body'];
+        }
+      });
+    });
+
+    // Load neck/fretboard/headstock/strings
+    this.loader.load('scenes/models/neck_fanned.dae', (collada) => {
+      this.models.neckFanned = collada.scene;
+
+      this.models.neckFanned.traverse((node) => {
+        if (node.isMesh) {
+          node.material.map = this.textures['mahogany-body'];
+        }
+      });
+    });
+
+    this.loader.load('scenes/models/frets.dae', (collada) => {
+      this.models.frets = collada.scene;
+      this.currentFretsModel = this.models.frets;
+
+      this.scene.add(this.currentFretsModel);
+    });
+
+    this.loader.load('scenes/models/frets_fanned.dae', (collada) => {
+      this.models.fretsFanned = collada.scene;
+      this.currentFretsFannedModel = this.models.fretsFanned;
+
+      // this.scene.add(this.currentFretsModel);
+    });
+
+    this.loader.load('scenes/models/fretboard.dae', (collada) => {
+      this.models.fretboard = collada.scene;
+      this.currentFretboardModel = this.models.fretboard;
+
+      this.scene.add(this.currentFretboardModel);
+
+      this.models.fretboard.traverse((node) => {
+        if (node.isMesh) {
+          node.material.map = this.textures['swamp-ash-body'];
+        }
+      });
+    });
+
+    this.loadModel('scenes/models/fretboard_fanned.dae', (collada) => {
+      this.models.fannedFretboard = collada.scene;
+      this.currentFannedFretboardModel = this.models.fannedFretboard;
+
+      // this.scene.add(this.currentFretboardModel);
+
+      this.models.fannedFretboard.traverse((node) => {
+        if (node.isMesh) {
+          node.material.map = this.textures['swamp-ash-body'];
+        }
+      });
+    });
+
+    this.loader.load('scenes/models/headstock.dae', (collada) => {
+      this.models.headstock = collada.scene;
+      this.currentHeadstockModel = this.models.headstock;
+
+      this.scene.add(this.currentHeadstockModel);
+
+      this.models.headstock.traverse((node) => {
+        if (node.isMesh) {
+          node.material.map = this.textures['mahogany-body'];
+        }
+      });
+    });
+
+    this.loader.load('scenes/models/strings.dae', (collada) => {
+      this.models.strings = collada.scene;
+      this.currentStringsModel = this.models.strings;
+
+      this.scene.add(this.currentStringsModel);
+    });
+
+    this.loadModel('scenes/models/waverly-no-metal.dae', collada => this.scene.add(collada.scene));
+    this.loadModel('scenes/models/dome.dae', collada => this.scene.add(collada.scene));
+    this.loadModel('scenes/models/ring.dae', collada => this.scene.add(collada.scene));
+    this.loadModel('scenes/models/bk-mule.dae', collada => this.scene.add(collada.scene));
+    this.loadModel('scenes/models/nut.dae', collada => this.scene.add(collada.scene));
+    this.loadModel('scenes/models/trapeze.dae', collada => this.scene.add(collada.scene));
+    this.loadModel('scenes/models/ebony.dae', collada => this.scene.add(collada.scene));
 
     window.addEventListener('resize', this.resize, false);
+  }
+
+  loadModel(path, cb) {
+    new ColladaLoader().load(path, cb);
   }
 
   loadTexture(path) {
@@ -117,6 +236,8 @@ export default class Renderer {
     texture.anisotropy = this.renderer.capabilities.getMaxAnisotropy();
     texture.wrapS = Three.ClampToEdgeWrapping;
     texture.wrapT = Three.ClampToEdgeWrapping;
+    texture.minFilter = Three.LinearMipMapLinearFilter;
+    texture.magFilter = Three.LinearMipMapLinearFilter;
 
     return texture;
   }

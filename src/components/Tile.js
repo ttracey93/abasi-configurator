@@ -14,6 +14,10 @@ export default class Tile extends React.Component {
 
   render() {
     const label = this.props.data.label || this.props.data.title;
+    const { icon } = this.props.data;
+
+    // Use fallback icon
+    const iconSource = icon ? `icons/${icon}.svg` : 'icons/headstock.svg';
 
     return (
       <div className="container columns evenly tile" role="presentation" onClick={this.handleClick}>
@@ -22,7 +26,20 @@ export default class Tile extends React.Component {
         </div>
 
         <div className="tile-icon">
-          <i className="fa fa-bars" />
+          {this.props.imageSource &&
+            <img
+              src={this.props.imageSource.src}
+              alt="Texture Preview"
+            />
+          }
+
+          {!this.props.imageSource &&
+            <img
+              className="icon-image"
+              src={iconSource}
+              alt="Configurator Icon"
+            />
+          }
         </div>
 
         {this.props.data.variants &&
@@ -38,4 +55,5 @@ export default class Tile extends React.Component {
 Tile.propTypes = {
   data: PropTypes.object.isRequired,
   callback: PropTypes.func.isRequired,
+  imageSource: PropTypes.object,
 };

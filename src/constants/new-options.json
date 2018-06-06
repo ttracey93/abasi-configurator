@@ -1,17 +1,17 @@
 {
   "body-style": {
     "label": "Body Style",
-    "icon": "fa-gear",
+    "icon": "shape",
     "collectionId": "Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzM1MTAzMDE0OTc4",
     "key": "body-style"
   },
   "body": {
     "label": "Body",
-    "icon": "fa-android",
+    "icon": "body",
     "collections": {
       "wood": {
         "label": "Wood",
-        "icon": "fa-wood",
+        "icon": "",
         "collectionId": "Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzM2MzIxMDM0MzA2",
         "key": "body-wood"
       },
@@ -31,7 +31,7 @@
   },
   "neck": {
     "label": "Neck",
-    "icon": "fa-window-restore",
+    "icon": "headstock",
     "collections": {
       "wood": {
         "label": "Wood",
@@ -49,7 +49,7 @@
   },
   "hardware": {
     "label": "Hardware",
-    "icon": "fa-angle-down",
+    "icon": "shape2",
     "collections": {
       "color": {
         "label": "Color",

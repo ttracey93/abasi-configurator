@@ -22,7 +22,13 @@ export default class Menu extends React.Component {
 
   render() {
     const { items } = this.props;
-    const tiles = _.map(items.products || items, (item, i) => <Tile key={i} data={item} callback={this.handleChange} />);
+
+    const tiles = _.map(items.products || items, (item, i) => {
+      const imageSource = item.handle ? this.props.renderer.getTextureImage(item.handle) : undefined;
+      return (
+        <Tile key={i} data={item} callback={this.handleChange} imageSource={imageSource} />
+      );
+    });
 
     const className = this.props.columns ? 'menu columns' : 'menu';
 
@@ -43,4 +49,5 @@ Menu.propTypes = {
   setData: PropTypes.func.isRequired,
   changeMode: PropTypes.func.isRequired,
   columns: PropTypes.bool,
+  renderer: PropTypes.object.isRequired,
 };

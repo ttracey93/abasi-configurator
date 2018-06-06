@@ -29,6 +29,7 @@ export default class HomeView extends React.Component {
             setData={this.handleChange}
             changeMode={this.changeMode}
             columns
+            renderer={this.props.renderer}
           />
         </div>
 
@@ -55,4 +56,5 @@ HomeView.propTypes = {
   data: PropTypes.object.isRequired,
   itemIndex: PropTypes.number.isRequired,
   goBack: PropTypes.func.isRequired,
+  renderer: PropTypes.object.isRequired,
 };

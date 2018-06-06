@@ -4,6 +4,8 @@ html {
   height: 100%;
   margin: 0;
   padding: 0;
+
+  font-family: 'Open Sans', sans-serif;
 }
 
 body {
@@ -104,6 +106,7 @@ body {
   /* align-self: bottom; */
   /* height: 150px; */
   width: 15%;
+  overflow-x: auto;  
 }
 
 /* Option View */
@@ -201,13 +204,12 @@ body {
   flex-grow: 1;
   align-content: flex-start;
   justify-content: flex-start;
-  flex-flow: row wrap;
 }
 
-.menu.columns {
+/* .menu.columns {
   flex-flow: column wrap;
   overflow-y: scroll;
-}
+} */
 
 /* Tile */
 .tile {
@@ -235,6 +237,7 @@ body {
 }
 
 .tile-label {
+  font-size: 1.3em;
   position: absolute;
   width: 100%;
   text-align: center;
@@ -249,6 +252,16 @@ body {
   text-align: center;
   align-self: center;
   transition: all 0.5s linear;
+}
+
+.tile-icon img {
+  width: 100%;
+  height: 152px;
+}
+
+.tile-icon .icon-image {
+  width: 50%;
+  height: 50%;
 }
 
 .tile-price {

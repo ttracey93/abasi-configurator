@@ -82,11 +82,13 @@ export default class Configurator extends React.Component {
 
   componentDidUpdate() {
     // Update/re-attach renderer
-    this.rendererContainer = document.getElementById('renderer-container');
-    this.renderer.container = this.rendererContainer;
-    this.renderer.resize();
-    this.renderer.update(this.state.data);
-    this.rendererContainer.appendChild(this.renderer.getRendererElement());
+    if (this.state.mode !== Modes.CONFIRMATION) {
+      this.rendererContainer = document.getElementById('renderer-container');
+      this.renderer.container = this.rendererContainer;
+      this.renderer.resize();
+      this.renderer.update(this.state.data);
+      this.rendererContainer.appendChild(this.renderer.getRendererElement());
+    }
   }
 
   async setData(data, key) {
