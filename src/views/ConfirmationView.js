@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
+import Modes from '../constants/modes';
+
 // TODO: Viewport on confirmation page?
 // import ViewPort from '../components/Viewport';
 
@@ -9,6 +11,7 @@ export default class ConfirmationView extends React.Component {
   constructor(props) {
     super(props);
 
+    this.back = this.back.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.changeMode = this.changeMode.bind(this);
     this.checkout = this.checkout.bind(this);
@@ -24,6 +27,10 @@ export default class ConfirmationView extends React.Component {
 
   checkout() {
     window.open(this.props.checkout.webUrl);
+  }
+
+  back() {
+    this.changeMode(Modes.HOME);
   }
 
   render() {
@@ -46,6 +53,11 @@ export default class ConfirmationView extends React.Component {
         <hr />
 
         <p>This will take you to Shopify to pay for your guitar</p>
+
+        <button className="btn checkout-button" onClick={this.back}>
+          Back
+        </button>
+
         <button className="btn checkout-button" onClick={this.checkout}>
           Checkout
         </button>

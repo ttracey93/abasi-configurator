@@ -13,8 +13,8 @@ export default class OptionView extends React.Component {
     this.changeMode = this.changeMode.bind(this);
   }
 
-  handleChange(data) {
-    this.props.setData(data);
+  handleChange(data, key) {
+    this.props.setData(data, key);
   }
 
   changeMode(mode) {
@@ -35,11 +35,12 @@ export default class OptionView extends React.Component {
             items={this.props.getItems()}
             setData={this.handleChange}
             changeMode={this.changeMode}
+            columns
           />
         </div>
 
-        <div className="container option-viewport columns">
-          <div className="container ">
+        <div className="container columns">
+          <div className="container option-viewport">
             <ViewPort
               data={this.props.data}
               setData={this.handleChange}

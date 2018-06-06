@@ -13,6 +13,8 @@ import HomeView from './views/HomeView';
 import OptionView from './views/OptionView';
 import ConfirmationView from './views/ConfirmationView';
 
+import Renderer from './components/Renderer';
+
 // import Options from './constants/options.json';
 import NewOptions from './constants/new-options.json';
 
@@ -22,7 +24,7 @@ export default class Configurator extends React.Component {
       strings: Strings.SIX,
       scale: Scale.STANDARD,
       headstyle: Headstyle.HEADSTOCK,
-      price: 0,
+      price: '0.00',
     };
   }
 
@@ -57,40 +59,73 @@ export default class Configurator extends React.Component {
       domain: 'tyify.myshopify.com',
       storefrontAccessToken: '4100223db918b0a9731e5ddfa63e014c',
     });
+
+    this.renderer = new Renderer(this.state.data);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.getShopifyData();
   }
 
-  async setData(data) {
+  componentDidMount() {
+    // Startup/attach renderer
+    this.rendererContainer = document.getElementById('renderer-container');
+    this.renderer.container = this.rendererContainer;
+
+    // Initialize the scene if we haven't already done so
+    if (!this.renderer.scene) {
+      this.renderer.createScene();
+    }
+
+    this.rendererContainer.appendChild(this.renderer.getRendererElement());
+  }
+
+  componentDidUpdate() {
+    // Update/re-attach renderer
+    if (this.state.mode !== Modes.CONFIRMATION) {
+      this.rendererContainer = document.getElementById('renderer-container');
+      this.renderer.container = this.rendererContainer;
+      this.renderer.resize();
+      this.renderer.update(this.state.data);
+      this.rendererContainer.appendChild(this.renderer.getRendererElement());
+    }
+  }
+
+  async setData(data, key) {
     // If menu selection, set items and change mode
     // Push items onto menu?
-    if (data.collectionId) {
-      console.log('This is a menu item');
-      this.state.items.push(data);
+    if (data.collectionId || data.collections) {
+      // this.state.mode = Modes.OPTION;
+      this.state.items.push(data.collections || data);
       this.state.itemIndex += 1;
-      this.propogateItems();
-    } else if (data.collections) {
-      this.state.items.push(data.collections);
       this.propogateItems();
     } else {
       // If product selection, deal with shopify
-      console.log(data);
+      if (!key) {
+        throw new Error('No item key supplied!');
+      }
 
-      const object = Object.values(data)[0];
-      const variantId = object.variants[0].id;
-      const lineItemsToAdd = [{
-        variantId,
-        quantity: 1,
-      }];
+      // Prepare shopify data
+      const variantId = data.variants[0].id;
 
-      this.checkout = await this.client.checkout.addLineItems(this.checkout.id, lineItemsToAdd);
-      this.state.lineItems[data.key] = this.checkout.lineItems[this.checkout.lineItems.length - 1];
+      // Record accurate selection info by key in global state
+      const { lineItems } = this.state;
 
-      Object.assign(this.state.data, data);
-      this.state.data.price = this.checkout.totalPrice;
-      this.forceUpdate();
+      // Create empty object if undefined
+      lineItems[key] = lineItems[key] || {};
+      lineItems[key].variantId = variantId;
+
+      const dataCopy = { ...this.state.data };
+      dataCopy[key] = data.handle;
+      dataCopy.price = this.checkout.totalPrice;
+      this.state.data = dataCopy;
+
+      this.setState({
+        data: dataCopy,
+        lineItems,
+      });
+
+      this.updateCart();
     }
   }
 
@@ -108,6 +143,53 @@ export default class Configurator extends React.Component {
     this.propogateItems();
   }
 
+  async initializeCart() {
+    // Place checkout ID in localStorage
+  }
+
+  async emptyCart() {
+
+  }
+
+  async updateCart() {
+    // Retrieve line items from state
+    const { lineItems } = this.state;
+    const shopifyLineItems = this.checkout.lineItems;
+
+    // Reduce variantIds
+    const variants = _.keys(_.groupBy(lineItems, 'variantId'));
+
+    // Reduce shopify line items to variantIds
+    const existingShopifyVariants = _.keys(_.groupBy(shopifyLineItems, 'variant.id'));
+
+    // List of items NOT yet in cart
+    const itemsToAdd = _.filter(variants, v => !_.includes(existingShopifyVariants, v));
+
+    // List of items in cart that should NOT be
+    const shopifyItemsToRemove = _.filter(shopifyLineItems, sli => !_.includes(variants, sli.variant.id));
+
+    // Add missing items to shopify cart
+    const lineItemsToAdd = [];
+    _.each(itemsToAdd, (i) => {
+      lineItemsToAdd.push({
+        variantId: i,
+        quantity: 1,
+      });
+    });
+
+    this.checkout = await this.client.checkout.addLineItems(this.checkout.id, lineItemsToAdd);
+
+    // Remove any excess items from shopify cart
+    this.checkout = await this.client.checkout.removeLineItems(this.checkout.id, _.keys(_.groupBy(shopifyItemsToRemove, 'id')));
+
+    const dataCopy = { ...this.state.data };
+    dataCopy.price = this.checkout.totalPrice;
+
+    this.setState({
+      data: dataCopy,
+    });
+  }
+
   propogateItems() {
     const item = this.state.items[this.state.itemIndex];
 
@@ -121,11 +203,24 @@ export default class Configurator extends React.Component {
     }
 
     // Update
-    this.forceUpdate();
+    this.setState({
+      items: this.state.items,
+    });
   }
 
   goBack() {
-    console.log('Back');
+    if (this.state.itemIndex > 0) {
+      const itemIndex = this.state.itemIndex - 1;
+      // const mode = itemIndex === 0 ? Modes.HOME : Modes.OPTION;
+
+      // Pop last menu set off
+      this.state.items.pop();
+
+      this.setState({
+        itemIndex,
+        // mode,
+      });
+    }
   }
 
   // Reset guitar options
@@ -142,6 +237,7 @@ export default class Configurator extends React.Component {
   }
 
   render() {
+    // TODO: Pre-rendered components?
     const Component = this.components[this.state.mode];
 
     if (!Component) {
@@ -160,6 +256,7 @@ export default class Configurator extends React.Component {
             checkout={this.checkout}
             itemIndex={this.state.itemIndex}
             goBack={this.goBack}
+            renderer={this.renderer}
           />
         }
       </div>
