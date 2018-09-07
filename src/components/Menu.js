@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import Tile from './Tile';
-// There should be imports here
 
 export default class Menu extends React.Component {
   constructor(props) {

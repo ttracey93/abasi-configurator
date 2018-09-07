@@ -19,15 +19,6 @@ import Renderer from './components/Renderer';
 import NewOptions from './constants/new-options.json';
 
 export default class Configurator extends React.Component {
-  static getInitialData() {
-    return {
-      strings: Strings.SIX,
-      scale: Scale.STANDARD,
-      headstyle: Headstyle.HEADSTOCK,
-      price: '0.00',
-    };
-  }
-
   constructor(props) {
     super(props);
 
@@ -89,6 +80,15 @@ export default class Configurator extends React.Component {
       this.renderer.update(this.state.data);
       this.rendererContainer.appendChild(this.renderer.getRendererElement());
     }
+  }
+
+  static getInitialData() {
+    return {
+      strings: Strings.SIX,
+      scale: Scale.STANDARD,
+      headstyle: Headstyle.HEADSTOCK,
+      price: '0.00',
+    };
   }
 
   async setData(data, key) {
