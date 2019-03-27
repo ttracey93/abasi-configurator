@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/abasi-configurator/precache-manifest.019667251b49cbc16302b649b9f9db2e.js"
+  "/abasi-configurator/precache-manifest.a22b6073b047b16b43349da2356f4cdf.js"
 );
 
 workbox.clientsClaim();
