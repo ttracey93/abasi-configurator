@@ -24,13 +24,13 @@ export default class HomeView extends React.Component {
     return (
       <div className="container">
         <div className="container home-menu">
-          <Menu
+          {/* <Menu
             items={this.props.getItems()}
             setData={this.handleChange}
             changeMode={this.changeMode}
             columns
             renderer={this.props.renderer}
-          />
+          /> */}
         </div>
 
         <div className="container home-viewport">

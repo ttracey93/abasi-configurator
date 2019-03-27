@@ -11,7 +11,8 @@ export default class Viewport extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.changeMode = this.changeMode.bind(this);
     this.rotate = this.rotate.bind(this);
-    this.purchase = this.purchase.bind(this);
+    this.switchModels = this.switchModels.bind(this);
+    // this.purchase = this.purchase.bind(this);
   }
 
   handleChange(data) {
@@ -26,12 +27,12 @@ export default class Viewport extends React.Component {
     console.log('rotated');
   }
 
-  purchase() {
-    this.changeMode(Modes.CONFIRMATION);
-  }
-
   mountRenderer(element) {
     this.containerRef.appendChild(element);
+  }
+
+  switchModels() {
+    console.log('Switching models!');
   }
 
   render() {
@@ -60,14 +61,14 @@ export default class Viewport extends React.Component {
         )}
 
         <div className="rotate-button">
-          <button className="btn" onClick={this.purchase}>
-            Purchase
+          <button className="btn" onClick={this.switchModels}>
+            Switch Models
           </button>
         </div>
 
-        <div className="viewport-price">
+        {/* <div className="viewport-price">
           <Price data={this.props.data} changeMode={this.changeMode} />
-        </div>
+        </div> */}
       </div>
     );
   }

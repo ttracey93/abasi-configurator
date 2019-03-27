@@ -1,5 +1,4 @@
 import React from 'react';
-import Client from 'shopify-buy';
 import _ from 'lodash';
 
 import Strings from './constants/strings';
@@ -11,7 +10,6 @@ import './Configurator.css';
 
 import HomeView from './views/HomeView';
 import OptionView from './views/OptionView';
-import ConfirmationView from './views/ConfirmationView';
 
 import Renderer from './components/Renderer';
 
@@ -28,7 +26,6 @@ export default class Configurator extends React.Component {
       items: [NewOptions],
       itemIndex: 0,
       mode: Modes.HOME,
-      lineItems: {},
     };
 
     // Event bindings
@@ -42,20 +39,13 @@ export default class Configurator extends React.Component {
     this.components = {
       [Modes.HOME]: HomeView,
       [Modes.OPTION]: OptionView,
-      [Modes.CONFIRMATION]: ConfirmationView,
     };
-
-    // Setup Shopify Client
-    this.client = Client.buildClient({
-      domain: 'tyify.myshopify.com',
-      storefrontAccessToken: '4100223db918b0a9731e5ddfa63e014c',
-    });
 
     this.renderer = new Renderer(this.state.data);
   }
 
   componentWillMount() {
-    this.getShopifyData();
+    // TODO: Do Stuff
   }
 
   componentDidMount() {
@@ -105,24 +95,12 @@ export default class Configurator extends React.Component {
         throw new Error('No item key supplied!');
       }
 
-      // Prepare shopify data
-      const variantId = data.variants[0].id;
-
-      // Record accurate selection info by key in global state
-      const { lineItems } = this.state;
-
-      // Create empty object if undefined
-      lineItems[key] = lineItems[key] || {};
-      lineItems[key].variantId = variantId;
-
       const dataCopy = { ...this.state.data };
       dataCopy[key] = data.handle;
-      dataCopy.price = this.checkout.totalPrice;
       this.state.data = dataCopy;
 
       this.setState({
         data: dataCopy,
-        lineItems,
       });
 
       this.updateCart();
@@ -131,81 +109,6 @@ export default class Configurator extends React.Component {
 
   getItems() {
     return this.state.items[this.state.itemIndex];
-  }
-
-  /* eslint-disable guard-for-in */
-  /* eslint-disable no-restricted-syntax */
-  /* eslint-disable no-await-in-loop */
-  // Pull items from shopify API
-  async getShopifyData() {
-    this.checkout = await this.client.checkout.create();
-    this.collections = await this.client.collection.fetchAllWithProducts();
-    this.propogateItems();
-  }
-
-  async initializeCart() {
-    // Place checkout ID in localStorage
-  }
-
-  async emptyCart() {
-
-  }
-
-  async updateCart() {
-    // Retrieve line items from state
-    const { lineItems } = this.state;
-    const shopifyLineItems = this.checkout.lineItems;
-
-    // Reduce variantIds
-    const variants = _.keys(_.groupBy(lineItems, 'variantId'));
-
-    // Reduce shopify line items to variantIds
-    const existingShopifyVariants = _.keys(_.groupBy(shopifyLineItems, 'variant.id'));
-
-    // List of items NOT yet in cart
-    const itemsToAdd = _.filter(variants, v => !_.includes(existingShopifyVariants, v));
-
-    // List of items in cart that should NOT be
-    const shopifyItemsToRemove = _.filter(shopifyLineItems, sli => !_.includes(variants, sli.variant.id));
-
-    // Add missing items to shopify cart
-    const lineItemsToAdd = [];
-    _.each(itemsToAdd, (i) => {
-      lineItemsToAdd.push({
-        variantId: i,
-        quantity: 1,
-      });
-    });
-
-    this.checkout = await this.client.checkout.addLineItems(this.checkout.id, lineItemsToAdd);
-
-    // Remove any excess items from shopify cart
-    this.checkout = await this.client.checkout.removeLineItems(this.checkout.id, _.keys(_.groupBy(shopifyItemsToRemove, 'id')));
-
-    const dataCopy = { ...this.state.data };
-    dataCopy.price = this.checkout.totalPrice;
-
-    this.setState({
-      data: dataCopy,
-    });
-  }
-
-  propogateItems() {
-    const item = this.state.items[this.state.itemIndex];
-
-    // Grab products from shopify data
-    const collection = _.find(this.collections, c => c.id === item.collectionId);
-
-    // If this is a collection and not a menu item
-    if (collection) {
-      // Place products on item
-      this.state.items[this.state.itemIndex].products = _.orderBy(collection.products, 'createdAt');
-    }
-
-    // Update
-    this.setState({
-      items: this.state.items,
-    });
   }
 
   goBack() {
@@ -225,9 +128,9 @@ export default class Configurator extends React.Component {
 
   // Reset guitar options
   reset() {
-    this.setState({
-      data: Configurator.getInitialData(),
-    });
+    // this.setState({
+    //   data: Configurator.getInitialData(),
+    // });
   }
 
   changeMode(mode) {
@@ -253,7 +156,6 @@ export default class Configurator extends React.Component {
             getItems={this.getItems}
             changeMode={this.changeMode}
             reset={this.reset}
-            checkout={this.checkout}
             itemIndex={this.state.itemIndex}
             goBack={this.goBack}
             renderer={this.renderer}
