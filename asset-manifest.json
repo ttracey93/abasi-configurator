@@ -1,13 +1,13 @@
 {
-  "main.css": "/abasi-configurator/static/css/main.813d0262.chunk.css",
-  "main.js": "/abasi-configurator/static/js/main.c60756b0.chunk.js",
-  "main.js.map": "/abasi-configurator/static/js/main.c60756b0.chunk.js.map",
+  "main.css": "/abasi-configurator/static/css/main.1e781c23.chunk.css",
+  "main.js": "/abasi-configurator/static/js/main.f27c2058.chunk.js",
+  "main.js.map": "/abasi-configurator/static/js/main.f27c2058.chunk.js.map",
   "runtime~main.js": "/abasi-configurator/static/js/runtime~main.b5926b96.js",
   "runtime~main.js.map": "/abasi-configurator/static/js/runtime~main.b5926b96.js.map",
-  "static/js/2.37e21ec2.chunk.js": "/abasi-configurator/static/js/2.37e21ec2.chunk.js",
-  "static/js/2.37e21ec2.chunk.js.map": "/abasi-configurator/static/js/2.37e21ec2.chunk.js.map",
+  "static/js/2.25e5040b.chunk.js": "/abasi-configurator/static/js/2.25e5040b.chunk.js",
+  "static/js/2.25e5040b.chunk.js.map": "/abasi-configurator/static/js/2.25e5040b.chunk.js.map",
   "index.html": "/abasi-configurator/index.html",
-  "precache-manifest.5cb041af513b7be47dfb3c5c69d68d70.js": "/abasi-configurator/precache-manifest.5cb041af513b7be47dfb3c5c69d68d70.js",
+  "precache-manifest.218e745d9f1200f3844282f7c8a87b78.js": "/abasi-configurator/precache-manifest.218e745d9f1200f3844282f7c8a87b78.js",
   "service-worker.js": "/abasi-configurator/service-worker.js",
-  "static/css/main.813d0262.chunk.css.map": "/abasi-configurator/static/css/main.813d0262.chunk.css.map"
+  "static/css/main.1e781c23.chunk.css.map": "/abasi-configurator/static/css/main.1e781c23.chunk.css.map"
 }
