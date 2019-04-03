@@ -52,19 +52,19 @@ export default class Viewport extends React.Component {
           </div>
         }
 
-        {this.props.reset && (
+        {/* {this.props.reset && (
           <div className="reset-button">
             <button className="btn" onClick={this.props.reset}>
               Reset
             </button>
           </div>
-        )}
+        )} */}
 
-        <div className="rotate-button">
+        {/* <div className="rotate-button">
           <button className="btn" onClick={this.switchModels}>
             Switch Models
           </button>
-        </div>
+        </div> */}
 
         {/* <div className="viewport-price">
           <Price data={this.props.data} changeMode={this.changeMode} />

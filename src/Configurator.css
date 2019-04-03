@@ -20,6 +20,8 @@ body {
 .container {
   width: 100%;
   height: 100%;
+  margin: 0;
+  padding: 0;
   display: flex;
 }
 
@@ -97,6 +99,10 @@ body {
 /**** Views ****/
 
 /* Home View */
+.home {
+  position: relative;
+}
+
 .home-viewport {
   flex: 1;
   position: relative;
@@ -105,8 +111,14 @@ body {
 .home-menu {
   /* align-self: bottom; */
   /* height: 150px; */
-  width: 0%;
-  overflow-x: auto;  
+  position: absolute;
+  top: 150px;
+  right: 0;
+  width: 300px;
+  height: auto;
+  z-index: 1;
+  overflow-x: auto;
+  opacity: 0.8;
 }
 
 /* Option View */
@@ -162,8 +174,8 @@ body {
 
 .reset-button {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  bottom: 10px;
+  right: 10px;
 }
 
 .rotate-button {
@@ -216,15 +228,16 @@ body {
   position: relative;
   display: flex;
   flex: 1;
-  min-height: 150px;
+  min-height: 50px;
+  max-height: 50px;
   min-width: 150px;
   font-family: 'Open Sans', sans-serif;
-  background-color:white;
+  /* background-color:white; */
   color: black;
 
   box-sizing: border-box;
-  border-top: 1px solid #464646;
-  border-bottom: 1px solid #464646;
+  /* border-top: 1px solid #464646; */
+  /* border-bottom: 1px solid #464646; */
 
   transition: all 0.5s linear;
   cursor: pointer;
@@ -240,10 +253,11 @@ body {
   font-size: 1.3em;
   position: absolute;
   width: 100%;
-  text-align: center;
+  text-align: right;
+  margin-right: 50px;
   align-self: center;
-  visibility: hidden;
-  opacity: 0;
+  /* visibility: hidden; */
+  opacity: 1.0;
   transition: opacity 0.5s linear;
 }
 
@@ -291,4 +305,27 @@ body {
 .checkout-button {
   height: 50px;
   width: 100px;
+}
+
+.color-container {
+  width: 100%;
+  display: flex;
+}
+
+.color {
+  margin: 10px;
+  height: 50px;
+  width: 50px;
+  border: 1px solid #000;
+  cursor: pointer;
+}
+
+.logo-container {
+  /* position: absolute; */
+  height: 50px;
+}
+
+.abasi-logo {
+  margin-left: 20px;
+  width: 250px;
 }

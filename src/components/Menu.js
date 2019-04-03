@@ -10,6 +10,25 @@ export default class Menu extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.changeMode = this.changeMode.bind(this);
+    this.chooseColor = this.chooseColor.bind(this);
+
+    this.colors = [{
+      name: 'orange',
+      color: 'orange',
+    }, {
+      name: 'red',
+      color: 'red',
+    }, {
+      name: 'purple',
+      color: 'purple',
+    }, {
+      name: 'white',
+      color: 'white',
+    }];
+  }
+
+  chooseColor(color) {
+    this.props.renderer.colorChange(color);
   }
 
   handleChange(tile) {
@@ -32,9 +51,29 @@ export default class Menu extends React.Component {
 
     const className = this.props.columns ? 'menu columns' : 'menu';
 
+    const colors = _.map(this.colors, (color) => {
+      const style = {
+        backgroundColor: color.color,
+      };
+
+      return (
+        <div className="color" style={style} onClick={() => this.chooseColor(color.name)} />
+      );
+    });
+
     return (
       <div className={className}>
-        {tiles}
+        <div className="logo-container">
+          <img src="logo-black.png" className="abasi-logo" />
+        </div>
+
+        <div className="tiles-container">
+          {tiles}
+        </div>
+
+        <div className="color-container">
+          {colors}
+        </div>
       </div>
     );
   }

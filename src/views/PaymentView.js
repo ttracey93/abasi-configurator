@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 
 import ViewPort from '../components/Viewport';
 import Menu from '../components/Menu';
+import Info from '../components/Info';
 
-export default class HomeView extends React.Component {
+export default class PaymentView extends React.Component {
   constructor(props) {
     super(props);
 
@@ -22,39 +23,48 @@ export default class HomeView extends React.Component {
 
   render() {
     return (
-      <div className="container home">
-        <div className="container home-menu">
+      <div className="container">
+        <div className="container option-menu">
+          <div className="back-button">
+            <button className="btn" onClick={this.props.goBack}>
+              Back
+            </button>
+          </div>
+
           <Menu
             items={this.props.getItems()}
             setData={this.handleChange}
             changeMode={this.changeMode}
             columns
-            renderer={this.props.renderer}
           />
         </div>
 
-        <div className="container home-viewport">
-          <ViewPort
-            data={this.props.data}
-            setData={this.handleChange}
-            changeMode={this.changeMode}
-            reset={this.props.reset}
-            itemIndex={this.props.itemIndex}
-            goBack={this.props.goBack}
-          />
+        <div className="container columns">
+          <div className="container option-viewport">
+            <ViewPort
+              data={this.props.data}
+              setData={this.handleChange}
+              changeMode={this.changeMode}
+            />
+          </div>
+
+          <div className="container option-info">
+            <Info
+              data={this.props.data}
+              setData={this.handleChange}
+              changeMode={this.changeMode}
+            />
+          </div>
         </div>
       </div>
     );
   }
 }
 
-HomeView.propTypes = {
-  reset: PropTypes.func.isRequired,
+PaymentView.propTypes = {
   setData: PropTypes.func.isRequired,
   getItems: PropTypes.func.isRequired,
   changeMode: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
-  itemIndex: PropTypes.number.isRequired,
   goBack: PropTypes.func.isRequired,
-  renderer: PropTypes.object.isRequired,
 };

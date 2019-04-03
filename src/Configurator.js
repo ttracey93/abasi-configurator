@@ -1,20 +1,22 @@
 import React from 'react';
 import _ from 'lodash';
 
+// Constants
 import Strings from './constants/strings';
 import Scale from './constants/scale';
 import Headstyle from './constants/headstyle';
 import Modes from './constants/modes';
+import NewOptions from './constants/new-options.json';
 
-import './Configurator.css';
-
-import HomeView from './views/HomeView';
-import OptionView from './views/OptionView';
-
+// WebGL Renderer
 import Renderer from './components/Renderer';
 
-// import Options from './constants/options.json';
-import NewOptions from './constants/new-options.json';
+// Views
+import HomeView from './views/HomeView';
+import OptionView from './views/OptionView';
+import PaymentView from './views/PaymentView';
+import ConfirmationView from './views/ConfirmationView';
+import './Configurator.css';
 
 export default class Configurator extends React.Component {
   constructor(props) {
@@ -34,11 +36,14 @@ export default class Configurator extends React.Component {
     this.changeMode = this.changeMode.bind(this);
     this.reset = this.reset.bind(this);
     this.goBack = this.goBack.bind(this);
+    this.propogateEvent = this.propogateEvent.bind(this);
 
     // Setup components to use for different views
     this.components = {
       [Modes.HOME]: HomeView,
       [Modes.OPTION]: OptionView,
+      [Modes.PAYMENT]: PaymentView,
+      [Modes.CONFIRMATION]: ConfirmationView,
     };
 
     this.renderer = new Renderer(this.state.data);
@@ -137,6 +142,11 @@ export default class Configurator extends React.Component {
     this.setState({
       mode,
     });
+  }
+
+  propogateEvent(event) {
+    // TODO: Event handler code for renderer events
+    this.renderer.handleEvent(event, this.state.data);
   }
 
   render() {

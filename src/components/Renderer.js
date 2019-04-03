@@ -2,6 +2,7 @@ import ColladaLoader from 'three-collada-loader';
 import FBXLoader from 'three-fbxloader-offical';
 import OBJLoader from 'three-obj-loader';
 import OrbitControls from 'three-orbitcontrols';
+import Events from '../constants/events';
 
 const Three = require('three');
 
@@ -30,6 +31,22 @@ export default class Renderer {
     };
 
     this.diffuseMaterial = new Three.MeshPhongMaterial({ map: this.textures.diffuse });
+
+    // Event handlers
+    this.handleEvent = this.handleEvent.bind(this);
+    this.colorChange = this.colorChange.bind(this);
+
+    // TODO: Create local model repository by key
+
+    // Local Colors
+    this.colors = {
+      orange: new Three.MeshPhysicalMaterial( { color: 0xf48942, metalness: 0.9, roughness: 0.2, name: 'orange' } ),
+      red: new Three.MeshPhysicalMaterial( { color: 0xe50b2f, metalness: 0.9, roughness: 0.2, name: 'red' } ),
+      purple: new Three.MeshPhysicalMaterial( { color: 0x8409b5, metalness: 0.9, roughness: 0.2, name: 'purple' } ),
+      white: new Three.MeshPhysicalMaterial( { color: 0xffffff, metalness: 0.9, roughness: 0.2, name: 'purple' } ),
+    };
+
+    this.models = {};
   }
 
   getRendererElement() {
@@ -37,59 +54,37 @@ export default class Renderer {
   }
 
   update(data) {
-    // TODO: Auto-retrieval/constants?
-    const bodyStyle = data['body-style'];
-    const bodyWood = data['body-wood'];
-
-    if (bodyStyle) {
-      this.scene.remove(this.models.fretboard);
-      this.scene.remove(this.models.fannedFretboard);
-      this.scene.remove(this.models.frets);
-      this.scene.remove(this.models.fretsFanned);
-      this.scene.remove(this.models.neck);
-      this.scene.remove(this.models.neckFanned);
-
-      this.currentFretboardModel = bodyStyle.includes('multi') ? this.models.fannedFretboard : this.models.fretboard;
-      this.currentFretsModel = bodyStyle.includes('multi') ? this.models.fretsFanned : this.models.frets;
-      this.currentNeckModel = bodyStyle.includes('multi') ? this.models.neckFanned : this.models.neck;
-
-      this.scene.add(this.currentFretboardModel);
-      this.scene.add(this.currentNeckModel);
-      this.scene.add(this.currentFretsModel);
-    }
-
-    this.currentTexture = this.textures[bodyWood] || this.currentTexture;
-    this.setModel(this.models[bodyStyle] || this.models.archtop);
-}
+    // TODO: Update model based on selections?
+  }
 
   async createScene() {
     this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
 
     this.scene = new Three.Scene();
     this.camera = new Three.PerspectiveCamera(75, this.container.clientWidth / this.container.clientHeight, 0.1, 1000);
-    this.camera.position.set(0, 25, -50);
+    this.camera.position.set(0, 30, -50);
+
+    // Setup controls
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+    this.controls.rotateSpeed = 1.0;
+    this.controls.zoomSpeed = 1;
+    this.controls.maxDistance = 150;
+    this.controls.minDistance = 35;
+    this.controls.panSpeed = 0;
+    this.controls.noZoom = false;
+    this.controls.noPan = true;
 
-    this.scene.background = new Three.Color( 0x000000 );
-    this.scene.fog = new Three.Fog( 0xa0a0a0, 200, 1000 );
+    // Background and lighting
+    this.scene.background = new Three.Color( 0xffffff );
+    
+    const ambient = new Three.AmbientLight( 0xffffff, 0.6 );
+    this.scene.add( ambient );
 
-    let light = new Three.HemisphereLight( 0xffffff, 0x444444 );
-    light.position.set( 0, 100, 0 );
-    this.scene.add( light );
-
-    light = new Three.DirectionalLight( 0xffffff );
-    light.position.set( 0, 25, 0 );
-    light.castShadow = true;
-    light.shadow.camera.top = 180;
-    light.shadow.camera.bottom = - 100;
-    light.shadow.camera.left = - 120;
-    light.shadow.camera.right = 120;
-    this.scene.add( light );
-
-    const grid = new Three.GridHelper( 2000, 20, 0xffffff, 0xffffff );
-    grid.material.opacity = 0.2;
-    grid.material.transparent = true;
-    this.scene.add( grid );
+    const spotLight = new Three.DirectionalLight( 0xffffff, 0.4 );
+    spotLight.position.set( 35, 15, -20 );
+    this.scene.add( spotLight );
+    this.spotLight = spotLight;
+    this.spotLight.lookAt(30, 15, 0);
 
     this.loadModel('abasi/raw.fbx', fbx => {
       fbx.traverse( function ( child ) {
@@ -99,27 +94,14 @@ export default class Renderer {
         }
       });
 
-      fbx.position.y = 15;
       fbx.position.x = 30;
+      fbx.position.y = 15;
       fbx.rotation.x = - Math.PI / 2;
 
-      this.camera.lookAt(fbx.position);
+      console.log(fbx.position);
+
       this.scene.add(fbx);
-    });
-
-    this.loadModelOBJ('new/guitar/original/source/G_LP_READY.obj', obj => {
-      obj.position.z = 200;
-      obj.rotation.x = Math.PI / 2;
-      obj.rotation.z = Math.PI;
-
-      // For any meshes in the model, add our material.
-      obj.traverse( ( node ) => {
-
-        if ( node.isMesh ) node.material = this.diffuseMaterial;
-
-      });
-
-      this.scene.add(obj);
+      this.models.abasi = fbx;
     });
   
     window.addEventListener('resize', this.resize, false);
@@ -188,5 +170,37 @@ export default class Renderer {
   resume() {
     this.paused = false;
     this.animate();
+  }
+
+  handleEvent(event, data) {
+    switch (event) {
+      case Events.COLOR:
+        this.colorChange(data.finish);
+        break;
+      default:
+        console.log('Invalid event type', event);
+        break;
+    }
+  }
+
+  colorChange(color) {
+    console.log('Color change!!!', color);
+
+    const colorMat = this.colors[color];
+
+    if (!colorMat) {
+      return console.log('Invalid color material specified!', color);
+    }
+
+    const fbx = this.models.abasi;
+    colorMat.emissive = colorMat.color;
+
+    fbx.traverse( function ( child ) {
+      if (child.material) {
+        child.material = colorMat;
+      }
+    });
+
+    // this.scene.background = new Three.Color(colorMat.color);
   }
 }

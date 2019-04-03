@@ -23,23 +23,8 @@ export default class Tile extends React.Component {
       <div className="container columns evenly tile" role="presentation" onClick={this.handleClick}>
         <div className="tile-label">
           {label}
-        </div>
 
-        <div className="tile-icon">
-          {this.props.imageSource &&
-            <img
-              src={this.props.imageSource.src}
-              alt="Texture Preview"
-            />
-          }
-
-          {!this.props.imageSource &&
-            <img
-              className="icon-image"
-              src={iconSource}
-              alt="Configurator Icon"
-            />
-          }
+          <i src={iconSource} />
         </div>
 
         {this.props.data.variants &&
