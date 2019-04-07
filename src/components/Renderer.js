@@ -3,6 +3,9 @@ import FBXLoader from 'three-fbxloader-offical';
 import OBJLoader from 'three-obj-loader';
 import OrbitControls from 'three-orbitcontrols';
 import Events from '../constants/events';
+import Materials from './helpers/Materials';
+// import Utils from './helpers/RendererUtils';
+// import Storage from './helpers/Storage';
 
 const Three = require('three');
 
@@ -10,6 +13,8 @@ OBJLoader(Three);
 
 export default class Renderer {
   constructor(data) {
+    Three.Cache.enabled = true;
+
     this.TEXTURE_ANISOTROPY = 16;
 
     this.data = data;
@@ -17,26 +22,17 @@ export default class Renderer {
     // Event bindings
     this.animate = this.animate.bind(this);
     this.resize = this.resize.bind(this);
-
-    // Need to set container on instance
-    this.renderer = new Three.WebGLRenderer();
-    this.container = undefined;
-    this.textureLoader = new Three.TextureLoader();
-
-    this.textures = {
-      diffuse: this.loadTexture('new/guitar/original/textures/Default_Diffuse.png'),
-      normal: this.loadTexture('new/guitar/original/textures/Default_Normal.png'),
-      roughness: this.loadTexture('new/guitar/original/textures/Default_Roughness.png'),
-      specular: this.loadTexture('new/guitar/original/textures/Default_Specular.png'),
-    };
-
-    this.diffuseMaterial = new Three.MeshPhongMaterial({ map: this.textures.diffuse });
-
-    // Event handlers
+    this.prepareModel = this.prepareModel.bind(this);
     this.handleEvent = this.handleEvent.bind(this);
     this.colorChange = this.colorChange.bind(this);
+    this.createScene = this.createScene.bind(this);
 
-    // TODO: Create local model repository by key
+    // Need to set container on instance
+    this.renderer = new Three.WebGLRenderer({ alpha: true });
+    this.renderer.setClearColor(0xffffff, 0);
+
+    this.container = undefined;
+    this.textureLoader = new Three.TextureLoader();
 
     // Local Colors
     this.colors = {
@@ -47,6 +43,16 @@ export default class Renderer {
     };
 
     this.models = {};
+    this.materials = {};
+
+    const reflectionCube = Materials.envMap();
+
+    this.metalMaterial = Materials.metalWithColor(reflectionCube, 0xd6d1cd);
+    this.darkMetalMaterial = Materials.metalWithColor(reflectionCube, 0x222222);
+    this.blackMetalMaterial = Materials.metalWithColor(reflectionCube, 0x000000);
+
+    this.brownMaterial = Materials.withColor(reflectionCube, 0xa57136);
+    this.whiteMaterial = Materials.withColor(reflectionCube, 0xffffff);
   }
 
   getRendererElement() {
@@ -61,49 +67,47 @@ export default class Renderer {
     this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
 
     this.scene = new Three.Scene();
-    this.camera = new Three.PerspectiveCamera(75, this.container.clientWidth / this.container.clientHeight, 0.1, 1000);
-    this.camera.position.set(0, 30, -50);
+    this.camera = new Three.PerspectiveCamera(75, this.container.clientWidth / this.container.clientHeight, 0.1, 200);
 
     // Setup controls
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.rotateSpeed = 1.0;
     this.controls.zoomSpeed = 1;
     this.controls.maxDistance = 150;
-    this.controls.minDistance = 35;
+    this.controls.minDistance = 30;
     this.controls.panSpeed = 0;
     this.controls.noZoom = false;
     this.controls.noPan = true;
-
-    // Background and lighting
-    this.scene.background = new Three.Color( 0xffffff );
     
-    const ambient = new Three.AmbientLight( 0xffffff, 0.6 );
+    const ambient = new Three.AmbientLight( 0xffffff, 1 );
     this.scene.add( ambient );
 
+    // TODO: Set light position
     const spotLight = new Three.DirectionalLight( 0xffffff, 0.4 );
-    spotLight.position.set( 35, 15, -20 );
     this.scene.add( spotLight );
     this.spotLight = spotLight;
-    this.spotLight.lookAt(30, 15, 0);
 
-    this.loadModel('abasi/raw.fbx', fbx => {
-      fbx.traverse( function ( child ) {
-        if ( child.isMesh ) {
-          child.castShadow = true;
-          child.receiveShadow = true;
-        }
-      });
+    // const model = await Storage.get('abasi-model');
 
-      fbx.position.x = 30;
-      fbx.position.y = 15;
-      fbx.rotation.x = - Math.PI / 2;
-
-      console.log(fbx.position);
-
-      this.scene.add(fbx);
-      this.models.abasi = fbx;
-    });
+    // if (!model) {
+    //   this.loadModelOBJ('abasi/1.obj', fbx => {
+    //     this.models.abasi = fbx;
+    //     this.prepareModel();
   
+    //     Storage.put('abasi-model', fbx);
+    //   });
+    // } else {
+    //   this.models.abasi = model;
+    //   this.prepareModel();
+    // }
+
+    this.loadModel('/abasi/1.fbx', fbx => {
+      this.models.abasi = fbx;
+      this.prepareModel();
+
+      // Storage.put('abasi-model', fbx);
+    });
+
     window.addEventListener('resize', this.resize, false);
 
     // Begin animation loop
@@ -195,12 +199,65 @@ export default class Renderer {
     const fbx = this.models.abasi;
     colorMat.emissive = colorMat.color;
 
-    fbx.traverse( function ( child ) {
-      if (child.material) {
-        child.material = colorMat;
+    fbx.traverse( child  => {
+      if (child.isMesh) {
+        switch(child.name) {
+          case 'Body':
+            child.material = colorMat;
+            break;
+        }
       }
     });
+  }
 
-    // this.scene.background = new Three.Color(colorMat.color);
+  prepareModel() {
+    const model = this.models.abasi;
+
+
+    model.traverse( child => {
+      if ( child instanceof Three.Mesh ) {
+        child.geometry.computeVertexNormals(true);
+
+        switch (child.name) {
+          case 'Pickups':
+            child.material = this.whiteMaterial;
+            break;
+          case 'Bridge':
+            child.material = this.blackMetalMaterial;
+            break;
+          case 'Fret_dots_Big_side':
+          case 'Fret_dots_Big_side':
+          case 'Abasi_Logo':
+            child.material = this.whiteMaterial;
+            break;
+          case 'Strings':
+            // child.material.visible = false;
+            // break;
+          case 'String_ends':
+          case 'Tuners':
+            child.material = this.metalMaterial;
+            break;
+          case 'Strap_holder':
+          case 'String_holder':
+            child.material = this.metalMaterial;
+            break;
+          case 'Body':
+          case 'Neck_Head':
+            child.material = this.darkMetalMaterial;
+            break;
+          case 'FRET_Board':
+            child.material = this.brownMaterial;
+            break;
+          default:
+            child.material = this.metalMaterial;
+            break;
+        }
+      }
+
+      console.log(child);
+    });
+
+    model.rotation.y = Math.PI;
+    this.scene.add(model);
   }
 }

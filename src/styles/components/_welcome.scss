@@ -1,0 +1,39 @@
+.welcome {
+  position: relative;
+  background-color: $anchor-color;
+
+  .welcome-banner {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    z-index: 1;
+
+    .header {
+      color: $space-color;
+      font-size: 2em;
+    }
+
+    .create-now {
+      align-self: center;
+      padding: 10px;
+      font-size: 1.2em;
+      background-color: $anchor-color;
+      color: $accent-color;
+      border: none;
+      cursor: pointer;
+      transition: all 0.5s linear;
+    }
+
+    .create-now:hover {
+      color: $space-color;
+      background-color: $primary-color;
+    }
+  }
+}
+
+.negative-harmony-selections {
+  flex-basis: 100px;
+}
+
+.Theory {
+}

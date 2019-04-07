@@ -64,7 +64,7 @@ export default class Menu extends React.Component {
     return (
       <div className={className}>
         <div className="logo-container">
-          <img src="logo-black.png" className="abasi-logo" />
+          <img src="/logo-black.png" className="abasi-logo" />
         </div>
 
         <div className="tiles-container">

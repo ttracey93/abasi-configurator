@@ -16,7 +16,6 @@ import HomeView from './views/HomeView';
 import OptionView from './views/OptionView';
 import PaymentView from './views/PaymentView';
 import ConfirmationView from './views/ConfirmationView';
-import './Configurator.css';
 
 export default class Configurator extends React.Component {
   constructor(props) {

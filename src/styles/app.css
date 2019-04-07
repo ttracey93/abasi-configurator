@@ -1,0 +1,418 @@
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  font-family: 'Source Sans Pro', sans-serif; }
+
+a {
+  text-decoration: none;
+  color: inherit; }
+
+.app-body {
+  position: relative;
+  margin-top: 50px; }
+
+.flex {
+  width: 100%;
+  height: 100%;
+  display: flex; }
+  .flex.columns {
+    flex-direction: column; }
+  .flex.wrap {
+    flex-wrap: wrap; }
+  .flex.between {
+    justify-content: space-between; }
+  .flex .center {
+    align-self: center; }
+
+.link {
+  text-decoration: none;
+  color: white; }
+
+.active-link {
+  text-decoration: none;
+  color: white; }
+
+.form {
+  align-self: center; }
+
+/* Notifications */
+.dark-toast {
+  background-color: #000000;
+  color: #fff; }
+
+.app-bar {
+  position: fixed;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  height: 50px;
+  background-color: #000000;
+  border-bottom: 1px solid #0A0A0A; }
+  .app-bar a {
+    color: #fff;
+    transition: color 0.5s ease; }
+  .app-bar a:hover {
+    color: #fff; }
+  .app-bar .logo-link {
+    margin-left: 15px;
+    font-size: 2em;
+    align-self: center; }
+  .app-bar .brand-link {
+    margin-left: 15px;
+    font-size: 2em;
+    color: #0A0A0A;
+    text-decoration: none;
+    align-self: center; }
+  .app-bar .brand-logo {
+    width: 100%;
+    height: 50px;
+    display: flex; }
+    .app-bar .brand-logo img {
+      height: 50px;
+      margin: auto; }
+  .app-bar .active-user-image {
+    height: 50px;
+    width: auto; }
+  .app-bar .app-actions {
+    margin-left: auto;
+    margin-right: 10px;
+    align-self: center; }
+    .app-bar .app-actions .login-icon {
+      margin-right: 5px; }
+    .app-bar .app-actions .login-button {
+      cursor: pointer;
+      width: 150px;
+      padding: 10px;
+      background-color: #000000;
+      color: #fff;
+      border: 1px solid #0A0A0A; }
+    .app-bar .app-actions .logout-button {
+      cursor: pointer;
+      width: 150px;
+      padding: 10px;
+      background-color: #000000;
+      color: #fff;
+      border: 1px solid #0A0A0A;
+      margin-left: 10px !important; }
+    .app-bar .app-actions .login-button:hover, .app-bar .app-actions .logout-button:hover {
+      color: #0A0A0A;
+      background-color: #ffffff; }
+    .app-bar .app-actions .active-user {
+      color: #fff; }
+
+.Footer {
+  background-color: #000000;
+  border-top: 1px solid #0A0A0A;
+  flex-shrink: 1; }
+  .Footer .copyright {
+    color: #fff; }
+
+.welcome {
+  position: relative;
+  background-color: #000000; }
+  .welcome .welcome-banner {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    z-index: 1; }
+    .welcome .welcome-banner .header {
+      color: #0A0A0A;
+      font-size: 2em; }
+    .welcome .welcome-banner .create-now {
+      align-self: center;
+      padding: 10px;
+      font-size: 1.2em;
+      background-color: #000000;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: all 0.5s linear; }
+    .welcome .welcome-banner .create-now:hover {
+      color: #0A0A0A;
+      background-color: #ffffff; }
+
+.negative-harmony-selections {
+  flex-basis: 100px; }
+
+/**** Structural CSS ****/
+@font-face {
+  font-family: 'Akrobat', 'Open Sans', sans-serif;
+  src: url("fonts\\Akrobat-Black.eot"); }
+
+html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Akrobat', 'Open Sans', sans-serif; }
+
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Akrobat', 'Open Sans', sans-serif; }
+
+.container {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex; }
+
+.columns {
+  flex-direction: column; }
+
+.between {
+  justify-content: space-between; }
+
+.evenly {
+  justify-content: space-evenly; }
+
+.space-right {
+  margin-right: 10px; }
+
+#root {
+  width: 100%;
+  height: 100%; }
+
+.configurator {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%; }
+
+.btn {
+  font-size: 18px;
+  border: 1px solid #696969;
+  border-radius: 2px;
+  height: 36px;
+  line-height: 36px;
+  background-color: white;
+  color: black;
+  transition: all 0.5s; }
+
+.btn:hover {
+  cursor: pointer;
+  background-color: #464646;
+  color: white; }
+
+/* Tooltip text */
+.tooltip {
+  position: relative; }
+
+.tooltiptext {
+  position: absolute;
+  right: 20px;
+  bottom: 0;
+  width: 100px;
+  font-size: 20px;
+  visibility: hidden;
+  background-color: #2f2e2e;
+  color: #fff;
+  padding: 5px;
+  border-radius: 6px;
+  /* Position the tooltip text - see examples below! */
+  z-index: 1; }
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible; }
+
+/**** Views ****/
+/* Home View */
+.home {
+  position: relative; }
+
+.home-viewport {
+  flex: 1;
+  position: relative; }
+
+.home-menu {
+  /* align-self: bottom; */
+  /* height: 150px; */
+  position: absolute;
+  top: 150px;
+  right: 0;
+  width: 300px;
+  height: auto;
+  z-index: 1;
+  overflow-x: auto;
+  opacity: 0.8; }
+
+/* Option View */
+.option-menu {
+  position: relative;
+  width: 50%;
+  flex-flow: row wrap;
+  overflow: scroll; }
+
+/**** Components ****/
+/* Viewport */
+.viewport {
+  position: relative; }
+
+.viewport-price {
+  align-self: flex-end;
+  position: absolute;
+  right: 0px;
+  width: 150px;
+  color: white;
+  height: 50px;
+  text-align: center;
+  z-index: 100;
+  background-color: #696969; }
+
+.viewport-view {
+  position: absolute;
+  text-align: center;
+  align-self: center;
+  width: 100%;
+  height: 100%; }
+
+#renderer-container {
+  width: 100%;
+  height: 100%;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#7d7e7d+0,0e0e0e+100;Black+3D */
+  background: #7d7e7d;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #7d7e7d 0%, #0e0e0e 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #7d7e7d 0%, #0e0e0e 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #7d7e7d 0%, #0e0e0e 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=0 );
+  /* IE6-9 */ }
+
+.reset-button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px; }
+
+.rotate-button {
+  position: absolute;
+  top: 10px;
+  right: 10px; }
+
+.back-button {
+  position: absolute;
+  bottom: 10px;
+  left: 10px; }
+
+.forward-button {
+  position: absolute;
+  bottom: 10px;
+  left: 105px; }
+
+/* Price */
+.price {
+  font-size: 20px; }
+
+.price-container * {
+  align-self: center; }
+
+.price-icon {
+  cursor: pointer; }
+
+/* Menu */
+.menu {
+  /* flex-basis: 0; */
+  display: flex;
+  flex-grow: 1;
+  align-content: flex-start;
+  justify-content: flex-start; }
+
+/* .menu.columns {
+    flex-flow: column wrap;
+    overflow-y: scroll;
+  } */
+/* Tile */
+.tile {
+  position: relative;
+  display: flex;
+  flex: 1;
+  min-height: 50px;
+  max-height: 50px;
+  min-width: 150px;
+  font-family: 'Open Sans', sans-serif;
+  /* background-color:white; */
+  color: black;
+  box-sizing: border-box;
+  /* border-top: 1px solid #464646; */
+  /* border-bottom: 1px solid #464646; */
+  transition: all 0.5s linear;
+  cursor: pointer; }
+
+.tile:hover {
+  /* color: rgb(124, 18, 196); */
+  background-color: #464646;
+  color: white; }
+
+.tile-label {
+  font-size: 1.3em;
+  position: absolute;
+  width: 100%;
+  text-align: right;
+  margin-right: 50px;
+  align-self: center;
+  /* visibility: hidden; */
+  opacity: 1.0;
+  transition: opacity 0.5s linear; }
+
+.tile-icon {
+  width: 100%;
+  text-align: center;
+  align-self: center;
+  transition: all 0.5s linear; }
+
+.tile-icon img {
+  width: 100%;
+  height: 152px; }
+
+.tile-icon .icon-image {
+  width: 50%;
+  height: 50%; }
+
+.tile-price {
+  position: absolute;
+  bottom: 10%;
+  width: 100%;
+  text-align: center;
+  align-self: center; }
+
+/* Tile Hovering */
+.tile:hover .tile-label {
+  visibility: visible;
+  opacity: 1; }
+
+.tile:hover .tile-icon {
+  visibility: hidden;
+  opacity: 0; }
+
+/* Confirmatio */
+.checkout-button {
+  height: 50px;
+  width: 100px; }
+
+.color-container {
+  width: 100%;
+  display: flex; }
+
+.color {
+  margin: 10px;
+  height: 50px;
+  width: 50px;
+  border: 1px solid #000;
+  cursor: pointer; }
+
+.logo-container {
+  /* position: absolute; */
+  height: 50px; }
+
+.abasi-logo {
+  margin-left: 20px;
+  width: 250px; }

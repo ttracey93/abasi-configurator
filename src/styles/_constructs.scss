@@ -1,0 +1,70 @@
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.app-body {
+  position: relative;
+  margin-top: 50px;
+}
+
+// Basic flex container
+.flex {
+  width: 100%;
+  height: 100%;
+  display: flex;
+
+  // flex column
+  &.columns {
+    flex-direction: column;
+  }
+
+  &.wrap {
+    flex-wrap: wrap;
+  }
+
+  // flex between
+  &.between {
+    justify-content: space-between;
+  }
+
+  // Center-aligned children
+  .center {
+    align-self: center;
+  }
+}
+
+.link {
+  text-decoration: none;
+  color: white;
+}
+
+.active-link {
+  text-decoration: none;
+  color: white;
+}
+
+.form {
+  align-self: center;
+}
+
+/* Notifications */
+.toast-container {
+
+}
+
+.dark-toast {
+  background-color: $anchor-color;
+  color: $accent-color;
+}
+
+.toast-progress {
+
+}
