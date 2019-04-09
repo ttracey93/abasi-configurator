@@ -25,9 +25,7 @@
     "three-fbx-loader": "^1.0.3",
     "three-fbxloader-offical": "^1.0.0",
     "three-obj-loader": "^1.1.3",
-    "three-orbitcontrols": "^2.102.1",
-    "three-trackballcontrols": "0.0.7",
-    "three-vignette-background": "^1.0.3"
+    "three-orbitcontrols": "^2.102.1"
   },
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",

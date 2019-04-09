@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 
 // Constants
 import Strings from './constants/strings';

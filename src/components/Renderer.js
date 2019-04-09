@@ -4,8 +4,10 @@ import OBJLoader from 'three-obj-loader';
 import OrbitControls from 'three-orbitcontrols';
 import Events from '../constants/events';
 import Materials from './helpers/Materials';
-// import Utils from './helpers/RendererUtils';
-// import Storage from './helpers/Storage';
+import { DB } from '../firebase';
+import Axios from 'axios';
+
+import lz from 'lz-string';
 
 const Three = require('three');
 
@@ -74,7 +76,7 @@ export default class Renderer {
     this.controls.rotateSpeed = 1.0;
     this.controls.zoomSpeed = 1;
     this.controls.maxDistance = 150;
-    this.controls.minDistance = 30;
+    this.controls.minDistance = 50;
     this.controls.panSpeed = 0;
     this.controls.noZoom = false;
     this.controls.noPan = true;
@@ -87,31 +89,28 @@ export default class Renderer {
     this.scene.add( spotLight );
     this.spotLight = spotLight;
 
-    // const model = await Storage.get('abasi-model');
-
-    // if (!model) {
-    //   this.loadModelOBJ('abasi/1.obj', fbx => {
-    //     this.models.abasi = fbx;
-    //     this.prepareModel();
-  
-    //     Storage.put('abasi-model', fbx);
-    //   });
-    // } else {
-    //   this.models.abasi = model;
-    //   this.prepareModel();
-    // }
-
-    this.loadModel('/abasi/1.fbx', fbx => {
-      this.models.abasi = fbx;
-      this.prepareModel();
-
-      // Storage.put('abasi-model', fbx);
-    });
+    this.getModel();
 
     window.addEventListener('resize', this.resize, false);
 
     // Begin animation loop
     this.animate();
+  }
+
+  async getModel() {
+    const loader = new FBXLoader();
+
+    Axios.get('http://localhost:9000/1.fbx', {
+      responseType: 'arraybuffer',
+    }).then((response) => {
+      const fbxScene = loader.parse(response.data, '/');
+
+      Axios.post('http://localhost:9000/save', fbxScene);
+
+      this.models.abasi = fbxScene;
+      this.prepareModel();
+    });
+
   }
 
   loadModel(path, cb) {

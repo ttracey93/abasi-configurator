@@ -2,7 +2,7 @@ html, body, #root {
   width: 100%;
   height: 100%;
   margin: 0;
-  font-family: 'Source Sans Pro', sans-serif; }
+  font: normal 16px/normal "Lucida Console", Monaco, monospace; }
 
 a {
   text-decoration: none;
@@ -40,6 +40,45 @@ a {
 .dark-toast {
   background-color: #000000;
   color: #fff; }
+
+.abasi-input {
+  display: inline-block;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  padding: 10px 20px;
+  border: 1px solid #b7b7b7;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  font: normal normal bold 16px/normal "Lucida Console", Monaco, monospace;
+  color: black;
+  text-align: center;
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  background: #fcfcfc;
+  -webkit-box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2) inset;
+  box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2) inset;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.66);
+  -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  margin-top: 10px; }
+
+.login-header {
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  color: white;
+  text-align: center;
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  margin-bottom: 0; }
+
+.abasi-login-button {
+  border: none;
+  border-radius: 3px;
+  width: 100%;
+  margin-top: 10px; }
 
 .app-bar {
   position: fixed;

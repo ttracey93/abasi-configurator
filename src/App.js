@@ -6,7 +6,7 @@ import registerServiceWorker from './registerServiceWorker';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
-  BrowserRouter as Router, Route, withRouter, Switch
+  BrowserRouter as Router, Route, withRouter, Switch, Redirect
 } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Header from './Header';
@@ -19,12 +19,6 @@ import * as actions from './actions/auth';
 const App = ({
   user, login, logout, initUser,
 }) => {
-  console.log(initUser);
-
-  const localUser = localStorage.getItem('user');
-  const authedUser = user || JSON.parse(localUser);
-  initUser(); // TODO: Get rid of this
-
   return (
     <Router>
       <div className="flex columns">
@@ -35,16 +29,18 @@ const App = ({
           progressClassName='toast-progress'
         />
 
-        <Header
-          user={user || authedUser}
-          logout={logout}
-          login={login}
-        ></Header>
+        <Header user={user}></Header>
 
         <div className="flex app-body">
-          <Route exact path="/" component={Welcome} />
-          <Route exact path="/welcome" component={Welcome} />
           <Route exact path="/embed" component={Configurator} />
+
+          {!user &&
+            <Route exact path="/welcome" component={Welcome} />
+          }
+
+          {user &&
+            <Route exact path="/" component={Welcome} />
+          }
         </div>
 
         <Footer></Footer>
@@ -56,8 +52,6 @@ const App = ({
 App.propTypes = {
   user: PropTypes.object,
   login: PropTypes.func.isRequired,
-  logout: PropTypes.func.isRequired,
-  initUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
