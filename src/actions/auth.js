@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import { Auth, GoogleProvider } from '../firebase';
+import { Auth } from '../firebase';
 
 export const initUser = () => async (dispatch) => {
   Auth.onAuthStateChanged((user) => {

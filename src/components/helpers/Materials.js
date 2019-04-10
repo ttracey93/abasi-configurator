@@ -25,13 +25,12 @@ class Materials {
   
       envMap: reflectionCube, // important -- especially for metals!
       
-      ambientIntensity: 0.2,
       aoMapIntensity: 1.0,
       envMapIntensity: 1.0,
       displacementScale: 2.436143, // from original model
       normalScale: 1.0,
 
-      shading: Three.SmoothShading,
+      flatShading: false,
     });
   }
 
@@ -42,7 +41,7 @@ class Materials {
       roughness: 0.8,
       metalness: 0,
       
-      shading: Three.SmoothShading
+      flatShading: false,
     });
   }
 }

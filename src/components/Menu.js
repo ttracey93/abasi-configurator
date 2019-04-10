@@ -57,16 +57,12 @@ export default class Menu extends React.Component {
       };
 
       return (
-        <div className="color" style={style} onClick={() => this.chooseColor(color.name)} />
+        <div className="color" key={`color-${color.color}`} style={style} onClick={() => this.chooseColor(color.name)} />
       );
     });
 
     return (
       <div className={className}>
-        <div className="logo-container">
-          <img src="/logo-black.png" className="abasi-logo" />
-        </div>
-
         <div className="tiles-container">
           {tiles}
         </div>

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Price from './Price';
-import Modes from '../constants/modes';
+// import Price from './Price';
+// import Modes from '../constants/modes';
 
 export default class Viewport extends React.Component {
   constructor(props) {

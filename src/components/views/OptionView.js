@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ViewPort from '../components/Viewport';
-import Menu from '../components/Menu';
-import Info from '../components/Info';
+import ViewPort from '../Viewport';
+import Menu from '../Menu';
+import Info from '../Info';
 
-export default class PaymentView extends React.Component {
+export default class OptionView extends React.Component {
   constructor(props) {
     super(props);
 
@@ -61,7 +61,7 @@ export default class PaymentView extends React.Component {
   }
 }
 
-PaymentView.propTypes = {
+OptionView.propTypes = {
   setData: PropTypes.func.isRequired,
   getItems: PropTypes.func.isRequired,
   changeMode: PropTypes.func.isRequired,

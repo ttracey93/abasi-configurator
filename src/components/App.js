@@ -1,23 +1,24 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Configurator from './Configurator';
-import registerServiceWorker from './registerServiceWorker';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
-  BrowserRouter as Router, Route, withRouter, Switch, Redirect
+  BrowserRouter as Router, Route, Switch, withRouter,
 } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Header from './Header';
-import Footer from './Footer';
-import Welcome from './Welcome';
-import './styles/app.css';
 
-import * as actions from './actions/auth';
+import Header from './Header';
+// import Footer from './Footer';
+import Welcome from './Welcome';
+import Dashboard from './dashboard/Dashboard';
+
+import '../styles/app.css';
+
+import * as actions from '../actions/auth';
 
 const App = ({
-  user, login, logout, initUser,
+  user,
 }) => {
   return (
     <Router>
@@ -29,21 +30,24 @@ const App = ({
           progressClassName='toast-progress'
         />
 
-        <Header user={user}></Header>
+        <Header user={user} />
 
         <div className="flex app-body">
-          <Route exact path="/embed" component={Configurator} />
-
           {!user &&
-            <Route exact path="/welcome" component={Welcome} />
+            <Welcome />
           }
 
           {user &&
-            <Route exact path="/" component={Welcome} />
+            <Route path="/" render={props => <Dashboard {...props} user={user} />} />
           }
+
+          {/* <Route path="/" render={props => <Dashboard {...props} user={user} />} /> */}
+
+          {/* Everyone can see the Configurator for now */}
+          <Route exact path="/embed" component={Configurator} />
         </div>
 
-        <Footer></Footer>
+        {/* <Footer /> */}
       </div>
     </Router>
   );
@@ -51,7 +55,6 @@ const App = ({
 
 App.propTypes = {
   user: PropTypes.object,
-  login: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

@@ -1,8 +1,15 @@
+@font-face {
+  font-family: 'Akrobat';
+  src: url("./fonts/Akrobat-Light.woff"); }
+
+* {
+  font-size: 100%;
+  font-family: 'Akrobat'; }
+
 html, body, #root {
   width: 100%;
   height: 100%;
-  margin: 0;
-  font: normal 16px/normal "Lucida Console", Monaco, monospace; }
+  margin: 0; }
 
 a {
   text-decoration: none;
@@ -39,46 +46,16 @@ a {
 /* Notifications */
 .dark-toast {
   background-color: #000000;
-  color: #fff; }
-
-.abasi-input {
-  display: inline-block;
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  padding: 10px 20px;
-  border: 1px solid #b7b7b7;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  font: normal normal bold 16px/normal "Lucida Console", Monaco, monospace;
-  color: black;
-  text-align: center;
-  -o-text-overflow: clip;
-  text-overflow: clip;
-  background: #fcfcfc;
-  -webkit-box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2) inset;
-  box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2) inset;
-  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.66);
-  -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
-  -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
-  -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
-  transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
-  margin-top: 10px; }
-
-.login-header {
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  color: white;
-  text-align: center;
-  -o-text-overflow: clip;
-  text-overflow: clip;
-  margin-bottom: 0; }
-
-.abasi-login-button {
-  border: none;
-  border-radius: 3px;
-  width: 100%;
-  margin-top: 10px; }
+  color: #22f172;
+  font-size: 1.5em; }
+  .dark-toast.Toastify__toast--success {
+    color: #22f172; }
+  .dark-toast.Toastify__toast--error {
+    color: #e74040; }
+  .dark-toast .Toastify__progress-bar--success {
+    background-color: #22f172; }
+  .dark-toast .Toastify__progress-bar--error {
+    background-color: #e74040; }
 
 .app-bar {
   position: fixed;
@@ -89,7 +66,7 @@ a {
   background-color: #000000;
   border-bottom: 1px solid #0A0A0A; }
   .app-bar a {
-    color: #fff;
+    color: #22f172;
     transition: color 0.5s ease; }
   .app-bar a:hover {
     color: #fff; }
@@ -108,83 +85,48 @@ a {
     height: 50px;
     display: flex; }
     .app-bar .brand-logo img {
-      height: 50px;
+      height: 20px;
       margin: auto; }
   .app-bar .active-user-image {
     height: 50px;
     width: auto; }
   .app-bar .app-actions {
-    margin-left: auto;
-    margin-right: 10px;
-    align-self: center; }
-    .app-bar .app-actions .login-icon {
-      margin-right: 5px; }
-    .app-bar .app-actions .login-button {
+    position: absolute;
+    height: 50px;
+    width: 400px;
+    right: 10px;
+    top: 0; }
+    .app-bar .app-actions .abasi-logout {
+      margin-left: 10px;
       cursor: pointer;
       width: 150px;
       padding: 10px;
       background-color: #000000;
-      color: #fff;
-      border: 1px solid #0A0A0A; }
-    .app-bar .app-actions .logout-button {
-      cursor: pointer;
-      width: 150px;
-      padding: 10px;
-      background-color: #000000;
-      color: #fff;
+      color: #ffffff;
       border: 1px solid #0A0A0A;
-      margin-left: 10px !important; }
-    .app-bar .app-actions .login-button:hover, .app-bar .app-actions .logout-button:hover {
-      color: #0A0A0A;
-      background-color: #ffffff; }
+      transition: all 0.3s linear;
+      font-size: 1.3em; }
+      .app-bar .app-actions .abasi-logout:hover {
+        color: #0A0A0A;
+        background-color: #ffffff; }
     .app-bar .app-actions .active-user {
-      color: #fff; }
+      color: #ffffff;
+      line-height: 50px;
+      font-size: 1.3em; }
 
 .Footer {
   background-color: #000000;
   border-top: 1px solid #0A0A0A;
   flex-shrink: 1; }
   .Footer .copyright {
-    color: #fff; }
-
-.welcome {
-  position: relative;
-  background-color: #000000; }
-  .welcome .welcome-banner {
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    z-index: 1; }
-    .welcome .welcome-banner .header {
-      color: #0A0A0A;
-      font-size: 2em; }
-    .welcome .welcome-banner .create-now {
-      align-self: center;
-      padding: 10px;
-      font-size: 1.2em;
-      background-color: #000000;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      transition: all 0.5s linear; }
-    .welcome .welcome-banner .create-now:hover {
-      color: #0A0A0A;
-      background-color: #ffffff; }
-
-.negative-harmony-selections {
-  flex-basis: 100px; }
+    color: #22f172; }
 
 /**** Structural CSS ****/
-@font-face {
-  font-family: 'Akrobat', 'Open Sans', sans-serif;
-  src: url("fonts\\Akrobat-Black.eot"); }
-
 html {
   width: 100%;
   height: 100%;
   margin: 0;
-  padding: 0;
-  font-family: 'Akrobat', 'Open Sans', sans-serif; }
+  padding: 0; }
 
 body {
   width: 100%;
@@ -192,8 +134,7 @@ body {
   margin: 0;
   padding: 0;
   display: flex;
-  flex-direction: column;
-  font-family: 'Akrobat', 'Open Sans', sans-serif; }
+  flex-direction: column; }
 
 .container {
   width: 100%;
@@ -377,7 +318,6 @@ body {
   min-height: 50px;
   max-height: 50px;
   min-width: 150px;
-  font-family: 'Open Sans', sans-serif;
   /* background-color:white; */
   color: black;
   box-sizing: border-box;
@@ -455,3 +395,109 @@ body {
 .abasi-logo {
   margin-left: 20px;
   width: 250px; }
+
+/* Abasi Constructs */
+.abasi-table {
+  font-size: 2em;
+  text-align: center;
+  border: 1px solid #000000; }
+  .abasi-table tbody > tr:hover {
+    color: #ffffff;
+    background-color: #000000; }
+  .abasi-table tr {
+    border: 1px solid #000000; }
+    .abasi-table tr:first-child {
+      border-top: none; }
+    .abasi-table tr:last-child {
+      border-bottom: none; }
+    .abasi-table tr td {
+      border-right: 1px solid #000000; }
+      .abasi-table tr td:last-child {
+        border: none; }
+      .abasi-table tr td a {
+        color: #67a1c6;
+        transition: color 0.3s linear; }
+        .abasi-table tr td a:hover {
+          color: #0d69a3; }
+    .abasi-table tr th {
+      border-right: 1px solid #000000; }
+
+.abasi-input {
+  display: inline-block;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  padding: 10px 20px;
+  border: 1px solid #b7b7b7;
+  color: black;
+  text-align: center;
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  background: #fcfcfc;
+  -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  margin-top: 10px; }
+
+/* Landing Page */
+.abasi-login {
+  padding: auto;
+  align-items: center;
+  justify-content: center; }
+  .abasi-login button {
+    border: 1px solid #000000;
+    font-weight: bolder;
+    font-size: 1.3em;
+    border-radius: none;
+    width: 100%;
+    margin-top: 10px; }
+  .abasi-login .login-header {
+    color: #000000;
+    text-align: center;
+    font-size: 3em;
+    font-weight: bold;
+    margin: 0; }
+  .abasi-login form {
+    width: 50%; }
+
+/* Dashboard Home */
+.abasi-dashboard {
+  padding: auto;
+  justify-content: center;
+  align-items: center; }
+  .abasi-dashboard .abasi-dashboard-tiles {
+    width: 100%;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: center; }
+    .abasi-dashboard .abasi-dashboard-tiles .abasi-tile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 500px;
+      height: 250px;
+      text-align: center;
+      background-color: #000000;
+      font-size: 3em;
+      font-weight: bold;
+      color: #ffffff;
+      transition: all 0.2s linear;
+      border: 1px solid #000000;
+      text-overflow: wrap; }
+      .abasi-dashboard .abasi-dashboard-tiles .abasi-tile:hover {
+        border: 1px solid #000000;
+        color: #000000;
+        background: #ffffff; }
+
+/* Orders */
+.abasi-orders {
+  padding: 10px; }
+  .abasi-orders .abasi-orders-header {
+    width: 100%;
+    text-align: center;
+    font-size: 3em; }
+
+/* Assets */
+/* Config */
+/* Archive */

@@ -5,7 +5,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { BrowserRouter } from 'react-router-dom';
 import rootReducer from './reducers';
-import App from './App';
+import App from './components/App';
 import './styles/app.css';
 import './firebase'; // initialize firebase
 

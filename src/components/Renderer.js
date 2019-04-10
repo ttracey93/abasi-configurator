@@ -1,13 +1,9 @@
-import ColladaLoader from 'three-collada-loader';
 import FBXLoader from 'three-fbxloader-offical';
 import OBJLoader from 'three-obj-loader';
 import OrbitControls from 'three-orbitcontrols';
 import Events from '../constants/events';
 import Materials from './helpers/Materials';
-import { DB } from '../firebase';
 import Axios from 'axios';
-
-import lz from 'lz-string';
 
 const Three = require('three');
 
@@ -78,8 +74,8 @@ export default class Renderer {
     this.controls.maxDistance = 150;
     this.controls.minDistance = 50;
     this.controls.panSpeed = 0;
-    this.controls.noZoom = false;
-    this.controls.noPan = true;
+    this.controls.enableZoom = true;
+    this.controls.enablePan = false;
     
     const ambient = new Three.AmbientLight( 0xffffff, 1 );
     this.scene.add( ambient );
@@ -204,6 +200,8 @@ export default class Renderer {
           case 'Body':
             child.material = colorMat;
             break;
+          default:
+            break;
         }
       }
     });
@@ -211,7 +209,6 @@ export default class Renderer {
 
   prepareModel() {
     const model = this.models.abasi;
-
 
     model.traverse( child => {
       if ( child instanceof Three.Mesh ) {
@@ -225,13 +222,11 @@ export default class Renderer {
             child.material = this.blackMetalMaterial;
             break;
           case 'Fret_dots_Big_side':
-          case 'Fret_dots_Big_side':
+          case 'Fret_dots_Small_side':
           case 'Abasi_Logo':
             child.material = this.whiteMaterial;
             break;
           case 'Strings':
-            // child.material.visible = false;
-            // break;
           case 'String_ends':
           case 'Tuners':
             child.material = this.metalMaterial;

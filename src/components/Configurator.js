@@ -1,14 +1,14 @@
 import React from 'react';
 
 // Constants
-import Strings from './constants/strings';
-import Scale from './constants/scale';
-import Headstyle from './constants/headstyle';
-import Modes from './constants/modes';
-import NewOptions from './constants/new-options.json';
+import Strings from '../constants/strings';
+import Scale from '../constants/scale';
+import Headstyle from '../constants/headstyle';
+import Modes from '../constants/modes';
+import NewOptions from '../constants/new-options.json';
 
 // WebGL Renderer
-import Renderer from './components/Renderer';
+import Renderer from './Renderer';
 
 // Views
 import HomeView from './views/HomeView';

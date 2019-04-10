@@ -42,7 +42,7 @@
     display: flex;
 
     img {
-      height: 50px;
+      height: 20px;
       margin: auto;
     }
   }
@@ -53,40 +53,33 @@
   }
 
   .app-actions {
-    margin-left: auto;
-    margin-right: 10px;
-    align-self: center;
+    position: absolute;
+    height: 50px;
+    width: 400px;
+    right: 10px;
+    top: 0;
 
-    .login-icon {
-      margin-right: 5px;
-    }
-
-    .login-button {
+    .abasi-logout {
+      margin-left: 10px;
       cursor: pointer;
       width: 150px;
       padding: 10px;
       background-color: $anchor-color;
-      color: $accent-color;
+      color: $primary-color;
       border: 1px solid $space-color;
-    }
+      transition: all 0.3s linear;
+      font-size: 1.3em;
 
-    .logout-button {
-      cursor: pointer;
-      width: 150px;
-      padding: 10px;
-      background-color: $anchor-color;
-      color: $accent-color;
-      border: 1px solid $space-color;
-      margin-left: 10px !important;
-    }
-
-    .login-button:hover, .logout-button:hover {
-      color: $space-color;
-      background-color: $primary-color;
+      &:hover {
+        color: $space-color;
+        background-color: $primary-color;
+      }
     }
     
     .active-user {
-      color: $accent-color;
+      color: $primary-color;
+      line-height: 50px;
+      font-size: 1.3em;
     }
   }
 }

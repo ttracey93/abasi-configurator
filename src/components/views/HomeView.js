@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ViewPort from '../components/Viewport';
-import Menu from '../components/Menu';
+import ViewPort from '../Viewport';
+import Menu from '../Menu';
 
 export default class HomeView extends React.Component {
   constructor(props) {

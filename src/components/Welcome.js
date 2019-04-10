@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import * as actions from './actions/auth';
+import * as actions from '../actions/auth';
 
 class Welcome extends React.Component {
   constructor(props) {
@@ -33,11 +33,11 @@ class Welcome extends React.Component {
 
   render() {
     return (
-      <div className="flex welcome">
-        <div className="welcome-banner">
-          <h1 className="login-header">Login</h1>
+      <div className="flex columns abasi-login">
+        <h1 className="login-header">Login</h1>
 
-          <form className="flex columns" onSubmit={this.login}>
+        <form onSubmit={this.login}>
+          <div className="flex columns">
             <input className="abasi-input"
               type="text"
               name="email"
@@ -57,8 +57,8 @@ class Welcome extends React.Component {
             <button type="submit" className="btn abasi-login-button">
               Login
             </button>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     );
   }
