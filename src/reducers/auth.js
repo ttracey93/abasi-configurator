@@ -6,6 +6,7 @@ export default (state = null, action) => {
       return action.payload;
     case 'LOGOUT':
       localStorage.setItem('user', null);
+      window.location.reload();
       return null;
     default:
       return state;

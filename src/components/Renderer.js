@@ -96,12 +96,12 @@ export default class Renderer {
   async getModel() {
     const loader = new FBXLoader();
 
-    Axios.get('http://localhost:9000/1.fbx', {
+    Axios.get('/abasi/3.fbx', {
       responseType: 'arraybuffer',
     }).then((response) => {
       const fbxScene = loader.parse(response.data, '/');
 
-      Axios.post('http://localhost:9000/save', fbxScene);
+      // Axios.post('http://localhost:9000/save', fbxScene);
 
       this.models.abasi = fbxScene;
       this.prepareModel();

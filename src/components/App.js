@@ -9,6 +9,7 @@ import {
 import { connect } from 'react-redux';
 
 import Header from './Header';
+import Sidebar from './Sidebar';
 // import Footer from './Footer';
 import Welcome from './Welcome';
 import Dashboard from './dashboard/Dashboard';
@@ -20,9 +21,15 @@ import * as actions from '../actions/auth';
 const App = ({
   user,
 }) => {
+  const localUser = localStorage.getItem('user');
+  const authedUser = user || JSON.parse(localUser);
+  actions.initUser();
+
+  user = user || authedUser;
+
   return (
     <Router>
-      <div className="flex columns">
+      <div id="app-container" className="flex columns">
         {/* Notification Container */}
         <ToastContainer
           className='toast-container'
@@ -32,22 +39,22 @@ const App = ({
 
         <Header user={user} />
 
+        { user &&
+          <Sidebar />
+        }
+
         <div className="flex app-body">
           {!user &&
             <Welcome />
           }
 
           {user &&
-            <Route path="/" render={props => <Dashboard {...props} user={user} />} />
+            <Switch>
+              <Route exact path="/embed" component={Configurator} />
+              <Route path="/" render={props => <Dashboard {...props} user={user} />} />
+            </Switch>
           }
-
-          {/* <Route path="/" render={props => <Dashboard {...props} user={user} />} /> */}
-
-          {/* Everyone can see the Configurator for now */}
-          <Route exact path="/embed" component={Configurator} />
         </div>
-
-        {/* <Footer /> */}
       </div>
     </Router>
   );

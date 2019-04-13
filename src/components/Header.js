@@ -1,11 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const reload = () => {
-  window.location.reload(false);
-}
+import * as actions from '../actions/auth';
 
-const Header = ({ user }) => (
+const Header = ({ user, logout }) => (
   <div className="app-bar">
     <Link to="/" className="brand-logo">
       <img src="/logo.png" alt="Abasi Logo" />
@@ -17,7 +17,7 @@ const Header = ({ user }) => (
           {user.email}
         </span>
         
-        <button className="abasi-logout" onClick={reload}>
+        <button className="abasi-logout" onClick={logout}>
           Logout
         </button>
       </span>
@@ -25,4 +25,12 @@ const Header = ({ user }) => (
   </div>
 );
 
-export default Header;
+Header.propTypes = {
+  user: PropTypes.object,
+  logout: PropTypes.func.isRequired,
+};
+
+export default connect(
+  null,
+  actions,
+)(Header);

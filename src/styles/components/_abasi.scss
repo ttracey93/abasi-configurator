@@ -129,8 +129,6 @@
 
 /* Orders */
 .abasi-orders {
-  padding: 10px;
-
   .abasi-orders-header {
     width: 100%;
     text-align: center;
@@ -138,7 +136,234 @@
   }
 
   .abasi-orders-table {
-    
+    margin: 10px;
+  }
+}
+
+.abasi-order-listing {
+  .order-header {
+    text-align: center;
+    font-size: 2em;
+  }
+
+  .configurator-link {
+    position: absolute;
+    right: 10px;
+    top: 50px;
+    color: $dark-link-color;
+
+    &:hover {
+      color: $link-color;
+    }
+  }
+
+  .order-info-wrapper {
+    height: fit-content;
+  }
+
+  .order-info {
+    border: 1px solid $anchor-color;
+    width: 50%;
+    padding: 10px;
+    margin: 10px;
+
+    .stripe-link {
+      color: $dark-link-color;
+
+      &:hover {
+        color: $link-color;
+      }
+    }
+
+    .item {
+      font-size: 1.2em;
+      display: flex;
+      // justify-content: space-between;
+
+      &:hover {
+        background: $anchor-color;
+        color: $primary-color;
+      }
+      
+      .label {
+        font-weight: 600px;
+        width: 50%;
+      }
+      
+      .value {
+        margin-left: 10px;
+        font-weight: 300;
+      }
+    }
+  }
+
+  .purchaser-info {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid $anchor-color;
+    padding: 10px;
+    margin: 10px;
+
+    .purchaser-email-link {
+      color: $dark-link-color;
+
+      &:hover {
+        color: $link-color;
+      }
+    }
+
+    .item {
+      font-size: 1.2em;
+      display: flex;
+      // justify-content: space-between;
+
+      &:hover {
+        background: $anchor-color;
+        color: $primary-color;
+      }
+      
+      .label {
+        font-weight: 600px;
+        width: 50%;
+      }
+      
+      .value {
+        margin-left: 10px;
+        font-weight: 300;
+      }
+    }
+  }
+
+  .builder-info-wrapper {
+    height: fit-content;
+  }
+
+  .specs {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid $anchor-color;
+    padding: 10px;
+    margin: 10px;
+
+    .spec {
+      display: flex;
+      // justify-content: space-between;
+      // margin: 0 15px;
+      font-weight: 600;
+
+      &:hover {
+        background: $anchor-color;
+        color: $primary-color;
+      }
+
+      .title {
+        font-size: 1.3em;
+        font-weight: 600px;
+        width: 50%;
+      }
+      
+      .price {
+        margin-left: 10px;
+        font-weight: 300;
+      }
+    }
+  }
+
+  .builder-notes {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid $anchor-color;
+    padding: 10px;
+    margin: 10px;
+
+    h1 {
+      text-align: center;
+      font-size: 1.5em;
+      margin: 0;
+      margin-bottom: 10px;
+    }
+
+    p {
+      text-align: center;
+      font-size: 1em;
+      margin: 0;
+    }
+
+    textarea {
+      display: inline-block;
+      -webkit-box-sizing: content-box;
+      -moz-box-sizing: content-box;
+      box-sizing: content-box;
+      padding: 10px 20px;
+      border: 1px solid #b7b7b7;
+      color: rgba(0,0,0,1);
+      -o-text-overflow: clip;
+      text-overflow: clip;
+      background: rgba(252,252,252,1);
+      -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+      -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+      -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+      transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+      margin-top: 10px;
+      min-height: 250px;
+    }
+
+    .builder-notes-save-button {
+      position: absolute;
+      right: 20px;
+      background-color: $dark-link-color;
+      color: $primary-color;
+      width: 100px;
+
+      &:hover {
+        color: $anchor-color;
+      }
+
+      &:disabled {
+        color: $primary-color;
+        cursor: not-allowed;
+        background-color: $disabled-color;
+      }
+    }
+  }
+
+  .order-actions {
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    border: 1px solid $anchor-color;
+    width: auto;
+
+    .order-action {
+      width: 250px;
+      height: 50px;
+    }
+
+    .btn {
+      border-radius: 0;
+      margin-right: 10px;
+
+      &:disabled {
+        cursor: not-allowed;
+        background-color: $disabled-color;
+        color: $primary-color;
+      }
+    }
+
+    .delete {
+      background-color: $error-color;
+    }
+
+    .fulfill {
+      background-color: $accent-color;
+    }
+
+    .paid {
+      background-color: $dark-link-color;
+    }
   }
 }
 
