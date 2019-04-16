@@ -6,6 +6,8 @@ import Home from './Home';
 import Orders from './Orders';
 import OrderListing from './OrderListing';
 import ManageAssets from './ManageAssets';
+import ManageConfiguration from './ManageConfiguration';
+import AddConfiguration from './AddConfiguration';
 
 const Dashboard = ({ user }) => (
   <div className="flex">
@@ -14,7 +16,8 @@ const Dashboard = ({ user }) => (
       <Route exact path="/orders" component={Orders} />
       <Route exact path="/orders/:id" component={OrderListing} />
       <Route exact path="/assets" component={ManageAssets} />
-      <Route exact path="/config" component={Home} />
+      <Route exact path="/config" component={ManageConfiguration} />
+      <Route exact path="/add-config" component={AddConfiguration} />
       <Route exact path="/archive" component={Home} />
     </Switch>
   </div>

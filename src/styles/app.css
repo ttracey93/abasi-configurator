@@ -794,7 +794,8 @@ body {
 /* Assets */
 .abasi-assets {
   padding: 10px;
-  align-items: center; }
+  align-items: center;
+  height: calc(100% - 20px); }
   .abasi-assets h1 {
     font-size: 1.5em;
     text-align: center; }
@@ -819,4 +820,77 @@ body {
     align-items: center; }
 
 /* Config */
+.abasi-config {
+  padding: 10px;
+  align-items: center;
+  height: calc(100% - 20px); }
+  .abasi-config h1 {
+    font-size: 1.5em;
+    text-align: center; }
+  .abasi-config .loading {
+    align-items: center; }
+  .abasi-config .add-config {
+    position: absolute;
+    right: 14px;
+    top: 20px;
+    background-color: #000000;
+    color: #ffffff;
+    padding: 10px;
+    border: 1px solid #000000;
+    cursor: pointer;
+    transition: all 0.3s linear; }
+    .abasi-config .add-config:hover {
+      color: #000000;
+      background-color: #ffffff; }
+  .abasi-config .abasi-config-wrapper {
+    align-items: center; }
+    .abasi-config .abasi-config-wrapper .abasi-config-items {
+      align-items: center; }
+    .abasi-config .abasi-config-wrapper .abasi-config-item {
+      display: flex;
+      font-size: 1.5em;
+      width: calc(100% - 50px);
+      margin-bottom: 10px;
+      border: 1px solid #000000;
+      padding: 20px; }
+      .abasi-config .abasi-config-wrapper .abasi-config-item .position {
+        width: 30px;
+        text-align: left; }
+      .abasi-config .abasi-config-wrapper .abasi-config-item .title {
+        width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: left; }
+      .abasi-config .abasi-config-wrapper .abasi-config-item .description {
+        width: 300px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: left; }
+      .abasi-config .abasi-config-wrapper .abasi-config-item .type {
+        width: 150px;
+        text-align: left; }
+      .abasi-config .abasi-config-wrapper .abasi-config-item .options {
+        width: 200px;
+        text-align: left; }
+      .abasi-config .abasi-config-wrapper .abasi-config-item .shuffle {
+        display: flex;
+        align-items: center; }
+        .abasi-config .abasi-config-wrapper .abasi-config-item .shuffle button {
+          border: 1px solid #000000;
+          color: #ffffff;
+          background-color: #000000;
+          transition: all 0.3s linear; }
+          .abasi-config .abasi-config-wrapper .abasi-config-item .shuffle button:last-child {
+            margin-left: 5px; }
+          .abasi-config .abasi-config-wrapper .abasi-config-item .shuffle button:hover {
+            color: #000000;
+            background-color: #ffffff; }
+
+.abasi-add {
+  align-items: center; }
+  .abasi-add h1 {
+    font-size: 1.5em; }
+
 /* Archive */
