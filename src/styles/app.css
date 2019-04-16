@@ -73,7 +73,7 @@ a {
 
 /* Position and sizing of burger button */
 .bm-burger-button {
-  position: absolute;
+  position: fixed;
   width: 36px;
   height: 30px;
   left: 10px;
@@ -804,20 +804,15 @@ body {
     padding: 10px;
     margin: 10px;
     cursor: pointer; }
-  .abasi-assets form {
+  .abasi-assets label {
     display: flex;
-    flex-direction: column; }
-    .abasi-assets form label {
-      display: flex;
-      font-size: 1.3em;
-      justify-content: center; }
-      .abasi-assets form label .label {
-        align-self: center;
-        margin-right: 10px; }
-      .abasi-assets form label input {
-        flex-grow: 1; }
-    .abasi-assets form button[type=submit] {
-      margin-top: 10px; }
+    font-size: 1.3em;
+    justify-content: center; }
+    .abasi-assets label .label {
+      align-self: center;
+      margin-right: 10px; }
+    .abasi-assets label input {
+      flex-grow: 1; }
   .abasi-assets .abasi-upload-model {
     align-items: center; }
   .abasi-assets .abasi-upload-texture {

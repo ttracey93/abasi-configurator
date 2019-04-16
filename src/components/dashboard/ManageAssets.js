@@ -11,72 +11,31 @@ class ManageAssets extends React.Component {
   constructor(props) {
     super(props);
 
-    // TODO: Create test data and use assets service
     this.state = {
       uploading: false,
       assets: null,
-      modelName: '',
-      textureName: '',
-      model: undefined,
-      texture: undefined,
+      models: null,
     };
 
-    this.getAssets();
+    this.getMetadata();
 
     this.handleChange = this.handleChange.bind(this);
-    this.uploadModel = this.uploadModel.bind(this);
-    this.uploadTexture = this.uploadTexture.bind(this);
   }
 
-  async getAssets() {
-    const assets = await AssetService.getAll();
+  async getMetadata() {
+    const textureMetadata = await AssetService.getTextureMetadata();
+    const modelMetadata = await AssetService.getModelMetadata();
 
-    this.setState({
-      assets,
-    });
+    console.log(textureMetadata);
+    console.log(modelMetadata);
+
+    // this.setState({
+    //   assets,
+    // });
   }
 
   async deleteAsset() {
-    // TODO: Delete asset record from database
-  }
-
-  async uploadModel(event) {
-    event.preventDefault();
-    const { modelName, model } = this.state;
-
-    if ((!modelName || modelName === '') || !model) {
-      return toast.error('Must name model and choose model file');
-    }
-
-    this.setState({
-      uploading: true,
-    });
-
-    console.log('Uploading model!');
-  }
-
-  async uploadTexture(event) {
-    event.preventDefault();
-    const { textureName, texture, textureData } = this.state;
-
-
-    console.log(texture);
-    console.log(textureData);
-    if ((!textureName || textureName === '') || !texture) {
-      return toast.error('Must name texture and choose texture file');
-    }
-
-    this.setState({
-      uploading: true,
-    });
-
-    console.log('Uploading texture!');
-
-    // Upload texture
-    const response = await AssetService.upload(textureName, texture);
-    console.log(response);
-
-    toast.success('Texture successfully uploaded');
+    // Delete Assets
   }
 
   handleUploadStart = () => this.setState({ uploading: true, progress: 0 });
@@ -94,24 +53,11 @@ class ManageAssets extends React.Component {
   };
 
   handleChange(event) {
-    const { name, files } = event.target;
-    let { value } = event.target;
+    const { name, value } = event.target;
 
-    console.log(files);
-
-    if (files) {
-      const formData = new FormData();
-      console.log(files);
-      const files = Array.from(event.target.files)
-      files.forEach((file, i) => {
-        formData.append(i, file)
-      });
-
-    } else {
-      this.setState({
-        [name]: value,
-      });
-    }
+    this.setState({
+      [name]: value,
+    });
   }
 
   getAssetContent(asset) {
@@ -160,47 +106,21 @@ class ManageAssets extends React.Component {
       <div className="abasi-upload-model flex columns">
         <h1>Upload Model</h1>
         
-        <form onSubmit={this.uploadModel}>
-          <label htmlFor="modelName">
-            <span className="label">
-              Model Name: 
-            </span>
+        <label htmlFor="model">
+          <span className="label">
+            Choose File: 
+          </span>
 
-            <input className="abasi-input"
-              type="text"
-              name="modelName"
-              placeholder="Model Name"
-              value={this.state.modelName} 
-              onChange={this.handleChange}
-            />
-          </label>
-
-          <label htmlFor="model">
-            <span className="label">
-              Choose File: 
-            </span>
-
-            <FileUploader
-              accept=".fbx,.obj"
-              name="model"
-              storageRef={Storage.ref("assets")}
-              onUploadStart={this.handleUploadStart}
-              onUploadError={this.handleUploadError}
-              onUploadSuccess={this.handleUploadSuccess}
-              onProgress={this.handleProgress}
-            />
-          </label>
-
-          <button type="submit" className="btn abasi-login-button">
-            { this.state.uploading && 
-              <i className="fa fa-spin fa-refresh" />
-            }
-
-            { !this.state.uploading &&
-              <span>Upload Model</span>
-            }
-          </button>
-        </form>
+          <FileUploader
+            accept=".fbx,.obj"
+            name="model"
+            storageRef={Storage.ref('models')}
+            onUploadStart={this.handleUploadStart}
+            onUploadError={this.handleUploadError}
+            onUploadSuccess={this.handleUploadSuccess}
+            onProgress={this.handleProgress}
+          />
+        </label>
       </div>
     );
   }
@@ -210,55 +130,29 @@ class ManageAssets extends React.Component {
       <div className="abasi-upload-texture flex columns">
         <h1>Upload Texture</h1>
         
-        <form onSubmit={this.uploadTexture}>
-          <label htmlFor="textureName">
-            <span className="label">
-              Texture Name: 
-            </span>
+        <label htmlFor="texture">
+          <span className="label">
+            Choose File: 
+          </span>
 
-            <input className="abasi-input"
-              type="text"
-              name="textureName"
-              placeholder="Texture Name"
-              value={this.state.textureName} 
-              onChange={this.handleChange}
-            />
-          </label>
+          {/* <input className="abasi-input"
+            type="file"
+            accept=".jpg,.png"
+            name="texture"
+            value={this.state.texture} 
+            onChange={this.handleChange}
+          /> */}
 
-          <label htmlFor="texture">
-            <span className="label">
-              Choose File: 
-            </span>
-
-            {/* <input className="abasi-input"
-              type="file"
-              accept=".jpg,.png"
-              name="texture"
-              value={this.state.texture} 
-              onChange={this.handleChange}
-            /> */}
-
-            <FileUploader
-              accept="image/*"
-              name="texture"
-              storageRef={Storage.ref("assets")}
-              onUploadStart={this.handleUploadStart}
-              onUploadError={this.handleUploadError}
-              onUploadSuccess={this.handleUploadSuccess}
-              onProgress={this.handleProgress}
-            />
-          </label>
-
-          <button type="submit" className="btn abasi-login-button">
-            { this.state.uploading && 
-              <i className="fa fa-spin fa-refresh"></i>
-            }
-
-            { !this.state.uploading &&
-              <span>Upload Texture</span>
-            }
-          </button>
-        </form>
+          <FileUploader
+            accept="image/*"
+            name="texture"
+            storageRef={Storage.ref('textures')}
+            onUploadStart={this.handleUploadStart}
+            onUploadError={this.handleUploadError}
+            onUploadSuccess={this.handleUploadSuccess}
+            onProgress={this.handleProgress}
+          />
+        </label>
       </div>
     );
   }

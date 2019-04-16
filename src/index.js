@@ -8,8 +8,10 @@ import rootReducer from './reducers';
 import App from './components/App';
 import './styles/app.css';
 import './firebase'; // initialize firebase
+import registerServiceWorker from './registerServiceWorker';
 
 const store = createStore(rootReducer, {}, applyMiddleware(thunk));
+registerServiceWorker();
 
 render(
   <Provider store={store}>

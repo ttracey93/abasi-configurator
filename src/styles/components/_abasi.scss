@@ -418,27 +418,18 @@
     cursor: pointer;
   }
 
-  form {
+  label {
     display: flex;
-    flex-direction: column;
+    font-size: 1.3em;
+    justify-content: center;
 
-    label {
-      display: flex;
-      font-size: 1.3em;
-      justify-content: center;
-
-      .label {
-        align-self: center;
-        margin-right: 10px;
-      }
-
-      input {
-        flex-grow: 1;
-      }
+    .label {
+      align-self: center;
+      margin-right: 10px;
     }
 
-    button[type=submit] {
-      margin-top: 10px;
+    input {
+      flex-grow: 1;
     }
   }
 
