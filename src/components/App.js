@@ -8,14 +8,16 @@ import {
 } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+// App Components
 import Header from './Header';
 import Sidebar from './Sidebar';
-// import Footer from './Footer';
 import Welcome from './Welcome';
 import Dashboard from './dashboard/Dashboard';
 
+// Styles
 import '../styles/app.css';
 
+// Redux actions
 import * as actions from '../actions/auth';
 
 const App = ({

@@ -6,7 +6,7 @@ const config = {
   authDomain: "abasi-configurator.firebaseapp.com",
   databaseURL: "https://abasi-configurator.firebaseio.com",
   projectId: "abasi-configurator",
-  storageBucket: "abasi-configurator.appspot.com",
+  storageBucket: "gs://abasi-configurator",
   messagingSenderId: "90569062003"
 };
 
@@ -18,3 +18,4 @@ export default Firebase;
 // Auth
 export const Auth = Firebase.auth();
 export const DB = Firebase.firestore();
+export const Storage = Firebase.storage();

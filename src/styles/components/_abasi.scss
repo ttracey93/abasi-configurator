@@ -22,6 +22,8 @@
 
     td {
       border-right: 1px solid $anchor-color;
+      padding-left: 10px;
+      padding-right: 10px;
 
       &:last-child {
         border: none;
@@ -39,6 +41,8 @@
 
     th {
       border-right: 1px solid $anchor-color;
+      padding-left: 10px;
+      padding-right: 10px;
     }
   }
 }
@@ -128,6 +132,14 @@
 }
 
 /* Orders */
+.abasi-orders-spinner {
+  align-items: center;
+
+  h1 {
+    font-size: 1.5em;
+  }
+}
+
 .abasi-orders {
   .abasi-orders-header {
     width: 100%;
@@ -137,6 +149,15 @@
 
   .abasi-orders-table {
     margin: 10px;
+  }
+}
+
+.abasi-order-listing-spinner {
+  // justify-content: center;
+  align-items: center;
+
+  h1 {
+    font-size: 1.5em;
   }
 }
 
@@ -151,6 +172,8 @@
     right: 10px;
     top: 50px;
     color: $dark-link-color;
+    font-size: 1.5em;
+    cursor: pointer;
 
     &:hover {
       color: $link-color;
@@ -336,6 +359,16 @@
     display: flex;
     border: 1px solid $anchor-color;
     width: auto;
+    flex-wrap: wrap;
+    // align-items: center;
+    justify-content: center;
+
+    h1 {
+      font-size: 1.5em;
+      font-weight: 600;
+      text-align: center;
+      width: 100%;
+    }
 
     .order-action {
       width: 250px;
@@ -368,6 +401,55 @@
 }
 
 /* Assets */
+.abasi-assets {
+  h1 {
+    font-size: 1.5em;
+    text-align: center;
+  }
+
+  padding: 10px;
+  align-items: center;
+
+  .abasi-assets-table-button {
+    background-color: $error-color;
+    border: none;
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      display: flex;
+      font-size: 1.3em;
+      justify-content: center;
+
+      .label {
+        align-self: center;
+        margin-right: 10px;
+      }
+
+      input {
+        flex-grow: 1;
+      }
+    }
+
+    button[type=submit] {
+      margin-top: 10px;
+    }
+  }
+
+  .abasi-upload-model {
+    align-items: center;
+  }
+
+  .abasi-upload-texture {
+    align-items: center;
+  }
+}
 
 /* Config */
 

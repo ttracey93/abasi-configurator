@@ -35,7 +35,6 @@ class OrderService extends Service {
   }
 
   async get(id) {
-    console.log(id);
     let order = this.orders[id];
 
     if (!order) {

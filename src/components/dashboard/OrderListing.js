@@ -4,6 +4,7 @@ import _ from 'lodash';
 // import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import OrderService from '../../services/OrderService';
+import { ClipLoader } from 'react-spinners';
 
 class OrderListing extends React.Component {
   constructor(props) {
@@ -20,9 +21,7 @@ class OrderListing extends React.Component {
   }
 
   async getOrder() {
-    console.log(this.props);
     const order = await OrderService.get(this.props.match.params.id);
-    console.log(order);
     this.setState({
       order,
     });
@@ -42,7 +41,7 @@ class OrderListing extends React.Component {
   getSpecs(specs) {
     return _.map(specs, (spec) => {
       return (
-        <div className="spec">
+        <div className="spec" key={spec.id}>
           <span className="title">
             { spec.title }
           </span>
@@ -82,7 +81,10 @@ class OrderListing extends React.Component {
 
   getDefaultContent() {
     return (
-      'Waiting!'
+      <div className="flex columns abasi-order-listing-spinner">
+        <h1>Retrieving Order</h1>
+        <ClipLoader />
+      </div>
     );
   }
 
@@ -149,6 +151,8 @@ class OrderListing extends React.Component {
         </div>
 
         <div className="flex order-actions">
+          <h1>Order Actions</h1>
+
           <button disabled className="btn order-action delete">
             Delete Order
           </button>
@@ -172,9 +176,7 @@ class OrderListing extends React.Component {
 
     if (order) {
       const specs = this.getSpecs(order.specs);
-      console.log(order);
       const purchaserInfo = this.getPurchaserInfo(order.purchaserInfo);
-
       return this.getOrderContent(order, specs, purchaserInfo);
     } else {
       return this.getDefaultContent(order);

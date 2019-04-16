@@ -130,6 +130,47 @@ a {
 .bm-overlay {
   background: rgba(0, 0, 0, 0.3); }
 
+.react-tabs {
+  width: 100%;
+  -webkit-tap-highlight-color: transparent; }
+  .react-tabs__tab-list {
+    border-bottom: 1px solid #aaa;
+    margin: 0 0 10px;
+    padding: 0;
+    text-align: center; }
+  .react-tabs__tab {
+    display: inline-block;
+    border: 1px solid transparent;
+    border-bottom: none;
+    bottom: -1px;
+    position: relative;
+    list-style: none;
+    padding: 6px 12px;
+    cursor: pointer; }
+    .react-tabs__tab--selected {
+      background: #fff;
+      border-color: #aaa;
+      color: black; }
+    .react-tabs__tab--disabled {
+      color: GrayText;
+      cursor: default; }
+    .react-tabs__tab:focus {
+      box-shadow: 0 0 5px #0188fe;
+      border-color: #0188fe;
+      outline: none; }
+      .react-tabs__tab:focus:after {
+        content: "";
+        position: absolute;
+        height: 5px;
+        left: -4px;
+        right: -4px;
+        bottom: -5px;
+        background: #fff; }
+  .react-tabs__tab-panel {
+    display: none; }
+    .react-tabs__tab-panel--selected {
+      display: block; }
+
 .app-bar {
   position: fixed;
   z-index: 1;
@@ -485,7 +526,9 @@ body {
     .abasi-table tr:last-child {
       border-bottom: none; }
     .abasi-table tr td {
-      border-right: 1px solid #000000; }
+      border-right: 1px solid #000000;
+      padding-left: 10px;
+      padding-right: 10px; }
       .abasi-table tr td:last-child {
         border: none; }
       .abasi-table tr td a {
@@ -494,7 +537,9 @@ body {
         .abasi-table tr td a:hover {
           color: #0d8ddd; }
     .abasi-table tr th {
-      border-right: 1px solid #000000; }
+      border-right: 1px solid #000000;
+      padding-left: 10px;
+      padding-right: 10px; }
 
 .abasi-input {
   display: inline-block;
@@ -565,6 +610,11 @@ body {
         background: #ffffff; }
 
 /* Orders */
+.abasi-orders-spinner {
+  align-items: center; }
+  .abasi-orders-spinner h1 {
+    font-size: 1.5em; }
+
 .abasi-orders .abasi-orders-header {
   width: 100%;
   text-align: center;
@@ -572,6 +622,11 @@ body {
 
 .abasi-orders .abasi-orders-table {
   margin: 10px; }
+
+.abasi-order-listing-spinner {
+  align-items: center; }
+  .abasi-order-listing-spinner h1 {
+    font-size: 1.5em; }
 
 .abasi-order-listing .order-header {
   text-align: center;
@@ -581,7 +636,9 @@ body {
   position: absolute;
   right: 10px;
   top: 50px;
-  color: #0d8ddd; }
+  color: #0d8ddd;
+  font-size: 1.5em;
+  cursor: pointer; }
   .abasi-order-listing .configurator-link:hover {
     color: #7dc6f3; }
 
@@ -709,7 +766,14 @@ body {
   padding: 10px;
   display: flex;
   border: 1px solid #000000;
-  width: auto; }
+  width: auto;
+  flex-wrap: wrap;
+  justify-content: center; }
+  .abasi-order-listing .order-actions h1 {
+    font-size: 1.5em;
+    font-weight: 600;
+    text-align: center;
+    width: 100%; }
   .abasi-order-listing .order-actions .order-action {
     width: 250px;
     height: 50px; }
@@ -728,5 +792,36 @@ body {
     background-color: #0d8ddd; }
 
 /* Assets */
+.abasi-assets {
+  padding: 10px;
+  align-items: center; }
+  .abasi-assets h1 {
+    font-size: 1.5em;
+    text-align: center; }
+  .abasi-assets .abasi-assets-table-button {
+    background-color: #e74040;
+    border: none;
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer; }
+  .abasi-assets form {
+    display: flex;
+    flex-direction: column; }
+    .abasi-assets form label {
+      display: flex;
+      font-size: 1.3em;
+      justify-content: center; }
+      .abasi-assets form label .label {
+        align-self: center;
+        margin-right: 10px; }
+      .abasi-assets form label input {
+        flex-grow: 1; }
+    .abasi-assets form button[type=submit] {
+      margin-top: 10px; }
+  .abasi-assets .abasi-upload-model {
+    align-items: center; }
+  .abasi-assets .abasi-upload-texture {
+    align-items: center; }
+
 /* Config */
 /* Archive */
