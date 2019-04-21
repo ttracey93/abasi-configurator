@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 // import { toast } from 'react-toastify';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import OrderService from '../../services/OrderService';
 import { ClipLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
 
 class OrderListing extends React.Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class OrderListing extends React.Component {
     };
 
     this.handleBuilderNotes = this.handleBuilderNotes.bind(this);
+    this.saveBuilderNotes = this.saveBuilderNotes.bind(this);
 
     this.getOrder();
   }
@@ -28,14 +30,25 @@ class OrderListing extends React.Component {
   }
 
   handleBuilderNotes(event) {
-    this.state.order.builderNotes = event.target.value;
+    event.preventDefault();
+
+    const { order } = this.state;
+    order.builderNotes = event.target.value;
+    
     this.setState({
+      order,
       pristineBuilderNotes: false,
     });
+  }
 
-    // TODO: Save builder notes to firebase
-
+  async saveBuilderNotes(event) {
     event.preventDefault();
+
+    await OrderService.updateNotes(this.state.order);
+    toast.success('Successfully saved builder notes');
+    this.setState({
+      pristineBuilderNotes: true,
+    })
   }
 
   getSpecs(specs) {
@@ -95,7 +108,7 @@ class OrderListing extends React.Component {
           Order #{order.orderNumber}
         </h1>
 
-        <a target="_blank" href={order.configuratorUrl} className="configurator-link">
+        <a target="_blank" rel="noopener noreferrer" href={order.configuratorUrl} className="configurator-link">
           Configurator Link
         </a>
 
@@ -144,7 +157,7 @@ class OrderListing extends React.Component {
             <p>Notes about the order for internal use only.</p>
             <textarea value={order.builderNotes} onChange={this.handleBuilderNotes} />
 
-            <button disabled={this.state.pristineBuilderNotes} className="builder-notes-save-button btn">
+            <button disabled={this.state.pristineBuilderNotes} className="builder-notes-save-button btn" onClick={this.saveBuilderNotes}>
               Save
             </button>
           </div>

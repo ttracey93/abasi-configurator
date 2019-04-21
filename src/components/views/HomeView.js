@@ -26,21 +26,15 @@ export default class HomeView extends React.Component {
         <div className="container home-menu">
           <Menu
             items={this.props.getItems()}
-            setData={this.handleChange}
-            changeMode={this.changeMode}
             columns
             renderer={this.props.renderer}
+            callback={this.props.makeSelection}
           />
         </div>
 
         <div className="container home-viewport">
           <ViewPort
-            data={this.props.data}
-            setData={this.handleChange}
-            changeMode={this.changeMode}
-            reset={this.props.reset}
-            itemIndex={this.props.itemIndex}
-            goBack={this.props.goBack}
+            price={this.props.price}
           />
         </div>
       </div>
@@ -49,12 +43,8 @@ export default class HomeView extends React.Component {
 }
 
 HomeView.propTypes = {
-  reset: PropTypes.func.isRequired,
-  setData: PropTypes.func.isRequired,
+  makeSelection: PropTypes.func.isRequired,
   getItems: PropTypes.func.isRequired,
-  changeMode: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired,
-  itemIndex: PropTypes.number.isRequired,
-  goBack: PropTypes.func.isRequired,
   renderer: PropTypes.object.isRequired,
+  price: PropTypes.number.isRequired,
 };

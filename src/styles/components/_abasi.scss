@@ -1,50 +1,71 @@
 /* Abasi Constructs */
+// * {
+//   overflow:auto;
+//   margin:15px -300px 15px 15px;
+//   padding-right:300px;
+// }
+
+label {
+  display: flex;
+  font-size: 1.3em;
+  justify-content: center;
+
+  .label {
+    align-self: center;
+    margin-right: 10px;
+  }
+
+  input, select {
+    flex-grow: 1;
+  }
+}
+
 .abasi-table {
   font-size: 2em;
   text-align: center;
   border: 1px solid $anchor-color;
 
-  tbody > tr:hover {
-    color: $primary-color;
-    background-color: $anchor-color;
-  }
+  // tbody > tr:hover {
+  //   color: $primary-color;
+  //   background-color: $anchor-color;
+  // }
 
-  tr { 
-    border: 1px solid $anchor-color;
+  // tr { 
+  //   border: 1px solid $anchor-color;
 
-    &:first-child {
-      border-top: none;
-    }
+  //   &:first-child {
+  //     border-top: none;
+  //   }
 
-    &:last-child {
-      border-bottom: none;
-    }
+  //   &:last-child {
+  //     border-bottom: none;
+  //   }
 
-    td {
-      border-right: 1px solid $anchor-color;
-      padding-left: 10px;
-      padding-right: 10px;
+  //   td {
+  //     border-right: 1px solid $anchor-color;
+  //     padding-left: 10px;
+  //     padding-right: 10px;
 
-      &:last-child {
-        border: none;
-      }
+  //     &:last-child {
+  //       border: none;
+  //     }
 
-      a {
-        color: $link-color;
-        transition: color 0.3s linear;
+  //     a {
+  //       color: $link-color;
+  //       transition: color 0.3s linear;
         
-        &:hover {
-          color: $dark-link-color;
-        }
-      }
-    }
+  //       &:hover {
+  //         color: $dark-link-color;
+  //       }
+  //     }
+  //   }
 
-    th {
-      border-right: 1px solid $anchor-color;
-      padding-left: 10px;
-      padding-right: 10px;
-    }
-  }
+  //   th {
+  //     border-right: 1px solid $anchor-color;
+  //     padding-left: 10px;
+  //     padding-right: 10px;
+  //   }
+  // }
 }
 
 .abasi-input {
@@ -411,26 +432,17 @@
   align-items: center;
   height: calc(100% - 20px);
 
-  .abasi-assets-table-button {
-    background-color: $error-color;
-    border: none;
-    padding: 10px;
-    margin: 10px;
-    cursor: pointer;
-  }
-
-  label {
-    display: flex;
-    font-size: 1.3em;
-    justify-content: center;
-
-    .label {
-      align-self: center;
-      margin-right: 10px;
+  .abasi-manage-assets {
+    .abasi-assets-table-button {
+      background-color: $error-color;
+      border: none;
+      padding: 10px;
+      margin: 10px;
+      cursor: pointer;
     }
 
-    input {
-      flex-grow: 1;
+    &.loading {
+      align-items: center;
     }
   }
 
@@ -476,74 +488,46 @@
     }
   }
 
+  .abasi-save-config {
+    padding: 20px;
+    background-color: $success-color;
+    color: $anchor-color;
+    font-size: 1.5em;
+    cursor: pointer;
+    width: 100%;
+    border: 1px solid $anchor-color;
+  }
+
   .abasi-config-wrapper {
     align-items: center;
 
     .abasi-config-items {
-      align-items: center;
+      width: 100%;
     }
 
     .abasi-config-item {
-      display: flex;
-      font-size: 1.5em;
-      width: calc(100% - 50px);
-      margin-bottom: 10px;
-      border: 1px solid $anchor-color;
-      padding: 20px;
-      // justify-content: space-between;
-
       .position {
         width: 30px;
         text-align: left;
       }
-
-      .title {
-        width: 200px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        text-align: left;
-      }
-
-      .description {
-        width: 300px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        text-align: left;
-      }
-
-      .type {
-        width: 150px;
-        text-align: left;
-      }
-
-      .options {
-        width: 200px;
-        text-align: left;
-      }
-
-      .shuffle {
-        display: flex;
-        align-items: center;
-
-        button {
-          border: 1px solid $anchor-color;
-          color: $primary-color;
-          background-color: $anchor-color;
-          transition: all 0.3s linear;
-
-          &:last-child {
-            margin-left: 5px;
-          }
-
-          &:hover {
-            color: $anchor-color;
-            background-color: $primary-color;
-          }
-        }
-      }
     }
+  }
+
+  button.up, button.down {
+    background-color: $anchor-color;
+    color: $primary-color;
+    cursor: pointer;
+    border: 1px solid $anchor-color;
+    transition: all 0.3s linear;
+
+    &:hover {
+      color: $anchor-color;
+      background-color: $primary-color;
+    }
+  }
+
+  button.down {
+    margin-left: 5px;
   }
 }
 
@@ -553,6 +537,63 @@
   h1 {
     font-size: 1.5em;
   }
+
+  form {
+    max-width: 800px;
+
+    select {
+      text-align-last: center;
+    }
+  
+    .abasi-add-button {
+      margin-top: 10px;
+    }
+  }
+
+  .abasi-selections {
+    align-items: center;
+    position: relative;
+
+    .lineitems {
+      align-items: center;
+
+      .abasi-lineitem {
+        height: 50px;
+        width: 90%;
+        border: 1px solid $anchor-color;
+        margin-bottom: 10px;
+
+        > * {
+          line-height: 50px;
+          text-align: center;
+        }
+        
+        .name {
+          width: 200px;
+        }
+
+        .price {
+          width: 200px;
+        }
+
+        .save {
+          width: 200px;
+        }
+      }
+    }
+
+    .abasi-add-line-item {
+      position: absolute;
+      right: calc(50% - 300px);
+      top: 10px;
+      background-color: $success-color;
+    }
+  }
 }
 
-/* Archive */
+/* Stats */
+.abasi-stats {
+  align-items: center;
+  padding: 10px;
+  height: calc(100% - 20px);
+}

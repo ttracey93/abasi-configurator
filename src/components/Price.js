@@ -16,7 +16,7 @@ export default class Price extends React.Component {
     return (
       <div className="container evenly price-container">
         <div>
-          <span className="price space-right">${this.props.data.price}</span>
+          <span className="price space-right">${this.props.price}</span>
 
           <i className="fa fa-question-circle price-icon tooltip" role="presentation" onClick={this.handlePrice}>
             <span className="tooltiptext">Click me for line item explanation of price</span>
@@ -28,5 +28,5 @@ export default class Price extends React.Component {
 }
 
 Price.propTypes = {
-  data: PropTypes.object.isRequired,
+  price: PropTypes.object.isRequired,
 };

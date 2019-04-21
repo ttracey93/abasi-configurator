@@ -1,10 +1,12 @@
 import React from 'react';
+import _ from 'lodash';
 
 // Constants
 import Strings from '../constants/strings';
 import Scale from '../constants/scale';
 import Headstyle from '../constants/headstyle';
 import Modes from '../constants/modes';
+import SelectionTypes from '../constants/selection-types';
 import NewOptions from '../constants/new-options.json';
 
 // WebGL Renderer
@@ -15,6 +17,7 @@ import HomeView from './views/HomeView';
 import OptionView from './views/OptionView';
 import PaymentView from './views/PaymentView';
 import ConfirmationView from './views/ConfirmationView';
+import ConfigurationService from '../services/ConfigurationService';
 
 export default class Configurator extends React.Component {
   constructor(props) {
@@ -22,19 +25,17 @@ export default class Configurator extends React.Component {
 
     // Initial State
     this.state = {
-      data: Configurator.getInitialData(),
-      items: [NewOptions],
-      itemIndex: 0,
+      items: [[]],
       mode: Modes.HOME,
+      price: 0,
+      selections: Configurator.getInitialData(),
     };
 
     // Event bindings
-    this.setData = this.setData.bind(this);
     this.getItems = this.getItems.bind(this);
-    this.changeMode = this.changeMode.bind(this);
-    this.reset = this.reset.bind(this);
-    this.goBack = this.goBack.bind(this);
+    this.makeSelection = this.makeSelection.bind(this);
     this.propogateEvent = this.propogateEvent.bind(this);
+    this.evaluatePrice = this.evaluatePrice.bind(this);
 
     // Setup components to use for different views
     this.components = {
@@ -47,11 +48,7 @@ export default class Configurator extends React.Component {
     this.renderer = new Renderer(this.state.data);
   }
 
-  componentWillMount() {
-    // TODO: Do Stuff
-  }
-
-  componentDidMount() {
+  async componentDidMount() {
     // Startup/attach renderer
     this.rendererContainer = document.getElementById('renderer-container');
     this.renderer.container = this.rendererContainer;
@@ -62,6 +59,15 @@ export default class Configurator extends React.Component {
     }
 
     this.rendererContainer.appendChild(this.renderer.getRendererElement());
+
+    // Begin pricing module
+    this.evaluatePrice();
+
+    // Grab configuration items for the user menu
+    const items = await ConfigurationService.getConfig();
+    this.setState({
+      items: [_.sortBy(items, 'position')],
+    });
   }
 
   componentDidUpdate() {
@@ -69,19 +75,58 @@ export default class Configurator extends React.Component {
     if (this.state.mode !== Modes.CONFIRMATION) {
       this.rendererContainer = document.getElementById('renderer-container');
       this.renderer.container = this.rendererContainer;
+      this.rendererContainer.appendChild(this.renderer.getRendererElement());
       this.renderer.resize();
       this.renderer.update(this.state.data);
-      this.rendererContainer.appendChild(this.renderer.getRendererElement());
     }
   }
 
   static getInitialData() {
     return {
-      strings: Strings.SIX,
-      scale: Scale.STANDARD,
-      headstyle: Headstyle.HEADSTOCK,
-      price: '0.00',
+      body: { price: 50 }
     };
+  }
+
+  async makeSelection(selection) {
+    console.log(selection);
+
+    switch (selection.type) {
+      case SelectionTypes.MENU:
+        // TODO: Push new items
+        const { items } = this.state;
+        items.push(selection.options);
+
+        this.setState({
+          items
+        });
+        break;
+      case SelectionTypes.MODEL:
+      case SelectionTypes.MATERIAL:
+      case SelectionTypes.TEXTURE:
+        // TODO: Create selection, update price, return to original options
+        this.performUpdate(selection);
+      default:
+        console.log('Expected concrete selection type...');
+        break;
+    }
+  }
+
+  async performUpdate(selection) {
+    const { selections } = this.state;
+    selections[selection.key] = selection;
+
+    this.setState({
+      selections,
+    });
+
+    this.evaluatePrice();
+  }
+
+  async evaluatePrice() {
+    const price = _.map(this.state.selections, s => s.price).reduce((p, c) => p + c);
+    this.setState({
+      price,
+    })
   }
 
   async setData(data, key) {
@@ -111,7 +156,7 @@ export default class Configurator extends React.Component {
   }
 
   getItems() {
-    return this.state.items[this.state.itemIndex];
+    return this.state.items[this.state.items.length - 1];
   }
 
   goBack() {
@@ -159,14 +204,10 @@ export default class Configurator extends React.Component {
       <div className="configurator">
         {this.getItems() &&
           <Component
-            data={this.state.data}
-            setData={this.setData}
-            getItems={this.getItems}
-            changeMode={this.changeMode}
-            reset={this.reset}
-            itemIndex={this.state.itemIndex}
-            goBack={this.goBack}
             renderer={this.renderer}
+            getItems={this.getItems}
+            makeSelection={this.makeSelection}
+            price={this.state.price}
           />
         }
       </div>

@@ -12,26 +12,26 @@ class ManageAssets extends React.Component {
     super(props);
 
     this.state = {
+      loading: true,
       uploading: false,
       assets: null,
       models: null,
     };
 
-    this.getMetadata();
-
+    this.getMetadata = this.getMetadata.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentDidMount() {
+    this.getMetadata();
+  }
+
   async getMetadata() {
-    const textureMetadata = await AssetService.getTextureMetadata();
-    const modelMetadata = await AssetService.getModelMetadata();
+    // TODO: Load in asset metadata from the GS bucket
 
-    console.log(textureMetadata);
-    console.log(modelMetadata);
-
-    // this.setState({
-    //   assets,
-    // });
+    this.setState({
+      loading: false,
+    })
   }
 
   async deleteAsset() {
@@ -77,6 +77,17 @@ class ManageAssets extends React.Component {
   }
 
   getManageContent() {
+    const { loading } = this.state;
+
+    if (loading) {
+      return (
+        <div className="abasi-manage-assets loading flex columns">
+          <ClipLoader />
+          <p>Loading asset metadata...</p>
+        </div>
+      );
+    }
+
     const assetContent = _.map(this.state.assets, this.getAssetContent);
 
     return (
@@ -134,14 +145,6 @@ class ManageAssets extends React.Component {
           <span className="label">
             Choose File: 
           </span>
-
-          {/* <input className="abasi-input"
-            type="file"
-            accept=".jpg,.png"
-            name="texture"
-            value={this.state.texture} 
-            onChange={this.handleChange}
-          /> */}
 
           <FileUploader
             accept="image/*"

@@ -37,6 +37,7 @@ const App = ({
           className='toast-container'
           toastClassName="dark-toast"
           progressClassName='toast-progress'
+          position="bottom-center"
         />
 
         <Header user={user} />

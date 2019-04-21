@@ -1,22 +1,22 @@
 import Service from './Service';
 import { DB } from '../firebase';
+import _ from 'lodash';
 
 class OrderService extends Service {
   constructor() {
     super();
     this.clear();
-    this.getOrders();
   }
 
   clear() {
-    this.orders = {};
+    this.orders = [];
   }
 
   loadOrdersFromSnapshot(snapshot) {
     snapshot.forEach((doc) => {
       const order = doc.data();
       order.id = doc.id;
-      this.orders[order.id] = order;
+      this.orders.push(order);
     });
   }
 
@@ -30,21 +30,26 @@ class OrderService extends Service {
 
     if (!orders || !orders.length) {
       await this.getOrders();
-      return this.orders;
     }
+
+    return this.orders;
   }
 
   async get(id) {
-    let order = this.orders[id];
+    let order = _.find(this.orders, o => o.id === id);
 
     if (!order) {
       const doc = await DB.collection('orders').doc(id).get();
       order = doc.data();
       order.id = id;
-      this.orders[id] = order;
+      this.orders.push(order);
     }
     
     return order;
+  }
+
+  async updateNotes(order) {
+    await DB.collection('orders').doc(order.id).set(order);
   }
 }
 

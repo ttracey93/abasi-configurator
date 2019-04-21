@@ -1,336 +1,307 @@
 /**** Structural CSS ****/
-  html {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
+html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.columns {
+  flex-direction: column;
+}
+
+.between {
+  justify-content: space-between;
+}
+
+.evenly {
+  justify-content: space-evenly;
+}
+
+.space-right {
+  margin-right: 10px;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+.configurator {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.btn {
+  font-size: 18px;
+  border: 1px solid $anchor-color;
+  border-radius: 2px;
+  height: 36px;
+  line-height: 36px;
+  background-color: white;
+  color: black;
+  transition: all 0.5s;
+  border-radius: 0;
+}
+
+.btn:hover {
+  cursor: pointer;
+  background-color: $anchor-color;
+  color: white;
+}
+
+/* Tooltip text */
+.tooltip {
+  position:relative;
+}
+
+.tooltiptext {
+  position: absolute;
+  right: 20px;
+  bottom: 0;
+  width: 100px;
+  font-size: 20px;
+  visibility: hidden;
+  background-color: rgba(47, 46, 46, 1);
+  color: #fff;
+  padding: 5px;
+  border-radius: 6px;
+
+  /* Position the tooltip text - see examples below! */
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+/**** Views ****/
+
+/* Home View */
+.home {
+  position: relative;
+}
+
+.home-viewport {
+  flex: 1;
+  position: relative;
+}
+
+.home-menu {
+  /* align-self: bottom; */
+  /* height: 150px; */
+  position: absolute;
+  top: 150px;
+  right: 0;
+  width: 300px;
+  height: auto;
+  z-index: 1;
+  overflow-x: auto;
+  opacity: 0.8;
+}
+
+/* Option View */
+.option-menu {
+  position: relative;
+  width: 50%;
+  flex-flow: row wrap;
+  overflow: scroll;
+}
+
+.option-viewport {
   
-  body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-  }
+}
+
+.option-info {
+
+}
+
+/**** Components ****/
+
+/* Viewport */
+.viewport {
+  position: relative;
+}
+
+.viewport-price {
+  align-self: flex-end;
+  position: absolute;
+  right: 0px;
+
+  width: 150px;
+  color: white;
+  height: 50px;
+
+  text-align: center;
+  z-index: 100;
+
+  background-color: #696969;
+}
+
+.viewport-view {
+  position: absolute;
+  text-align: center;
+  align-self: center;
+  width: 100%;
+  height: 100%;
+}
+
+#renderer-container {
+  width: 100%;
+  height: 100%;
   
-  .container {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    display: flex;
-  }
-  
-  .columns {
-    flex-direction: column;
-  }
-  
-  .between {
-    justify-content: space-between;
-  }
-  
-  .evenly {
-    justify-content: space-evenly;
-  }
-  
-  .space-right {
-    margin-right: 10px;
-  }
-  
-  #root {
-    width: 100%;
-    height: 100%;
-  }
-  
-  .configurator {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-  }
-  
-  .btn {
-    font-size: 18px;
-    border: 1px solid #696969;
-    border-radius: 2px;
-    height: 36px;
-    line-height: 36px;
-    background-color: white;
-    color: black;
-    transition: all 0.5s;
-    border-radius: 0;
-  }
-  
-  .btn:hover {
-    cursor: pointer;
-    background-color: rgb(70, 70, 70);
-    color: white;
-  }
-  
-  /* Tooltip text */
-  .tooltip {
-    position:relative;
-  }
-  
-  .tooltiptext {
-    position: absolute;
-    right: 20px;
-    bottom: 0;
-    width: 100px;
-    font-size: 20px;
-    visibility: hidden;
-    background-color: rgba(47, 46, 46, 1);
-    color: #fff;
-    padding: 5px;
-    border-radius: 6px;
-  
-    /* Position the tooltip text - see examples below! */
-    z-index: 1;
-  }
-  
-  /* Show the tooltip text when you mouse over the tooltip container */
-  .tooltip:hover .tooltiptext {
-    visibility: visible;
-  }
-  
-  /**** Views ****/
-  
-  /* Home View */
-  .home {
-    position: relative;
-  }
-  
-  .home-viewport {
-    flex: 1;
-    position: relative;
-  }
-  
-  .home-menu {
-    /* align-self: bottom; */
-    /* height: 150px; */
-    position: absolute;
-    top: 150px;
-    right: 0;
-    width: 300px;
-    height: auto;
-    z-index: 1;
-    overflow-x: auto;
-    opacity: 0.8;
-  }
-  
-  /* Option View */
-  .option-menu {
-    position: relative;
-    width: 50%;
-    flex-flow: row wrap;
-    overflow: scroll;
-  }
-  
-  .option-viewport {
-    
-  }
-  
-  .option-info {
-  
-  }
-  
-  /**** Components ****/
-  
-  /* Viewport */
-  .viewport {
-    position: relative;
-  }
-  
-  .viewport-price {
-    align-self: flex-end;
-    position: absolute;
-    right: 0px;
-  
-    width: 150px;
-    color: white;
-    height: 50px;
-  
-    text-align: center;
-    z-index: 100;
-  
-    background-color: #696969;
-  }
-  
-  .viewport-view {
-    position: absolute;
-    text-align: center;
-    align-self: center;
-    width: 100%;
-    height: 100%;
-  }
-  
-  #renderer-container {
-    width: 100%;
-    height: 100%;
-    
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#7d7e7d+0,0e0e0e+100;Black+3D */
-    background: rgb(125,126,125); /* Old browsers */
-    background: -moz-linear-gradient(top, rgba(125,126,125,1) 0%, rgba(14,14,14,1) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=0 ); /* IE6-9 */
-  }
-  
-  .reset-button {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-  }
-  
-  .rotate-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-  }
-  
-  .back-button {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-  }
-  
-  .forward-button {
-    position: absolute;
-    bottom: 10px;
-    left: 105px;
-  }
-  
-  /* Price */
-  .price {
-    font-size: 20px;
-  }
-  
-  .price-container * {
-    align-self: center;
-  }
-  
-  .price-icon {
-    cursor: pointer;
-  }
-  
-  /* Menu */
-  .menu {
-    /* flex-basis: 0; */
-    display: flex;
-    flex-grow: 1;
-    align-content: flex-start;
-    justify-content: flex-start;
-  }
-  
-  /* .menu.columns {
-    flex-flow: column wrap;
-    overflow-y: scroll;
-  } */
-  
-  /* Tile */
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#7d7e7d+0,0e0e0e+100;Black+3D */
+  background: rgb(125,126,125); /* Old browsers */
+  background: -moz-linear-gradient(top, rgba(125,126,125,1) 0%, rgba(14,14,14,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=0 ); /* IE6-9 */
+}
+
+.reset-button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.rotate-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.back-button {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+.forward-button {
+  position: absolute;
+  bottom: 10px;
+  left: 105px;
+}
+
+/* Price */
+.price {
+  font-size: 20px;
+}
+
+.price-container * {
+  align-self: center;
+}
+
+.price-icon {
+  cursor: pointer;
+}
+
+/* Menu */
+.menu {
+  /* flex-basis: 0; */
+  display: flex;
+  flex-grow: 1;
+  align-content: flex-start;
+  justify-content: flex-start;
+}
+
+/* .menu.columns {
+  flex-flow: column wrap;
+  overflow-y: scroll;
+} */
+
+/* Tile */
+.tile {
+  position: relative;
+  display: flex;
+  flex: 1;
+  min-height: 50px;
+  max-height: 50px;
+  min-width: 150px;
+  /* background-color:white; */
+  color: black;
+
+  box-sizing: border-box;
+  /* border-top: 1px solid #464646; */
+  /* border-bottom: 1px solid #464646; */
+
+  transition: all 0.5s linear;
+  cursor: pointer;
+}
+
+.tile:hover {
+  /* color: rgb(124, 18, 196); */
+  background-color: rgb(70, 70, 70);
+  color: white;
+}
+
+.tiles-container {
+  display: flex;
+  flex-direction: column;
+
   .tile {
-    position: relative;
-    display: flex;
-    flex: 1;
-    min-height: 50px;
-    max-height: 50px;
-    min-width: 150px;
-    /* background-color:white; */
-    color: black;
-  
-    box-sizing: border-box;
-    /* border-top: 1px solid #464646; */
-    /* border-bottom: 1px solid #464646; */
-  
-    transition: all 0.5s linear;
-    cursor: pointer;
+    .tile-label {
+      font-size: 1.3em;
+      width: 100%;
+      text-align: right;
+      padding: 10px;
+    }
+
+    .tile-price {
+      position: absolute;
+      bottom: 10%;
+      width: 100%;
+      text-align: center;
+      align-self: center;
+    }
   }
-  
-  .tile:hover {
-    /* color: rgb(124, 18, 196); */
-    background-color: rgb(70, 70, 70);
-    color: white;
-  }
-  
-  .tile-label {
-    font-size: 1.3em;
-    position: absolute;
-    width: 100%;
-    text-align: right;
-    margin-right: 50px;
-    align-self: center;
-    /* visibility: hidden; */
-    opacity: 1.0;
-    transition: opacity 0.5s linear;
-  }
-  
-  .tile-icon {
-    width: 100%;
-    text-align: center;
-    align-self: center;
-    transition: all 0.5s linear;
-  }
-  
-  .tile-icon img {
-    width: 100%;
-    height: 152px;
-  }
-  
-  .tile-icon .icon-image {
-    width: 50%;
-    height: 50%;
-  }
-  
-  .tile-price {
-    position: absolute;
-    bottom: 10%;
-    width: 100%;
-    text-align: center;
-    align-self: center;
-  }
-  
-  /* Tile Hovering */
-  .tile:hover .tile-label {
-    visibility: visible;
-    opacity: 1;
-  }
-  
-  .tile:hover .tile-icon {
-    visibility: hidden;
-    opacity: 0;
-  }
-  
-  .tile:hover .tile-price {
-    
-  }
-  
-  /* Confirmatio */
-  .checkout-button {
-    height: 50px;
-    width: 100px;
-  }
-  
-  .color-container {
-    width: 100%;
-    display: flex;
-  }
-  
-  .color {
-    margin: 10px;
-    height: 50px;
-    width: 50px;
-    border: 1px solid #000;
-    cursor: pointer;
-  }
-  
-  .logo-container {
-    /* position: absolute; */
-    height: 50px;
-  }
-  
-  .abasi-logo {
-    margin-left: 20px;
-    width: 250px;
-  }
+}
+
+
+/* Confirmation */
+.checkout-button {
+  height: 50px;
+  width: 100px;
+}
+
+.color-container {
+  width: 100%;
+  display: flex;
+}
+
+.color {
+  margin: 10px;
+  height: 50px;
+  width: 50px;
+  border: 1px solid #000;
+  cursor: pointer;
+}
+
+.logo-container {
+  /* position: absolute; */
+  height: 50px;
+}
+
+.abasi-logo {
+  margin-left: 20px;
+  width: 250px;
+}

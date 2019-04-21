@@ -14,14 +14,25 @@ class ManageConfiguration extends React.Component {
       config: null,
     };
 
-    this.getConfiguration();
-
     this.handleChange = this.handleChange.bind(this);
+    this.getLineitem = this.getLineitem.bind(this);
+    this.moveUp = this.moveUp.bind(this);
+    this.moveDown = this.moveDown.bind(this);
+    this.save = this.save.bind(this);
+    this.sort = this.sort.bind(this);
+  }
+
+  componentDidMount() {
+    this.getConfiguration();
   }
 
   async getConfiguration() {
-    let config = await ConfigurationService.getAll();
-    config = _.sortBy(config, 'position');
+    const config = await ConfigurationService.getAll();
+    this.sort(config);
+  }
+
+  sort(config) {
+    config = _.sortBy(config, (c) => Number.parseInt(c.position));
 
     this.setState({
       config,
@@ -36,44 +47,97 @@ class ManageConfiguration extends React.Component {
     });
   }
 
+  async save() {
+    console.log('Saving...');
+    this.setState({
+      saving: true,
+    });
+
+    await ConfigurationService.saveAll(this.state.config);
+    toast.success('Successfully saved configuration');
+    this.setState({
+      saving: false,
+    });
+  }
+
+  moveUp(id) {
+    const { config } = this.state;
+
+    if (config) {
+      const c = _.find(config, c => c.id === id);
+      c.position = Number.parseInt(c.position);
+      c.position--;
+
+      this.sort(config);
+    } else {
+      console.log('Something horrible is happening');
+    }
+  }
+
+  moveDown(id) {
+    const { config } = this.state;
+
+    if (config) {
+      const c = _.find(config, c => c.id === id);
+      c.position = Number.parseInt(c.position);
+      c.position++;
+
+      this.sort(config);
+    } else {
+      console.log('Something horrible is happening');
+    }
+  }
+
   getLineitem(config) {
+    const options = config.options ? config.options.length : 0;
+    const configUrl = `/edit-config/${config.id}`;
+
     return (
-      <div className="abasi-config-item" key={config.id}>
-        <div className="position">{ config.position }.</div>
-        <div className="title">{ config.title }</div>
-        <div className="description">{ config.description }</div>
-        <div className="type">{ config.type}</div>
-        <div className="options">{ config.options.length } Subitems</div>
-        <div className="shuffle">
-          <button className="move up">
+      <tr className="abasi-config-item" key={config.id}>
+        <td className="position">{ config.position }.</td>
+        <td className="title">{ config.title }</td>
+        <td className="type">{ config.type}</td>
+        <td className="key">{ config.key}</td>
+        <td className="options">{ options } Subitems</td>
+        <td className="shuffle">
+          <button className="move up" onClick={() => this.moveUp(config.id)}>
             <i className="fa fa-arrow-up"></i>
           </button>
 
-          <button className="move down">
+          <button className="move down" onClick={() => this.moveDown(config.id)}>
             <i className="fa fa-arrow-down"></i>
           </button>
-        </div>
-      </div>
+        </td>
+        <td>
+          <Link to={configUrl}>
+            Edit
+          </Link>
+        </td>
+      </tr>
     );
   }
   
   getConfigContent(config) {
-    console.log(config);
     const lineitems = _.map(config, this.getLineitem);
 
     return (
-      <div className="flex columns abasi-config-items">
-        <div className="abasi-config-item">
-          <div className="position">#</div>
-          <div className="title">Title</div>
-          <div className="description">Description</div>
-          <div className="type">Type</div>
-          <div className="options"># of Subitems</div>
-          <div className="shuffle">Reorder config item</div>
-        </div>
+      <table className="abasi-config-items abasi-table" border="1" frame="void" rules="rows">
+        <thead className="abasi-config-item">
+          <tr>
+            <th className="position">#</th>
+            <th className="title">Title</th>
+            <th className="type">Type</th>
+            <th className="key">Key</th>
+            <th className="options">Options</th>
+            <th className="shuffle">Move</th>
+            <th>Edit</th>
+          </tr>
+        </thead>
 
-        { lineitems }
-      </div>
+        <tbody>
+          { lineitems }
+        </tbody>
+      </table>
     );
   }
 
@@ -106,7 +170,7 @@ class ManageConfiguration extends React.Component {
           { content }
         </div>
 
-        <button>
+        <button disabled={saving} className="abasi-save-config" onClick={this.save}>
           { saving && 
             <ClipLoader />
           }

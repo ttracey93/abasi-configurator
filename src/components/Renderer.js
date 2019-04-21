@@ -3,7 +3,7 @@ import OBJLoader from 'three-obj-loader';
 import OrbitControls from 'three-orbitcontrols';
 import Events from '../constants/events';
 import Materials from './helpers/Materials';
-import Axios from 'axios';
+// import Axios from 'axios';
 
 const Three = require('three');
 
@@ -94,18 +94,18 @@ export default class Renderer {
   }
 
   async getModel() {
-    const loader = new FBXLoader();
+    // const loader = new FBXLoader();
 
-    Axios.get('/abasi/3.fbx', {
-      responseType: 'arraybuffer',
-    }).then((response) => {
-      const fbxScene = loader.parse(response.data, '/');
+    // Axios.get('https://firebasestorage.googleapis.com/v0/b/abasi-configurator/o/models%2F3.FBX?alt=media&token=72d4c4c7-5bcc-47d9-90e5-dfe13b115750', {
+    //   responseType: 'arraybuffer',
+    // }).then((response) => {
+    //   const fbxScene = loader.parse(response.data, '/');
 
-      // Axios.post('http://localhost:9000/save', fbxScene);
+    //   // Axios.post('http://localhost:9000/save', fbxScene);
 
-      this.models.abasi = fbxScene;
-      this.prepareModel();
-    });
+    //   this.models.abasi = fbxScene;
+    //   this.prepareModel();
+    // });
 
   }
 

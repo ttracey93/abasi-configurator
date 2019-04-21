@@ -1,8 +1,10 @@
 import React from 'react';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
-import OrderService from '../../services/OrderService';
 import { ClipLoader } from 'react-spinners';
+import DataTable from 'react-data-table-component';
+
+import OrderService from '../../services/OrderService';
 
 class Orders extends React.Component {
   constructor(props) {
@@ -11,13 +13,14 @@ class Orders extends React.Component {
     this.state = {
       orders: null,
     };
+  }
 
+  componentDidMount() {
     this.getOrders();
   }
 
   async getOrders() {
     const orders = await OrderService.getAll();
-    console.log(orders);
     this.setState({
       orders,
     });
@@ -25,7 +28,7 @@ class Orders extends React.Component {
 
   getOrderContent(order) {
     return (
-      <tr className="abasi-orders-row">
+      <tr className="abasi-orders-row" key={order.id}>
         <td>{ order.orderNumber }</td>
         <td>{ order.id }</td>
         <td>${ order.total }</td>
@@ -50,29 +53,40 @@ class Orders extends React.Component {
   }
 
   getOrdersContent(orders) {
-    const orderContent = _.map(orders, this.getOrderContent);
+    const columns = [{
+      name: '#',
+      selector: 'orderNumber',
+      sortable: true,
+    },
+    {
+      name: 'Invoice ID',
+      selector: 'id',
+    }, {
+      name: 'Total',
+      selector: 'total',
+      sortable: true,
+    }, {
+      name: 'Status',
+      selector: 'status',
+      sortable: true,
+    }, {
+      name: 'Link',
+      cell: row => <Link to={`/orders/${row.id}`}>View Order</Link>
+    }];
 
     return (
       <div className="abasi-orders flex columns">
         <span className="abasi-orders-header">
           Orders
         </span>
-  
-        <table className="abasi-orders-table abasi-table" border="1" frame="void" rules="rows">
-          <thead>
-            <tr>
-              <th>Order Number</th>
-              <th>Invoice ID</th>
-              <th>Total</th>
-              <th>Payment Status</th>
-              <th>Order Link</th>
-            </tr>
-          </thead>
-  
-          <tbody>
-            { orderContent }
-          </tbody>
-        </table>
+        
+        <div className="abasi-orders-table flex">
+          <DataTable
+            columns={columns}
+            data={orders}
+            highlightOnHover
+          />
+        </div>
       </div>
     );
   }

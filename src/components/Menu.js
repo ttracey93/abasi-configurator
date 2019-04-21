@@ -1,78 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-
 import Tile from './Tile';
 
-export default class Menu extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.handleChange = this.handleChange.bind(this);
-    this.changeMode = this.changeMode.bind(this);
-    this.chooseColor = this.chooseColor.bind(this);
-
-    this.colors = [{
-      name: 'orange',
-      color: 'orange',
-    }, {
-      name: 'red',
-      color: 'red',
-    }, {
-      name: 'purple',
-      color: 'purple',
-    }, {
-      name: 'white',
-      color: 'white',
-    }];
-  }
-
-  chooseColor(color) {
-    this.props.renderer.colorChange(color);
-  }
-
-  handleChange(tile) {
-    this.props.setData(tile, this.props.items.key);
-  }
-
-  changeMode(mode) {
-    this.props.changeMode(mode);
-  }
-
-  render() {
-    const { items } = this.props;
-
-    const tiles = _.map(items.products || items, (item, i) => {
-      const imageSource = item.handle ? this.props.renderer.getTextureImage(item.handle) : undefined;
-      return (
-        <Tile key={i} data={item} callback={this.handleChange} imageSource={imageSource} />
-      );
-    });
-
-    const className = this.props.columns ? 'menu columns' : 'menu';
-
-    const colors = _.map(this.colors, (color) => {
-      const style = {
-        backgroundColor: color.color,
-      };
-
-      return (
-        <div className="color" key={`color-${color.color}`} style={style} onClick={() => this.chooseColor(color.name)} />
-      );
-    });
-
+const Menu = ({ items, callback, columns }) => {
+  const tiles = _.map(items.products || items, (item, i) => {
     return (
-      <div className={className}>
-        <div className="tiles-container">
-          {tiles}
-        </div>
-
-        <div className="color-container">
-          {colors}
-        </div>
-      </div>
+      <Tile key={i} data={item} callback={callback} />
     );
-  }
+  });
+
+  const className = columns ? 'menu columns' : 'menu';
+
+  return (
+    <div className={className}>
+      <div className="tiles-container">
+        {tiles}
+      </div>
+    </div>
+  );
 }
 
 Menu.defaultProps = {
@@ -80,9 +26,10 @@ Menu.defaultProps = {
 };
 
 Menu.propTypes = {
-  items: PropTypes.object.isRequired,
-  setData: PropTypes.func.isRequired,
-  changeMode: PropTypes.func.isRequired,
+  items: PropTypes.array.isRequired,
+  callback: PropTypes.func.isRequired,
   columns: PropTypes.bool,
   renderer: PropTypes.object.isRequired,
 };
+
+export default Menu;

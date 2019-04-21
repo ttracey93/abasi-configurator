@@ -1,5 +1,5 @@
 import Service from './Service';
-import { DB, Storage } from '../firebase';
+import { Storage } from '../firebase';
 
 class AssetService extends Service {
   constructor() {
@@ -19,10 +19,6 @@ class AssetService extends Service {
   async getModelMetadata() {
     const ref = Storage.ref('models');
     return await ref.getMetadata();
-  }
-
-  async delete(ref) {
-    // TODO: Delete asset
   }
 }
 

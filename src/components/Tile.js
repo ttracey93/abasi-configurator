@@ -14,22 +14,16 @@ export default class Tile extends React.Component {
 
   render() {
     const label = this.props.data.label || this.props.data.title;
-    const { icon } = this.props.data;
-
-    // Use fallback icon
-    const iconSource = icon ? `icons/${icon}.svg` : 'icons/headstock.svg';
 
     return (
-      <div className="container columns evenly tile" role="presentation" onClick={this.handleClick}>
-        <div className="tile-label">
+      <div className="flex tile" role="presentation" onClick={this.handleClick}>
+        <span className="tile-label">
           {label}
+        </span>
 
-          <i src={iconSource} />
-        </div>
-
-        {this.props.data.variants &&
+        {this.props.data.price &&
           <div className="tile-price">
-            ${this.props.data.variants[0].price} USD
+            ${this.props.data.price} USD
           </div>
         }
       </div>
