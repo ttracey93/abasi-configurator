@@ -88,36 +88,36 @@ export default class Configurator extends React.Component {
   }
 
   async makeSelection(selection) {
-    console.log(selection);
+    // console.log(selection);
 
-    switch (selection.type) {
-      case SelectionTypes.MENU:
-        // TODO: Push new items
-        const { items } = this.state;
-        items.push(selection.options);
+    // switch (selection.type) {
+    //   case SelectionTypes.MENU:
+    //     // TODO: Push new items
+    //     const { items } = this.state;
+    //     items.push(selection.options);
 
-        this.setState({
-          items
-        });
-        break;
-      case SelectionTypes.MODEL:
-      case SelectionTypes.MATERIAL:
-      case SelectionTypes.TEXTURE:
-        // TODO: Create selection, update price, return to original options
-        this.performUpdate(selection);
-      default:
-        console.log('Expected concrete selection type...');
-        break;
-    }
+    //     this.setState({
+    //       items
+    //     });
+    //     break;
+    //   case SelectionTypes.MODEL:
+    //   case SelectionTypes.MATERIAL:
+    //   case SelectionTypes.TEXTURE:
+    //     // TODO: Create selection, update price, return to original options
+    //     this.performUpdate(selection);
+    //   default:
+    //     console.log('Expected concrete selection type...');
+    //     break;
+    // }
   }
 
   async performUpdate(selection) {
-    const { selections } = this.state;
-    selections[selection.key] = selection;
+    // const { selections } = this.state;
+    // selections[selection.key] = selection;
 
-    this.setState({
-      selections,
-    });
+    // this.setState({
+    //   selections,
+    // });
 
     this.evaluatePrice();
   }

@@ -20,6 +20,10 @@ class ManageAssets extends React.Component {
 
     this.getMetadata = this.getMetadata.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.deleteModel = this.deleteModel.bind(this);
+    this.deleteTexture = this.deleteTexture.bind(this);
+    this.getTextureAssetContent = this.getTextureAssetContent.bind(this);
+    this.getModelAssetContent = this.getModelAssetContent.bind(this);
   }
 
   componentDidMount() {
@@ -28,14 +32,26 @@ class ManageAssets extends React.Component {
 
   async getMetadata() {
     // TODO: Load in asset metadata from the GS bucket
+    const textureMetadata = await AssetService.getTextureMetadata();
+    const modelMetadata = await AssetService.getModelMetadata();
+
+    console.log(textureMetadata);
 
     this.setState({
       loading: false,
-    })
+      textureMetadata,
+      modelMetadata,
+    });
   }
 
-  async deleteAsset() {
-    // Delete Assets
+  async deleteTexture(texture) {
+    await AssetService.removeTexture(texture);
+    toast.success('Successfully removed texture');
+  }
+
+  async deleteModel(model) {
+    await AssetService.removeModel(model);
+    toast.success('Successfully removed model');
   }
 
   handleUploadStart = () => this.setState({ uploading: true, progress: 0 });
@@ -47,9 +63,18 @@ class ManageAssets extends React.Component {
     toast.error(error);
   };
 
-  handleUploadSuccess = filename => {
-    this.setState({ avatar: filename, progress: 100, uploading: false });
-    toast.success('File uploaded successfully');
+  handleModelUploadSuccess = async (filename, task) => {
+    await AssetService.createModel(filename, task.metadata_.size);
+
+    this.setState({ progress: 100, uploading: false });
+    toast.success('Model uploaded successfully');
+  };
+
+  handleTextureUploadSuccess = async (filename, task) => {
+    await AssetService.createTexture(filename, task.metadata_.size);
+
+    this.setState({ progress: 100, uploading: false });
+    toast.success('Texture uploaded successfully');
   };
 
   handleChange(event) {
@@ -60,15 +85,31 @@ class ManageAssets extends React.Component {
     });
   }
 
-  getAssetContent(asset) {
+  getTextureAssetContent(asset) {
     return (
       <tr className="abasi-assets-row" key={asset.id}>
-        <td>{ asset.name }</td>
+        <td>{ asset.filename }</td>
         <td>{ asset.id }</td>
         <td>{ asset.size }</td>
 
         <td>
-          <button className="abasi-assets-table-button" onClick={() => { this.deleteAsset(asset.id) }}>
+          <button className="abasi-assets-table-button" onClick={() => { this.deleteTexture(asset.id) }}>
+            Delete Asset
+          </button>
+        </td>
+      </tr>
+    );
+  }
+
+  getModelAssetContent(asset) {
+    return (
+      <tr className="abasi-assets-row" key={asset.id}>
+        <td>{ asset.filename }</td>
+        <td>{ asset.id }</td>
+        <td>{ asset.size }</td>
+
+        <td>
+          <button className="abasi-assets-table-button" onClick={() => { this.deleteModel(asset.id) }}>
             Delete Asset
           </button>
         </td>
@@ -88,11 +129,12 @@ class ManageAssets extends React.Component {
       );
     }
 
-    const assetContent = _.map(this.state.assets, this.getAssetContent);
+    const textureContent = _.map(this.state.textureMetadata, this.getTextureAssetContent);
+    const modelContent = _.map(this.state.modelMetadata, this.getModelAssetContent);
 
     return (
       <div className="abasi-manage-assets flex columns">
-        <h1>Manage Assets</h1>
+        <h1>Manage Textures</h1>
   
         <table className="abasi-assets-table abasi-table" border="1" frame="void" rules="rows">
           <thead>
@@ -105,7 +147,24 @@ class ManageAssets extends React.Component {
           </thead>
   
           <tbody>
-            { assetContent }
+            { textureContent }
+          </tbody>
+        </table>
+
+        <h1>Manage Models</h1>
+
+        <table className="abasi-assets-table abasi-table" border="1" frame="void" rules="rows">
+          <thead>
+            <tr>
+              <th>Asset Name</th>
+              <th>Asset ID</th>
+              <th>File Size</th>
+              <th>Delete Asset</th>
+            </tr>
+          </thead>
+  
+          <tbody>
+            { modelContent }
           </tbody>
         </table>
       </div>
@@ -128,7 +187,7 @@ class ManageAssets extends React.Component {
             storageRef={Storage.ref('models')}
             onUploadStart={this.handleUploadStart}
             onUploadError={this.handleUploadError}
-            onUploadSuccess={this.handleUploadSuccess}
+            onUploadSuccess={this.handleModelUploadSuccess}
             onProgress={this.handleProgress}
           />
         </label>
@@ -152,7 +211,7 @@ class ManageAssets extends React.Component {
             storageRef={Storage.ref('textures')}
             onUploadStart={this.handleUploadStart}
             onUploadError={this.handleUploadError}
-            onUploadSuccess={this.handleUploadSuccess}
+            onUploadSuccess={this.handleTextureUploadSuccess}
             onProgress={this.handleProgress}
           />
         </label>

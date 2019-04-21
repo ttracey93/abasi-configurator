@@ -25,47 +25,47 @@ label {
   text-align: center;
   border: 1px solid $anchor-color;
 
-  // tbody > tr:hover {
-  //   color: $primary-color;
-  //   background-color: $anchor-color;
-  // }
+  tbody > tr:hover {
+    color: $primary-color;
+    background-color: $anchor-color;
+  }
 
-  // tr { 
-  //   border: 1px solid $anchor-color;
+  tr { 
+    border: 1px solid $anchor-color;
 
-  //   &:first-child {
-  //     border-top: none;
-  //   }
+    &:first-child {
+      border-top: none;
+    }
 
-  //   &:last-child {
-  //     border-bottom: none;
-  //   }
+    &:last-child {
+      border-bottom: none;
+    }
 
-  //   td {
-  //     border-right: 1px solid $anchor-color;
-  //     padding-left: 10px;
-  //     padding-right: 10px;
+    td {
+      border-right: 1px solid $anchor-color;
+      padding-left: 10px;
+      padding-right: 10px;
 
-  //     &:last-child {
-  //       border: none;
-  //     }
+      &:last-child {
+        border: none;
+      }
 
-  //     a {
-  //       color: $link-color;
-  //       transition: color 0.3s linear;
+      a {
+        color: $link-color;
+        transition: color 0.3s linear;
         
-  //       &:hover {
-  //         color: $dark-link-color;
-  //       }
-  //     }
-  //   }
+        &:hover {
+          color: $dark-link-color;
+        }
+      }
+    }
 
-  //   th {
-  //     border-right: 1px solid $anchor-color;
-  //     padding-left: 10px;
-  //     padding-right: 10px;
-  //   }
-  // }
+    th {
+      border-right: 1px solid $anchor-color;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
 }
 
 .abasi-input {
@@ -550,9 +550,17 @@ label {
     }
   }
 
+  .back-button {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+  }
+
   .abasi-selections {
     align-items: center;
     position: relative;
+    height: fit-content;
+    margin-top: 10px;
 
     .lineitems {
       align-items: center;
@@ -564,7 +572,7 @@ label {
         margin-bottom: 10px;
 
         > * {
-          line-height: 50px;
+          line-height: 53px;
           text-align: center;
         }
         
@@ -576,8 +584,16 @@ label {
           width: 200px;
         }
 
-        .save {
+        .asset {
           width: 200px;
+        }
+
+        .delete {
+          width: 200px;
+
+          .btn {
+            background-color: $error-color;
+          }
         }
       }
     }

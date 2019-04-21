@@ -507,6 +507,30 @@ label {
   font-size: 2em;
   text-align: center;
   border: 1px solid #000000; }
+  .abasi-table tbody > tr:hover {
+    color: #ffffff;
+    background-color: #000000; }
+  .abasi-table tr {
+    border: 1px solid #000000; }
+    .abasi-table tr:first-child {
+      border-top: none; }
+    .abasi-table tr:last-child {
+      border-bottom: none; }
+    .abasi-table tr td {
+      border-right: 1px solid #000000;
+      padding-left: 10px;
+      padding-right: 10px; }
+      .abasi-table tr td:last-child {
+        border: none; }
+      .abasi-table tr td a {
+        color: #7dc6f3;
+        transition: color 0.3s linear; }
+        .abasi-table tr td a:hover {
+          color: #0d8ddd; }
+    .abasi-table tr th {
+      border-right: 1px solid #000000;
+      padding-left: 10px;
+      padding-right: 10px; }
 
 .abasi-input {
   display: inline-block;
@@ -839,9 +863,15 @@ label {
       text-align-last: center; }
     .abasi-add form .abasi-add-button {
       margin-top: 10px; }
+  .abasi-add .back-button {
+    position: absolute;
+    left: 10px;
+    top: 10px; }
   .abasi-add .abasi-selections {
     align-items: center;
-    position: relative; }
+    position: relative;
+    height: fit-content;
+    margin-top: 10px; }
     .abasi-add .abasi-selections .lineitems {
       align-items: center; }
       .abasi-add .abasi-selections .lineitems .abasi-lineitem {
@@ -850,14 +880,18 @@ label {
         border: 1px solid #000000;
         margin-bottom: 10px; }
         .abasi-add .abasi-selections .lineitems .abasi-lineitem > * {
-          line-height: 50px;
+          line-height: 53px;
           text-align: center; }
         .abasi-add .abasi-selections .lineitems .abasi-lineitem .name {
           width: 200px; }
         .abasi-add .abasi-selections .lineitems .abasi-lineitem .price {
           width: 200px; }
-        .abasi-add .abasi-selections .lineitems .abasi-lineitem .save {
+        .abasi-add .abasi-selections .lineitems .abasi-lineitem .asset {
           width: 200px; }
+        .abasi-add .abasi-selections .lineitems .abasi-lineitem .delete {
+          width: 200px; }
+          .abasi-add .abasi-selections .lineitems .abasi-lineitem .delete .btn {
+            background-color: #eb5c5c; }
     .abasi-add .abasi-selections .abasi-add-line-item {
       position: absolute;
       right: calc(50% - 300px);

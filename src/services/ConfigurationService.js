@@ -81,6 +81,7 @@ class ConfigurationService extends Service {
 
   createLineitem(config, item) {
     item.id = uuid.v4().replace(/-/g, '');
+    console.log(item.id);
     config.options.push(item);
   }
 }

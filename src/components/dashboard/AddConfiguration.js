@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { ClipLoader } from 'react-spinners';
+import { Link } from 'react-router-dom';
 import _ from 'lodash';
 
 import ConfigurationService from '../../services/ConfigurationService';
+import AssetService from '../../services/AssetService';
 import LineItem from './LineItem';
 
 class AddConfiguration extends React.Component {
@@ -24,13 +26,15 @@ class AddConfiguration extends React.Component {
         position: 99,
         key: undefined,
         options: [],
-      }
+      },
+      metadata: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.save = this.save.bind(this);
     this.getConfiguration = this.getConfiguration.bind(this);
     this.addLineItem = this.addLineItem.bind(this);
+    this.removeLineItem = this.removeLineItem.bind(this);
   }
 
   componentDidMount() {
@@ -40,14 +44,25 @@ class AddConfiguration extends React.Component {
   }
 
   async getConfiguration(id) {
-    console.log('getting configuration...', id);
-
     const config = await ConfigurationService.get(id);
 
-    console.log(config);
+    let metadata;
+
+    console.log(config.type);
+    switch (config.type) {
+      case 'model':
+        metadata = await AssetService.getModelMetadata();
+        break;
+      case 'texture':
+        metadata = await AssetService.getTextureMetadata();
+        break;
+      default:
+        break;
+    }
 
     this.setState({
       config,
+      metadata,
       loading: false,
     });
   }
@@ -64,8 +79,6 @@ class AddConfiguration extends React.Component {
 
   async save(event) {
     event.preventDefault();
-
-    console.log(this.state);
 
     const { title, description, key } = this.state.config;
 
@@ -88,13 +101,22 @@ class AddConfiguration extends React.Component {
     });
   }
 
+  removeLineItem(item) {
+    const { config } = this.state;
+    config.options = _.filter(config.options, o => o.id !== item.id);
+
+    this.setState({ 
+      config,
+    });
+  }
+
   getLineItems(items) {
     // Magic for first configuration item
     items = [{
       maskFields: true,
     }, ...items];
 
-    return _.map(items, item => <LineItem data={item} key={`lineitem-${item.name}`} />);
+    return _.map(items, item => <LineItem data={item} key={`lineitem-${item.name}`} delete={this.removeLineItem} metadata={this.state.metadata} />);
   }
   
   render() {
@@ -120,6 +142,12 @@ class AddConfiguration extends React.Component {
         {!editing &&
           <h1>Add Configuration Item</h1>
         }
+
+        <Link to="/config">
+          <button className="btn back-button">
+            Back to configuration
+          </button>
+        </Link>
 
         <form onSubmit={this.save} className="flex">
           <div className="flex columns">
@@ -181,23 +209,23 @@ class AddConfiguration extends React.Component {
               />
             </label>
 
+            <div className="flex columns abasi-selections">
+              <h1>Configuration Line Items</h1>
+
+              <button className="btn abasi-add-line-item" type="button" onClick={this.addLineItem}>
+                Add New Line Item
+              </button>
+
+              <div className="flex columns lineitems">
+                { lineitems }
+              </div>
+            </div>
+
             <button type="submit" className="btn abasi-add-button">
               Save Configuration Item
             </button>
           </div>
         </form>
-
-        <div className="flex columns abasi-selections">
-          <h1>Configuration Line Items</h1>
-
-          <button className="btn abasi-add-line-item" onClick={this.addLineItem}>
-            Add New Line Item
-          </button>
-
-          <div className="flex columns lineitems">
-            { lineitems }
-          </div>
-        </div>
       </div>
     );
   }
