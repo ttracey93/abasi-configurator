@@ -68,8 +68,6 @@ class ConfigurationService extends Service {
   }
 
   async saveAll(configs) {
-    console.log(configs);
-    
     try {
       _.each(configs, async c => {
         await DB.collection('configuration').doc(c.id).set(c);
@@ -81,8 +79,12 @@ class ConfigurationService extends Service {
 
   createLineitem(config, item) {
     item.id = uuid.v4().replace(/-/g, '');
-    console.log(item.id);
-    config.options.push(item);
+
+    if (config.options && config.options.length) {
+      config.options.push(item);
+    } else {
+      config.options = [item];
+    }
   }
 }
 

@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ViewPort from '../Viewport';
-import Menu from '../Menu';
 import Info from '../Info';
 
 export default class ConfirmationView extends React.Component {
@@ -24,36 +22,15 @@ export default class ConfirmationView extends React.Component {
   render() {
     return (
       <div className="container">
-        <div className="container option-menu">
+        <div className="container columns">
           <div className="back-button">
-            <button className="btn" onClick={this.props.goBack}>
+            <button className="btn" onClick={this.props.handleMain}>
               Back
             </button>
           </div>
 
-          <Menu
-            items={this.props.getItems()}
-            setData={this.handleChange}
-            changeMode={this.changeMode}
-            columns
-          />
-        </div>
-
-        <div className="container columns">
-          <div className="container option-viewport">
-            <ViewPort
-              data={this.props.data}
-              setData={this.handleChange}
-              changeMode={this.changeMode}
-            />
-          </div>
-
           <div className="container option-info">
-            <Info
-              data={this.props.data}
-              setData={this.handleChange}
-              changeMode={this.changeMode}
-            />
+            <Info data={this.props.data} submitOrder={this.props.submitOrder} />
           </div>
         </div>
       </div>
@@ -62,9 +39,8 @@ export default class ConfirmationView extends React.Component {
 }
 
 ConfirmationView.propTypes = {
-  setData: PropTypes.func.isRequired,
   getItems: PropTypes.func.isRequired,
-  changeMode: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
-  goBack: PropTypes.func.isRequired,
+  handleMain: PropTypes.func.isRequired,
+  submitOrder: PropTypes.func.isRequired,
 };

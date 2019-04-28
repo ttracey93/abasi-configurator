@@ -1,32 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class Price extends React.Component {
-  constructor(props) {
-    super(props);
+const Price = ({ price, handlePrice }) => (
+  <div className="container evenly price-container">
+    <div>
+      <span className="price space-right">${price}</span>
 
-    this.handlePrice = this.handlePrice.bind(this);
-  }
-
-  handlePrice() {
-
-  }
-
-  render() {
-    return (
-      <div className="container evenly price-container">
-        <div>
-          <span className="price space-right">${this.props.price}</span>
-
-          <i className="fa fa-question-circle price-icon tooltip" role="presentation" onClick={this.handlePrice}>
-            <span className="tooltiptext">Click me for line item explanation of price</span>
-          </i>
-        </div>
-      </div>
-    );
-  }
-}
+      <i className="fa fa-question-circle price-icon tooltip" role="presentation" onClick={handlePrice}>
+        <span className="tooltiptext">Click me for line item explanation of price</span>
+      </i>
+    </div>
+  </div>
+);
 
 Price.propTypes = {
-  price: PropTypes.object.isRequired,
+  handlePrice: PropTypes.func.isRequired,
+  price: PropTypes.number.isRequired,
 };
+
+export default Price;

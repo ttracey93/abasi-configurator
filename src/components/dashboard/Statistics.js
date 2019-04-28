@@ -15,8 +15,6 @@ class Statistics extends React.Component {
 
   async componentDidMount() {
     const orders = await OrderService.getAll();
-    
-    console.log(orders);
 
     this.setState({
       orders,

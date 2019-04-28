@@ -22,8 +22,6 @@ class Storage {
   async get(key) {
     const models = await this.db.models.where('name').equals(key).toArray();
 
-    console.log(models);
-
     if (models && models.length) {
       return JSON.parse(models[0].data);
     } else if (models && (!models.length && !models.length === 0)) {

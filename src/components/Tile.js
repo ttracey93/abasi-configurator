@@ -13,7 +13,9 @@ export default class Tile extends React.Component {
   }
 
   render() {
-    const label = this.props.data.label || this.props.data.title;
+    const label = this.props.data.label || this.props.data.title || this.props.data.name;
+    const { price } = this.props.data;
+    const showPrice = price !== undefined;
 
     return (
       <div className="flex tile" role="presentation" onClick={this.handleClick}>
@@ -21,10 +23,10 @@ export default class Tile extends React.Component {
           {label}
         </span>
 
-        {this.props.data.price &&
-          <div className="tile-price">
-            ${this.props.data.price} USD
-          </div>
+        {showPrice &&
+          <span className="tile-price">
+            ${price} USD
+          </span>
         }
       </div>
     );

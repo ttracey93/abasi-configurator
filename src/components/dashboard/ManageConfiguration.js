@@ -48,7 +48,6 @@ class ManageConfiguration extends React.Component {
   }
 
   async save() {
-    console.log('Saving...');
     this.setState({
       saving: true,
     });
@@ -160,16 +159,6 @@ class ManageConfiguration extends React.Component {
       <div className="flex columns abasi-config">
         <h1>Configuration Management</h1>
 
-        <Link to="/add-config">
-          <button className="add-config">
-            Add Configuration Item
-          </button>
-        </Link>
-
-        <div className="flex columns abasi-config-wrapper">
-          { content }
-        </div>
-
         <button disabled={saving} className="abasi-save-config" onClick={this.save}>
           { saving && 
             <ClipLoader />
@@ -179,6 +168,16 @@ class ManageConfiguration extends React.Component {
             <span>Save Configuration</span>
           }
         </button>
+
+        <Link to="/add-config">
+          <button className="add-config">
+            Add Configuration Item
+          </button>
+        </Link>
+
+        <div className="flex columns abasi-config-wrapper">
+          { content }
+        </div>
       </div>
     );
   }

@@ -25,8 +25,6 @@ export const login = (email, password) => async (dispatch) => {
       payload: user,
     });
   }).catch((ex) => {
-    console.log(ex);
-
     toast.error('Unathorized');
   });
 };

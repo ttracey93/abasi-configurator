@@ -1,43 +1,63 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import FinishPicker from './FinishPicker';
 
 class LineItem extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      ...this.props.data,
+      color: '#000',
       metadata: this.props.metadata,
+      ...this.props.data,
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleColor = this.handleColor.bind(this);
+    this.getMaskedContent = this.getMaskedContent.bind(this);
+    this.getItemContent = this.getItemContent.bind(this);
+    this.getFinishContent = this.getFinishContent.bind(this);
   }
 
   handleChange(event) {
     const { name, value } = event.target;
+
+    const data = _.cloneDeep(this.state);
+    delete data.metadata;
+    data[name] = value;
+    this.props.callback(data);
 
     this.setState({
       [name]: value,
     });
   }
 
-  render() {
-    const data = this.state;
+  handleColor(color) {
+    this.handleChange({
+      target: {
+        name: 'color',
+        value: color.hex,
+      }
+    });
+  }
 
-    if (data.maskFields) {
+  getMaskedContent() {
+    const { type } = this.props;
+
+    if (type === 'finish') {
       return (
         <div className="flex abasi-lineitem">
           <div className="name">
             Name
           </div>
-          
+
           <div className="price">
             Price
           </div>
 
-          <div className="asset">
-            Asset
+          <div className="color">
+            Color
           </div>
 
           <div className="delete">
@@ -45,6 +65,72 @@ class LineItem extends React.Component {
           </div>
         </div>
       );
+    }
+
+    return (
+      <div className="flex abasi-lineitem">
+        <div className="name">
+          Name
+        </div>
+        
+        <div className="price">
+          Price
+        </div>
+
+        <div className="asset">
+          Asset
+        </div>
+
+        <div className="delete">
+          Delete
+        </div>
+      </div>
+    );
+  }
+
+  getFinishContent(data) {
+    return (
+      <div className="flex abasi-lineitem">
+        <div className="name">
+          <input className=""
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={data.name} 
+            onChange={this.handleChange}
+          />
+        </div>
+
+        <div className="price">
+          <input className=""
+            type="number"
+            name="price"
+            value={data.price}
+            onChange={this.handleChange}
+          />
+        </div>
+        
+        <div className="color">
+          <FinishPicker 
+            color={ this.state.color }
+            onChangeComplete={ this.handleColor }
+          />
+        </div>
+
+        <div className="delete">
+          <button className="btn" type="button" onClick={() => { this.props.delete(data) }}>
+            Delete
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  getItemContent(data) {
+    const { type } = this.props;
+
+    if (type === 'finish') {
+      return this.getFinishContent(data);
     }
 
     return (
@@ -62,7 +148,7 @@ class LineItem extends React.Component {
         <div className="price">
           <input className=""
             type="number"
-            name="asset"
+            name="price"
             value={data.price}
             onChange={this.handleChange}
           />
@@ -82,10 +168,21 @@ class LineItem extends React.Component {
       </div>
     );
   }
+
+  render() {
+    const data = this.state;
+
+    if (data.maskFields) {
+      return this.getMaskedContent();
+    }
+
+    return this.getItemContent(data);
+  }
 }
 
 LineItem.propTypes = {
   delete: PropTypes.func,
+  callback: PropTypes.func,
   metadata: PropTypes.array.isRequired,
 };
 

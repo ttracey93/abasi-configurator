@@ -1,13 +1,20 @@
-import FBXLoader from 'three-fbxloader-offical';
 import OBJLoader from 'three-obj-loader';
 import OrbitControls from 'three-orbitcontrols';
-import Events from '../constants/events';
-import Materials from './helpers/Materials';
+import FBXLoader from 'three-fbxloader-offical';
+import _ from 'lodash';
 import Axios from 'axios';
+
+import Events from '../constants/events';
+import LayerMap from '../constants/layer-map';
+import Materials from './helpers/Materials';
 
 const Three = require('three');
 
 OBJLoader(Three);
+
+function colorToSigned24Bit(s) {
+  return (parseInt(s.substr(1), 16) << 8) / 256;
+}
 
 export default class Renderer {
   constructor(data) {
@@ -20,30 +27,31 @@ export default class Renderer {
     // Event bindings
     this.animate = this.animate.bind(this);
     this.resize = this.resize.bind(this);
-    this.prepareModel = this.prepareModel.bind(this);
     this.handleEvent = this.handleEvent.bind(this);
     this.colorChange = this.colorChange.bind(this);
     this.createScene = this.createScene.bind(this);
 
+    // Selection events
+    this.selectModel = this.selectModel.bind(this);
+    this.selectFinish = this.selectFinish.bind(this);
+    this.selectTexture = this.selectTexture.bind(this);
+    this.selectMaterial = this.selectMaterial.bind(this);
+
     // Need to set container on instance
     this.renderer = new Three.WebGLRenderer({ alpha: true });
-    this.renderer.setClearColor(0xffffff, 0);
+    this.renderer.setClearColor(0x000000, 0.5);
+    // this.renderer.setClearColor(0xffffff, 0);
 
     this.container = undefined;
     this.textureLoader = new Three.TextureLoader();
-
-    // Local Colors
-    this.colors = {
-      orange: new Three.MeshPhysicalMaterial( { color: 0xf48942, metalness: 0.9, roughness: 0.2, name: 'orange' } ),
-      red: new Three.MeshPhysicalMaterial( { color: 0xe50b2f, metalness: 0.9, roughness: 0.2, name: 'red' } ),
-      purple: new Three.MeshPhysicalMaterial( { color: 0x8409b5, metalness: 0.9, roughness: 0.2, name: 'purple' } ),
-      white: new Three.MeshPhysicalMaterial( { color: 0xffffff, metalness: 0.9, roughness: 0.2, name: 'purple' } ),
-    };
+    this.modelLoader = new FBXLoader();
 
     this.models = {};
     this.materials = {};
+    this.textures = {};
 
     const reflectionCube = Materials.envMap();
+    this.reflectionCube = reflectionCube;
 
     this.metalMaterial = Materials.metalWithColor(reflectionCube, 0xd6d1cd);
     this.darkMetalMaterial = Materials.metalWithColor(reflectionCube, 0x222222);
@@ -55,10 +63,6 @@ export default class Renderer {
 
   getRendererElement() {
     return this.renderer.domElement;
-  }
-
-  update(data) {
-    // TODO: Update model based on selections?
   }
 
   async createScene() {
@@ -85,51 +89,10 @@ export default class Renderer {
     this.scene.add( spotLight );
     this.spotLight = spotLight;
 
-    this.getModel();
-
     window.addEventListener('resize', this.resize, false);
 
     // Begin animation loop
     this.animate();
-  }
-
-  async getModel() {
-    const loader = new FBXLoader();
-
-    Axios.get('https://firebasestorage.googleapis.com/v0/b/abasi-configurator/o/models%2F3.FBX?alt=media&token=72d4c4c7-5bcc-47d9-90e5-dfe13b115750', {
-      responseType: 'arraybuffer',
-    }).then((response) => {
-      const fbxScene = loader.parse(response.data, '/');
-
-      // Axios.post('http://localhost:9000/save', fbxScene);
-
-      this.models.abasi = fbxScene;
-      this.prepareModel();
-    });
-
-  }
-
-  loadModel(path, cb) {
-    console.log('Loading model...', path);
-    new FBXLoader().load(path, cb);
-  }
-
-  loadModelOBJ(path, cb) {
-    console.log('Loading OBJ model...', path);
-    new Three.OBJLoader().load(path, cb);
-  }
-
-  loadTexture(path) {
-    console.log('Loading texture...', path);
-
-    const texture = this.textureLoader.load(path);
-    texture.anisotropy = this.renderer.capabilities.getMaxAnisotropy();
-    texture.wrapS = Three.ClampToEdgeWrapping;
-    texture.wrapT = Three.ClampToEdgeWrapping;
-    texture.minFilter = Three.LinearMipMapLinearFilter;
-    texture.magFilter = Three.LinearMipMapLinearFilter;
-
-    return texture;
   }
 
   resize() {
@@ -140,15 +103,15 @@ export default class Renderer {
 
   /* eslint-disable no-param-reassign */
   setModel(model) {
-    this.scene.remove(this.currentModel);
+    this.scene.remove(this.models.current);
 
     model.traverse((node) => {
       if (node.isMesh) {
-        node.material.map = this.currentTexture;
+        node.material.map = this.textures.current;
       }
     });
 
-    this.currentModel = model;
+    this.models.current = model;
     this.scene.add(model);
   }
 
@@ -183,15 +146,13 @@ export default class Renderer {
   }
 
   colorChange(color) {
-    console.log('Color change!!!', color);
-
     const colorMat = this.colors[color];
 
     if (!colorMat) {
       return console.log('Invalid color material specified!', color);
     }
 
-    const fbx = this.models.abasi;
+    const fbx = this.models.current;
     colorMat.emissive = colorMat.color;
 
     fbx.traverse( child  => {
@@ -207,12 +168,14 @@ export default class Renderer {
     });
   }
 
-  prepareModel() {
-    const model = this.models.abasi;
+  prepareModel(model) {
+    // TODO: Prepare model with actual stuff
+    // This is really important
+    this.models.current = model;
 
     model.traverse( child => {
       if ( child instanceof Three.Mesh ) {
-        child.geometry.computeVertexNormals(true);
+        // child.geometry.computeVertexNormals(true);
 
         switch (child.name) {
           case 'Pickups':
@@ -248,10 +211,60 @@ export default class Renderer {
         }
       }
 
-      console.log(child);
+      // console.log(child);
     });
+
+    model.scale.x = 0.5;
+    model.scale.y = 0.5;
+    model.scale.z = 0.5;
 
     model.rotation.y = Math.PI;
     this.scene.add(model);
+  }
+
+  // Configurator utilities for selections
+  async selectModel(selection, key) {
+    console.log('Configuring new model', selection);
+    const model = _.find(this.assets.models, m => m.id === selection.asset);
+    const response = await Axios.get(model.location, { responseType: 'arraybuffer' });
+    const fbxScene = await this.modelLoader.parse(response.data);
+    this.prepareModel(fbxScene);
+  }
+
+  async selectMaterial(selection, key) {
+    console.log('Configuring new material', selection);
+  }
+
+  async selectTexture(selection, key) {
+    const asset = _.find(this.assets.textures, t => t.id === selection.asset);
+    const texture = await this.textureLoader.load(asset.location);
+
+    const layerKey = LayerMap[key];
+
+    this.models.current.traverse((child) => {
+      console.log(child);
+      if (child instanceof Three.Mesh && child.name === layerKey) {
+        console.log('Updating layer with texture!');
+
+        child.material = new Three.MeshBasicMaterial({
+          map: texture,
+        });
+      }
+    });
+  }
+
+  async selectFinish(selection, key) {
+    console.log('Configuring new Finish', selection);
+
+    this.models.current.traverse((child) => {
+      console.log(child);
+      if (child instanceof Three.Mesh && child.name === 'BODY') {
+        console.log('Updating layer with texture!');
+
+        // child.material.color.setHex(colorToSigned24Bit(selection.color));
+
+        child.material = Materials.withColor(this.reflectionCube, colorToSigned24Bit(selection.color));
+      }
+    });
   }
 }

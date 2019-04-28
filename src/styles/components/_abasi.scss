@@ -1,18 +1,14 @@
 /* Abasi Constructs */
-// * {
-//   overflow:auto;
-//   margin:15px -300px 15px 15px;
-//   padding-right:300px;
-// }
-
 label {
   display: flex;
   font-size: 1.3em;
   justify-content: center;
 
   .label {
+    min-width: 200px;
     align-self: center;
     margin-right: 10px;
+    text-align: right;
   }
 
   input, select {
@@ -21,7 +17,7 @@ label {
 }
 
 .abasi-table {
-  font-size: 2em;
+  // font-size: 2em;
   text-align: center;
   border: 1px solid $anchor-color;
 
@@ -453,6 +449,10 @@ label {
   .abasi-upload-texture {
     align-items: center;
   }
+
+  .abasi-upload-map {
+    align-items: center;
+  }
 }
 
 /* Config */
@@ -473,7 +473,7 @@ label {
 
   .add-config {
     position: absolute;
-    right: 14px;
+    right: 10px;
     top: 20px;
     background-color: $anchor-color;
     color: $primary-color;
@@ -489,13 +489,21 @@ label {
   }
 
   .abasi-save-config {
-    padding: 20px;
+    position: absolute;
+    right: 175px;
+    top: 20px;
+    padding: 10px;
     background-color: $success-color;
     color: $anchor-color;
-    font-size: 1.5em;
     cursor: pointer;
-    width: 100%;
+    width: 200px;
     border: 1px solid $anchor-color;
+    transition: all 0.3s linear;
+
+    &:hover {
+      background-color: $anchor-color;
+      color: $success-color;
+    }
   }
 
   .abasi-config-wrapper {
@@ -564,10 +572,11 @@ label {
 
     .lineitems {
       align-items: center;
+      width: 100%;
 
       .abasi-lineitem {
         height: 50px;
-        width: 90%;
+        width: 100%;
         border: 1px solid $anchor-color;
         margin-bottom: 10px;
 
@@ -577,6 +586,10 @@ label {
         }
         
         .name {
+          width: 200px;
+        }
+
+        .color {
           width: 200px;
         }
 

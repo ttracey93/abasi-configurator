@@ -3,4 +3,5 @@ export default {
   MODEL: 'model',
   TEXTURE: 'texture',
   MATERIAL: 'material',
+  FINISH: 'finish',
 };

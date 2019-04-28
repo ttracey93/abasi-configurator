@@ -52,8 +52,8 @@ class Sidebar extends React.Component {
           Configuration Management
         </Link>
 
-        <Link to="/archive">
-          Archive Current Configuration
+        <Link to="/statistics">
+          Order Statistics
         </Link>
 
         {/* <a onClick={ this.showSettings } className="menu-item--small" href="">Settings</a> */}

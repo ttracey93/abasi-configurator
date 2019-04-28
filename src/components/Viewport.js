@@ -20,25 +20,16 @@ export default class Viewport extends React.Component {
   }
 
   render() {
-    const viewData = Object.assign({}, this.props.data);
-    const showBackButton = this.props.itemIndex > 0;
-    delete viewData.items;
-
     return (
       <div className="container evenly viewport">
         <div id="renderer-container" className="viewport-view" />
 
-        {showBackButton &&
-          <div className="back-button">
-            <button className="btn" onClick={this.props.goBack}>
-                Back
-            </button>
-          </div>
-        }
+        <button type="button" className="viewport-review" onClick={this.props.handlePrice}>
+          Review and Submit Order
+        </button>
 
-        <div className="viewport-price">
-          <Price price={this.props.price} />
-          {/* <Price data={this.props.data} changeMode={this.changeMode} /> */}
+        <div className="viewport-price">  
+          <Price price={this.props.price} handlePrice={this.props.handlePrice} />
         </div>
       </div>
     );
@@ -47,5 +38,6 @@ export default class Viewport extends React.Component {
 
 Viewport.propTypes = {
   price: PropTypes.number.isRequired,
+  handlePrice: PropTypes.func.isRequired,
 };
 

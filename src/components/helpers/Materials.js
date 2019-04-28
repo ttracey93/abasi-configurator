@@ -21,7 +21,7 @@ class Materials {
       color: color,
   
       roughness: 0.4,
-      metalness: 0.8,
+      metalness: 0.4,
   
       envMap: reflectionCube, // important -- especially for metals!
       

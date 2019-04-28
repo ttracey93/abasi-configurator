@@ -17,7 +17,6 @@ class Orders extends React.Component {
 
   async getOrders() {
     const orders = await OrderService.getAll();
-    console.log(orders);
     this.setState({
       orders,
     });

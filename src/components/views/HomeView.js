@@ -23,18 +23,29 @@ export default class HomeView extends React.Component {
   render() {
     return (
       <div className="container home">
-        <div className="container home-menu">
-          <Menu
-            items={this.props.getItems()}
-            columns
-            renderer={this.props.renderer}
-            callback={this.props.makeSelection}
-          />
-        </div>
+        {!this.props.loading &&
+          <div>
+            {this.props.canGoBack &&
+              <button disabled={!this.props.canGoBack} onClick={this.props.goBack} className="btn back-button">
+                Go Back
+              </button>
+            }
+
+            <div className="container home-menu">
+              <Menu
+                items={this.props.getItems()}
+                columns
+                renderer={this.props.renderer}
+                callback={this.props.makeSelection}
+              />
+            </div>
+          </div>
+        }
 
         <div className="container home-viewport">
           <ViewPort
             price={this.props.price}
+            handlePrice={this.props.handlePrice}
           />
         </div>
       </div>
@@ -47,4 +58,8 @@ HomeView.propTypes = {
   getItems: PropTypes.func.isRequired,
   renderer: PropTypes.object.isRequired,
   price: PropTypes.number.isRequired,
+  loading: PropTypes.bool.isRequired,
+  canGoBack: PropTypes.bool.isRequired,
+  goBack: PropTypes.func.isRequired,
+  handlePrice: PropTypes.func.isRequired,
 };

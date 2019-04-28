@@ -22,8 +22,11 @@ class ManageAssets extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.deleteModel = this.deleteModel.bind(this);
     this.deleteTexture = this.deleteTexture.bind(this);
+    this.deleteMap = this.deleteMap.bind(this);
     this.getTextureAssetContent = this.getTextureAssetContent.bind(this);
     this.getModelAssetContent = this.getModelAssetContent.bind(this);
+    this.getMapAssetContent = this.getMapAssetContent.bind(this);
+    this.getFileSize = this.getFileSize.bind(this);
   }
 
   componentDidMount() {
@@ -31,16 +34,15 @@ class ManageAssets extends React.Component {
   }
 
   async getMetadata() {
-    // TODO: Load in asset metadata from the GS bucket
     const textureMetadata = await AssetService.getTextureMetadata();
     const modelMetadata = await AssetService.getModelMetadata();
-
-    console.log(textureMetadata);
+    const mapMetadata = await AssetService.getMapMetadata();
 
     this.setState({
       loading: false,
       textureMetadata,
       modelMetadata,
+      mapMetadata,
     });
   }
 
@@ -54,6 +56,11 @@ class ManageAssets extends React.Component {
     toast.success('Successfully removed model');
   }
 
+  async deleteMap(map) {
+    await AssetService.removeMap(map);
+    toast.success('Successfully removed map');
+  }
+
   handleUploadStart = () => this.setState({ uploading: true, progress: 0 });
 
   handleProgress = progress => this.setState({ progress });
@@ -64,17 +71,27 @@ class ManageAssets extends React.Component {
   };
 
   handleModelUploadSuccess = async (filename, task) => {
-    await AssetService.createModel(filename, task.metadata_.size);
+    const location = await task.ref_.getDownloadURL();    
+    await AssetService.createModel(filename, task.metadata_.size, location);
 
     this.setState({ progress: 100, uploading: false });
     toast.success('Model uploaded successfully');
   };
 
   handleTextureUploadSuccess = async (filename, task) => {
-    await AssetService.createTexture(filename, task.metadata_.size);
+    const location = await task.ref_.getDownloadURL();
+    await AssetService.createTexture(filename, task.metadata_.size, location);
 
     this.setState({ progress: 100, uploading: false });
     toast.success('Texture uploaded successfully');
+  };
+
+  handleMapUploadSuccess = async (filename, task) => {
+    const location = await task.ref_.getDownloadURL();    
+    await AssetService.createMap(filename, task.metadata_.size, location);
+
+    this.setState({ progress: 100, uploading: false });
+    toast.success('Map uploaded successfully');
   };
 
   handleChange(event) {
@@ -85,12 +102,22 @@ class ManageAssets extends React.Component {
     });
   }
 
+  getFileSize(size) {
+    const i = Math.floor( Math.log(size) / Math.log(1024) );
+    return ( size / Math.pow(1024, i) ).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
+  }
+
   getTextureAssetContent(asset) {
     return (
       <tr className="abasi-assets-row" key={asset.id}>
         <td>{ asset.filename }</td>
         <td>{ asset.id }</td>
-        <td>{ asset.size }</td>
+        <td>{ this.getFileSize(asset.size) }</td>
+        <td>
+          <a href={asset.location} target="_blank" rel="noopener noreferrer">
+            Link
+          </a>
+        </td>
 
         <td>
           <button className="abasi-assets-table-button" onClick={() => { this.deleteTexture(asset.id) }}>
@@ -106,10 +133,36 @@ class ManageAssets extends React.Component {
       <tr className="abasi-assets-row" key={asset.id}>
         <td>{ asset.filename }</td>
         <td>{ asset.id }</td>
-        <td>{ asset.size }</td>
+        <td>{ this.getFileSize(asset.size) }</td>
+        <td>
+          <a href={asset.location} target="_blank" rel="noopener noreferrer">
+            Link
+          </a>
+        </td>
 
         <td>
           <button className="abasi-assets-table-button" onClick={() => { this.deleteModel(asset.id) }}>
+            Delete Asset
+          </button>
+        </td>
+      </tr>
+    );
+  }
+
+  getMapAssetContent(asset) {
+    return (
+      <tr className="abasi-assets-row" key={asset.id}>
+        <td>{ asset.filename }</td>
+        <td>{ asset.id }</td>
+        <td>{ this.getFileSize(asset.size) }</td>
+        <td>
+          <a href={asset.location} target="_blank" rel="noopener noreferrer">
+            Link
+          </a>
+        </td>
+
+        <td>
+          <button className="abasi-assets-table-button" onClick={() => { this.deleteMap(asset.id) }}>
             Delete Asset
           </button>
         </td>
@@ -131,6 +184,7 @@ class ManageAssets extends React.Component {
 
     const textureContent = _.map(this.state.textureMetadata, this.getTextureAssetContent);
     const modelContent = _.map(this.state.modelMetadata, this.getModelAssetContent);
+    // const mapContent = _.map(this.state.mapMetadata, this.getMapAssetContent)
 
     return (
       <div className="abasi-manage-assets flex columns">
@@ -142,6 +196,7 @@ class ManageAssets extends React.Component {
               <th>Asset Name</th>
               <th>Asset ID</th>
               <th>File Size</th>
+              <th>Link</th>
               <th>Delete Asset</th>
             </tr>
           </thead>
@@ -159,6 +214,7 @@ class ManageAssets extends React.Component {
               <th>Asset Name</th>
               <th>Asset ID</th>
               <th>File Size</th>
+              <th>Link</th>
               <th>Delete Asset</th>
             </tr>
           </thead>
@@ -167,6 +223,23 @@ class ManageAssets extends React.Component {
             { modelContent }
           </tbody>
         </table>
+
+        {/* <h1>Manage Maps</h1>
+
+        <table className="abasi-assets-table abasi-table" border="1" frame="void" rules="rows">
+          <thead>
+            <tr>
+              <th>Asset Name</th>
+              <th>Asset ID</th>
+              <th>File Size</th>
+              <th>Delete Asset</th>
+            </tr>
+          </thead>
+  
+          <tbody>
+            { mapContent }
+          </tbody>
+        </table> */}
       </div>
     );
   }
@@ -219,6 +292,30 @@ class ManageAssets extends React.Component {
     );
   }
 
+  getMapContent() {
+    return (
+      <div className="abasi-upload-map flex columns">
+        <h1>Upload Map</h1>
+        
+        <label htmlFor="map">
+          <span className="label">
+            Choose File: 
+          </span>
+
+          <FileUploader
+            accept="image/*"
+            name="map"
+            storageRef={Storage.ref('maps')}
+            onUploadStart={this.handleUploadStart}
+            onUploadError={this.handleUploadError}
+            onUploadSuccess={this.handleMapUploadSuccess}
+            onProgress={this.handleProgress}
+          />
+        </label>
+      </div>
+    );
+  }
+
   render() {
     return (
       <div className="flex columns abasi-assets">
@@ -229,6 +326,7 @@ class ManageAssets extends React.Component {
             <Tab>Manage Assets</Tab>
             <Tab>Upload Model</Tab>
             <Tab>Upload Texture</Tab>
+            {/* <Tab>Upload Map</Tab> */}
           </TabList>
 
           <TabPanel>
@@ -242,6 +340,10 @@ class ManageAssets extends React.Component {
           <TabPanel>
             { this.getTextureContent() }
           </TabPanel>
+
+          {/* <TabPanel>
+            { this.getMapContent() }
+          </TabPanel> */}
         </Tabs>
       </div>
     );

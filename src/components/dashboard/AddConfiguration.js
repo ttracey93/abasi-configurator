@@ -35,6 +35,7 @@ class AddConfiguration extends React.Component {
     this.getConfiguration = this.getConfiguration.bind(this);
     this.addLineItem = this.addLineItem.bind(this);
     this.removeLineItem = this.removeLineItem.bind(this);
+    this.updateLineItem = this.updateLineItem.bind(this);
   }
 
   componentDidMount() {
@@ -48,7 +49,6 @@ class AddConfiguration extends React.Component {
 
     let metadata;
 
-    console.log(config.type);
     switch (config.type) {
       case 'model':
         metadata = await AssetService.getModelMetadata();
@@ -112,13 +112,33 @@ class AddConfiguration extends React.Component {
 
   getLineItems(items) {
     // Magic for first configuration item
-    items = [{
-      maskFields: true,
-    }, ...items];
+    if (items && items.length) {
+      items = [{
+        maskFields: true,
+      }, ...items];
+    } else {
+      items = [{
+        maskFields: true,
+      }];
+    }
 
-    return _.map(items, item => <LineItem data={item} key={`lineitem-${item.name}`} delete={this.removeLineItem} metadata={this.state.metadata} />);
+    return _.map(items, item => (
+      <LineItem 
+        data={item}
+        key={`lineitem-${item.name}`}
+        delete={this.removeLineItem}
+        metadata={this.state.metadata}
+        callback={this.updateLineItem}
+        type={this.state.config.type}
+      />
+    ));
   }
   
+  updateLineItem(item) {
+    const { config } = this.state;
+    config.options = _.filter(config.options, o => o.id !== item.id).concat([item]);
+  }
+
   render() {
     const { loading, editing, config } = this.state;
 
@@ -195,6 +215,7 @@ class AddConfiguration extends React.Component {
                 <option value="model">Model</option>
                 <option value="material">Material</option>
                 <option value="submenu">Submenu</option>
+                <option value="finish">Finish</option>
               </select>
             </label>
 
