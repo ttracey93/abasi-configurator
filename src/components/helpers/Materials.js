@@ -20,17 +20,17 @@ class Materials {
     return new Three.MeshStandardMaterial( {
       color: color,
   
-      roughness: 0.4,
-      metalness: 0.4,
+      roughness: 0,
+      metalness: 0.5,
   
       envMap: reflectionCube, // important -- especially for metals!
       
       aoMapIntensity: 1.0,
       envMapIntensity: 1.0,
-      displacementScale: 2.436143, // from original model
+      // displacementScale: 2.436143, // from original model
       normalScale: 1.0,
 
-      flatShading: false,
+      // flatShading: false,
     });
   }
 
@@ -43,6 +43,17 @@ class Materials {
       
       flatShading: false,
     });
+  }
+
+  static loadTexture(path, loader, renderer) {
+    console.log('Loading texture...', path);
+
+    const texture = loader.load(path);
+    texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    console.log(texture.anisotropy);
+    texture.wrapS = texture.wrapT = Three.MirroredRepeatWrapping;
+    texture.minFilter = texture.magFilter = Three.LinearMipMapNearestFilter;
+    return texture;
   }
 }
 

@@ -129,7 +129,7 @@ class LineItem extends React.Component {
   getItemContent(data) {
     const { type } = this.props;
 
-    if (type === 'finish') {
+    if (type === 'finish' || type === 'material') {
       return this.getFinishContent(data);
     }
 

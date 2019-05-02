@@ -27,6 +27,7 @@
     "stripe": "^6.29.0",
     "styled-components": "^4.2.0",
     "three": "^0.102.1",
+    "three-css3drenderer": "^1.0.1",
     "three-fbx-loader": "^1.0.3",
     "three-fbxloader-offical": "^1.0.0",
     "three-obj-loader": "^1.1.3",

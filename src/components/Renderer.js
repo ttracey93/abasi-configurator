@@ -55,7 +55,7 @@ export default class Renderer {
 
     this.metalMaterial = Materials.metalWithColor(reflectionCube, 0xd6d1cd);
     this.darkMetalMaterial = Materials.metalWithColor(reflectionCube, 0x222222);
-    this.blackMetalMaterial = Materials.metalWithColor(reflectionCube, 0x000000);
+    this.blackMetalMaterial = Materials.metalWithColor(reflectionCube, 0x222222);
 
     this.brownMaterial = Materials.withColor(reflectionCube, 0xa57136);
     this.whiteMaterial = Materials.withColor(reflectionCube, 0xffffff);
@@ -171,6 +171,10 @@ export default class Renderer {
   prepareModel(model) {
     // TODO: Prepare model with actual stuff
     // This is really important
+    if (this.models.current) {
+      this.scene.remove(this.models.current);
+    }
+
     this.models.current = model;
 
     model.traverse( child => {
@@ -178,7 +182,7 @@ export default class Renderer {
         // child.geometry.computeVertexNormals(true);
 
         switch (child.name) {
-          case 'Pickups':
+          case 'PICKUPS':
             child.material = this.whiteMaterial;
             break;
           case 'Bridge':
@@ -187,22 +191,24 @@ export default class Renderer {
           case 'Fret_dots_Big_side':
           case 'Fret_dots_Small_side':
           case 'Abasi_Logo':
+          case 'Tuner_White_rubber':
             child.material = this.whiteMaterial;
             break;
           case 'Strings':
           case 'String_ends':
           case 'Tuners':
+            console.log('Changing, ', child.name);
             child.material = this.metalMaterial;
             break;
           case 'Strap_holder':
           case 'String_holder':
             child.material = this.metalMaterial;
             break;
-          case 'Body':
-          case 'Neck_Head':
+          case 'BODY':
+          case 'NECK':
             child.material = this.darkMetalMaterial;
             break;
-          case 'FRET_Board':
+          case 'FretBoard':
             child.material = this.brownMaterial;
             break;
           default:
@@ -214,9 +220,9 @@ export default class Renderer {
       // console.log(child);
     });
 
-    model.scale.x = 0.5;
-    model.scale.y = 0.5;
-    model.scale.z = 0.5;
+    // model.scale.x = 0.5;
+    // model.scale.y = 0.5;
+    // model.scale.z = 0.5;
 
     model.rotation.y = Math.PI;
     this.scene.add(model);
@@ -233,21 +239,34 @@ export default class Renderer {
 
   async selectMaterial(selection, key) {
     console.log('Configuring new material', selection);
+
+    const layerKey = LayerMap[key];
+
+    console.log(layerKey);
+
+    this.models.current.traverse((child) => {
+      console.log(child);
+      if (child instanceof Three.Mesh && layerKey.indexOf(child.name) !== -1) {
+        console.log('Updating layer with texture!');
+
+        // child.material.color.setHex(colorToSigned24Bit(selection.color));
+
+        child.material = Materials.metalWithColor(this.reflectionCube, colorToSigned24Bit(selection.color));
+      }
+    });
   }
 
   async selectTexture(selection, key) {
     const asset = _.find(this.assets.textures, t => t.id === selection.asset);
-    const texture = await this.textureLoader.load(asset.location);
+    const texture = Materials.loadTexture(asset.location, this.textureLoader, this.renderer);
 
     const layerKey = LayerMap[key];
 
     this.models.current.traverse((child) => {
-      console.log(child);
       if (child instanceof Three.Mesh && child.name === layerKey) {
-        console.log('Updating layer with texture!');
-
         child.material = new Three.MeshBasicMaterial({
           map: texture,
+          
         });
       }
     });
@@ -256,14 +275,11 @@ export default class Renderer {
   async selectFinish(selection, key) {
     console.log('Configuring new Finish', selection);
 
+    const layerKey = LayerMap[key];
+
     this.models.current.traverse((child) => {
-      console.log(child);
-      if (child instanceof Three.Mesh && child.name === 'BODY') {
-        console.log('Updating layer with texture!');
-
-        // child.material.color.setHex(colorToSigned24Bit(selection.color));
-
-        child.material = Materials.withColor(this.reflectionCube, colorToSigned24Bit(selection.color));
+      if (child instanceof Three.Mesh && child.name === layerKey) {
+        child.material = Materials.metalWithColor(this.reflectionCube, colorToSigned24Bit(selection.color));
       }
     });
   }
