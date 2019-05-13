@@ -1,9 +1,12 @@
 import React from 'react';
 import _ from 'lodash';
+import { Line } from 'rc-progress';
+import { toast } from 'react-toastify';
 
 // Constants
 import Modes from '../constants/modes';
 import SelectionTypes from '../constants/selection-types';
+import ModelMap from '../constants/model-map';
 
 // WebGL Renderer
 import Renderer from './Renderer';
@@ -14,11 +17,8 @@ import OptionView from './views/OptionView';
 import PaymentView from './views/PaymentView';
 import ConfirmationView from './views/ConfirmationView';
 import ConfigurationService from '../services/ConfigurationService';
-import { ClipLoader } from 'react-spinners';
 import AssetService from '../services/AssetService';
-import { toast } from 'react-toastify';
-
-const Three = require('three');
+import { ClipLoader } from 'react-spinners';
 
 export default class Configurator extends React.Component {
   constructor(props) {
@@ -26,11 +26,13 @@ export default class Configurator extends React.Component {
 
     // Initial State
     this.state = {
-      loading: false,
+      loading: true,
+      parsing: false,
       items: [[]],
       mode: Modes.HOME,
       price: 0,
-      selections: Configurator.getInitialData(),
+      selections: {},
+      percent: 0,
     };
 
     // Event bindings
@@ -45,6 +47,7 @@ export default class Configurator extends React.Component {
     this.handlePrice = this.handlePrice.bind(this);
     this.handleMain = this.handleMain.bind(this);
     this.submitOrder = this.submitOrder.bind(this);
+    this.updatePercent = this.updatePercent.bind(this);
 
     // Setup components to use for different views
     this.components = {
@@ -54,7 +57,7 @@ export default class Configurator extends React.Component {
       [Modes.CONFIRMATION]: ConfirmationView,
     };
 
-    this.renderer = new Renderer(this.state.data);
+    this.renderer = new Renderer(this.state.data, this.updatePercent);
   }
 
   async componentDidMount() {
@@ -69,23 +72,36 @@ export default class Configurator extends React.Component {
 
     this.rendererContainer.appendChild(this.renderer.getRendererElement());
 
-    // Begin pricing module
-    this.evaluatePrice();
-
+    
     // Grab configuration items for the user menu
     const items = await ConfigurationService.getConfig();
     const models = await AssetService.getModelMetadata();
     const textures = await AssetService.getTextureMetadata();
-
+    
     const sortedItems = _.sortBy(items, (i) => {
       return Number.parseInt(i.position);
     });
+
+    // TODO: Fix this
+    // Begin pricing module
+    const selections = await this.getInitialData();
+    this.evaluatePrice();
 
     this.setState({
       items: [sortedItems],
       models,
       textures,
+      selections,
     });
+
+    const type = this.props.match.params.type;
+
+    if (!type) {
+      toast.error('Unable to load proper config, please check the URL you were given');
+    }
+
+    const model = ModelMap[type];
+    await this.renderer.selectModel({ asset: model }, 'body');
   }
 
   componentDidUpdate() {
@@ -102,10 +118,32 @@ export default class Configurator extends React.Component {
     }
   }
 
-  static getInitialData() {
-    return {
-      body: {asset: "c95aa5d830344811b8e726740199dda0", id: "6d65d532ad564be39484f29eb8526521", name: "Eight String", price: "2399"},
-      ['body-wood']: {asset: "5b06ca27a3fa40648e4261ba722521c5", color: "#000", id: "923e7yrq98w7dyf", location: "textures/roasted-eastern-hard-rock-flamed-maple.png", name: "Alder", price: "0"},
+  updatePercent(percent, loading, parsing) {
+    if (percent >= 100) {
+      if (loading === undefined) {
+        console.log('Fuck the loading bullshit');
+        loading = false;
+        parsing = true;
+      }
+
+      if (parsing === true) {
+        loading = false;
+        parsing = false;
+      }
+    }
+
+    loading = loading === undefined ? true : loading;
+
+    this.setState({
+      percent,
+      loading: loading,
+    });
+  }
+
+  async getInitialData() {
+    const selections = {
+      body: {type: 'model', asset: "c95aa5d830344811b8e726740199dda0", id: "6d65d532ad564be39484f29eb8526521", name: "Eight String", price: "2399"},
+      ['body-wood']: {type: 'texture', asset: "5b06ca27a3fa40648e4261ba722521c5", color: "#000", id: "923e7yrq98w7dyf", location: "textures/roasted-eastern-hard-rock-flamed-maple.png", name: "Alder", price: "0"},
       neck: {asset: "812bdd08e0a0433a9eec59a835736bee", color: "#000", id: "b15f39a18970471e9b632e2b0085db13", name: "Genuine Mahogany", price: "0"},
       fingerboard: {asset: "4405833b559f462381727a1b538182ed", color: "#000", id: "fe58aedfd9104bfd878f11c785e08a61", name: "Richlite", price: "0"},
       sidedots: {color: "#000", id: "4261991f913648ab9cdee1a50e55a0a3", name: "White", price: "0"},
@@ -114,6 +152,41 @@ export default class Configurator extends React.Component {
       pickups: {color: "#000", id: "aef2b3e099d64a23a813d01be244c855", name: "White", price: "0"},
       finish: {color: "#fcfcfc", id: "af47f49cfc0e4a6e9f7954d3e1d54948", name: "Natural Transparent", price: "0"},
     };
+
+    for (const selection in selections) {
+      const { type, key } = selection;
+
+      try {
+        switch(type) {
+          case 'model':
+            console.log('model at:', key);
+            await this.renderer.selectModel(selection, key);
+            break;
+          case 'material':
+            console.log('material at:', key);
+            await this.renderer.selectMaterial(selection, key);
+            break;
+          case 'texture':
+            console.log('texture at:', key);
+            await this.renderer.selectTexture(selection, key);
+            break;
+          case 'finish':
+            console.log('finish at:', key);
+            await this.renderer.selectFinish(selection, key);
+            break;
+          default:
+            console.log('This is something else entirely');
+            break;
+        }
+      } catch (ex) {
+        console.log(ex);
+        toast.error('Hmm...having trouble loading that asset');
+      }
+    }
+
+    this.evaluatePrice();
+
+    return selections;
   }
 
   async makeSelection(selection) {
@@ -196,7 +269,7 @@ export default class Configurator extends React.Component {
       c = Number.parseInt(c);
 
       return p + c;
-    }));
+    }, 0));
 
     this.setState({
       price,
@@ -225,13 +298,6 @@ export default class Configurator extends React.Component {
     }
   }
 
-  // Reset guitar options
-  reset() {
-    // this.setState({
-    //   data: Configurator.getInitialData(),
-    // });
-  }
-  
   // Modal utilities
   changeMode(mode) {
     this.setState({
@@ -270,7 +336,15 @@ export default class Configurator extends React.Component {
         { this.state.loading &&
           <div className="configurator-spinner">
             <ClipLoader />
-            <p>Loading...</p>
+            <p>Loading Abasi Guitars Custom Configurator</p>
+            <Line percent={this.state.percent} strokeWidth="8" strokeColor="#000" />
+          </div>
+        }
+
+        { this.state.parsing &&
+          <div className="configurator-spinner">
+            <Line percent={this.state.percent} strokeWidth="8" strokeColor="#000" />
+            <p>Parsing Model</p>
           </div>
         }
 
@@ -287,50 +361,10 @@ export default class Configurator extends React.Component {
             handleMain={this.handleMain}
             data={this.state.selections}
             submitOrder={this.submitOrder}
+            updatePercent={this.updatePercent}
           />
         }
       </div>
     );
   }
-
-  /* Renderer coupling */
-  async getModel() {
-    // Axios.get('https://firebasestorage.googleapis.com/v0/b/abasi-configurator/o/models%2F3.FBX?alt=media&token=72d4c4c7-5bcc-47d9-90e5-dfe13b115750', {
-    //   responseType: 'arraybuffer',
-    // }).then((response) => {
-    //   // TODO: Make async
-    //   const fbxScene = loader.parse(response.data, '/');
-    //   this.renderer.prepareModel(fbxScene);
-
-    //   this.setState({
-    //     loading: false,
-    //   });
-    // });
-
-    
-
-  }
-
-  // loadModel(path, cb) {
-  //   console.log('Loading model...', path);
-  //   new FBXLoader().load(path, cb);
-  // }
-
-  // loadModelOBJ(path, cb) {
-  //   console.log('Loading OBJ model...', path);
-  //   new Three.OBJLoader().load(path, cb);
-  // }
-
-  // loadTexture(path) {
-  //   console.log('Loading texture...', path);
-
-  //   const texture = this.textureLoader.load(path);
-  //   texture.anisotropy = this.renderer.capabilities.getMaxAnisotropy();
-  //   texture.wrapS = Three.ClampToEdgeWrapping;
-  //   texture.wrapT = Three.ClampToEdgeWrapping;
-  //   texture.minFilter = Three.LinearMipMapLinearFilter;
-  //   texture.magFilter = Three.LinearMipMapLinearFilter;
-
-  //   return texture;
-  // }
 }

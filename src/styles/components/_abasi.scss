@@ -510,6 +510,7 @@ label {
     align-items: center;
 
     .abasi-config-items {
+      font-size: 1.3em;
       width: 100%;
     }
 
@@ -517,6 +518,18 @@ label {
       .position {
         width: 30px;
         text-align: left;
+      }
+
+      .abasi-delete-config {
+        background-color: $error-color;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s linear;
+
+        &:hover {
+          background-color: $primary-color;
+          color: $error-color;
+        }
       }
     }
   }
@@ -547,7 +560,7 @@ label {
   }
 
   form {
-    max-width: 800px;
+    max-width: calc(100% - 20px);
 
     select {
       text-align-last: center;
@@ -590,6 +603,10 @@ label {
         }
 
         .color {
+          width: 200px;
+        }
+
+        .transparent {
           width: 200px;
         }
 

@@ -334,8 +334,9 @@ body {
 
 .configurator-spinner {
   position: absolute;
+  text-align: center;
   top: calc(50% - 22px);
-  left: calc(50% - 22px);
+  left: calc(50% - 120px);
   z-index: 5;
 }
 

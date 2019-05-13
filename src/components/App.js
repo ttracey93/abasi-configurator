@@ -53,7 +53,7 @@ const App = ({
 
           {user &&
             <Switch>
-              <Route exact path="/embed" component={Configurator} />
+              <Route exact path="/embed/:type" render={props => <Configurator {...props} />} />
               <Route path="/" render={props => <Dashboard {...props} user={user} />} />
             </Switch>
           }

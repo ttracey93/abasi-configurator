@@ -7,6 +7,7 @@ import Axios from 'axios';
 import Events from '../constants/events';
 import LayerMap from '../constants/layer-map';
 import Materials from './helpers/Materials';
+import { resolve } from 'dns';
 
 const Three = require('three');
 
@@ -17,7 +18,9 @@ function colorToSigned24Bit(s) {
 }
 
 export default class Renderer {
-  constructor(data) {
+  constructor(data, updatePercent) {
+    this.updatePercent = updatePercent;
+
     Three.Cache.enabled = true;
 
     this.TEXTURE_ANISOTROPY = 16;
@@ -27,8 +30,6 @@ export default class Renderer {
     // Event bindings
     this.animate = this.animate.bind(this);
     this.resize = this.resize.bind(this);
-    this.handleEvent = this.handleEvent.bind(this);
-    this.colorChange = this.colorChange.bind(this);
     this.createScene = this.createScene.bind(this);
 
     // Selection events
@@ -38,13 +39,13 @@ export default class Renderer {
     this.selectMaterial = this.selectMaterial.bind(this);
 
     // Need to set container on instance
-    this.renderer = new Three.WebGLRenderer({ alpha: true });
-    this.renderer.setClearColor(0x000000, 0.5);
+    this.renderer = new Three.WebGLRenderer({ alpha: true, antialias: true });
+    // this.renderer.setClearColor(0x000000, 0.5);
     // this.renderer.setClearColor(0xffffff, 0);
 
     this.container = undefined;
     this.textureLoader = new Three.TextureLoader();
-    this.modelLoader = new FBXLoader();
+    this.modelLoader = new Three.OBJLoader();
 
     this.models = {};
     this.materials = {};
@@ -53,12 +54,13 @@ export default class Renderer {
     const reflectionCube = Materials.envMap();
     this.reflectionCube = reflectionCube;
 
-    this.metalMaterial = Materials.metalWithColor(reflectionCube, 0xd6d1cd);
+    this.metalMaterial = Materials.metalWithColor(reflectionCube, 0x808080);
     this.darkMetalMaterial = Materials.metalWithColor(reflectionCube, 0x222222);
-    this.blackMetalMaterial = Materials.metalWithColor(reflectionCube, 0x222222);
+    this.blackMetalMaterial = Materials.metalWithColor(reflectionCube, 0x272222);
+    this.lighterMetalMaterial = Materials.metalWithColor(reflectionCube, 0x333333);
 
-    this.brownMaterial = Materials.withColor(reflectionCube, 0xa57136);
-    this.whiteMaterial = Materials.withColor(reflectionCube, 0xffffff);
+    this.brownMaterial = Materials.withColor(reflectionCube, 0x272222);
+    this.whiteMaterial = Materials.metalWithColor(reflectionCube, 0xDFDCDC);
   }
 
   getRendererElement() {
@@ -76,7 +78,7 @@ export default class Renderer {
     this.controls.rotateSpeed = 1.0;
     this.controls.zoomSpeed = 1;
     this.controls.maxDistance = 150;
-    this.controls.minDistance = 50;
+    this.controls.minDistance = 10;
     this.controls.panSpeed = 0;
     this.controls.enableZoom = true;
     this.controls.enablePan = false;
@@ -85,9 +87,33 @@ export default class Renderer {
     this.scene.add( ambient );
 
     // TODO: Set light position
-    const spotLight = new Three.DirectionalLight( 0xffffff, 0.4 );
+    const spotLight = new Three.DirectionalLight( 0xffffff, 0.8 );
     this.scene.add( spotLight );
     this.spotLight = spotLight;
+
+    const frontLight = new Three.DirectionalLight( 0xffffff, 0.8);
+    frontLight.position.set(0, 0, -20);
+    frontLight.lookAt(0, 0, 0);
+    this.frontLight = frontLight;
+    this.scene.add(frontLight);
+
+    const leftLight = new Three.DirectionalLight( 0xffffff, 0.8);
+    leftLight.position.set(-10, 0, -20);
+    leftLight.lookAt(0, 0, 0);
+    this.leftLight = leftLight;
+    this.scene.add(leftLight);
+
+    const rightLight = new Three.DirectionalLight( 0xffffff, 0.8);
+    rightLight.position.set(10, 0, -20);
+    rightLight.lookAt(0, 0, 0);
+    this.rightLight = rightLight;
+    this.scene.add(rightLight);
+
+    const backLight = new Three.DirectionalLight( 0xffffff, 0.8);
+    backLight.position.set(0, -20, 20);
+    backLight.lookAt(0, 0, 0);
+    this.backLight = backLight;
+    this.scene.add(backLight);
 
     window.addEventListener('resize', this.resize, false);
 
@@ -134,40 +160,6 @@ export default class Renderer {
     this.animate();
   }
 
-  handleEvent(event, data) {
-    switch (event) {
-      case Events.COLOR:
-        this.colorChange(data.finish);
-        break;
-      default:
-        console.log('Invalid event type', event);
-        break;
-    }
-  }
-
-  colorChange(color) {
-    const colorMat = this.colors[color];
-
-    if (!colorMat) {
-      return console.log('Invalid color material specified!', color);
-    }
-
-    const fbx = this.models.current;
-    colorMat.emissive = colorMat.color;
-
-    fbx.traverse( child  => {
-      if (child.isMesh) {
-        switch(child.name) {
-          case 'Body':
-            child.material = colorMat;
-            break;
-          default:
-            break;
-        }
-      }
-    });
-  }
-
   prepareModel(model) {
     // TODO: Prepare model with actual stuff
     // This is really important
@@ -180,16 +172,18 @@ export default class Renderer {
     model.traverse( child => {
       if ( child instanceof Three.Mesh ) {
         // child.geometry.computeVertexNormals(true);
+        console.log(child.name);
 
         switch (child.name) {
           case 'PICKUPS':
             child.material = this.whiteMaterial;
             break;
+          case 'Strap_holder':
           case 'Bridge':
             child.material = this.blackMetalMaterial;
             break;
           case 'Fret_dots_Big_side':
-          case 'Fret_dots_Small_side':
+          case 'Fret_Dots_Small_side':
           case 'Abasi_Logo':
           case 'Tuner_White_rubber':
             child.material = this.whiteMaterial;
@@ -197,25 +191,32 @@ export default class Renderer {
           case 'Strings':
           case 'String_ends':
           case 'Tuners':
-            console.log('Changing, ', child.name);
+          case 'FRETS001':
+          case 'Screws001':
             child.material = this.metalMaterial;
             break;
-          case 'Strap_holder':
-          case 'String_holder':
+            case 'String_holder':
             child.material = this.metalMaterial;
             break;
-          case 'BODY':
-          case 'NECK':
+            case 'BODY':
+            case 'NECK':
             child.material = this.darkMetalMaterial;
             break;
-          case 'FretBoard':
+            case 'FretBoard':
             child.material = this.brownMaterial;
             break;
+            case 'Input_Jack_Bottom_Body':
+            case 'Battery_Bottom':
+            child.material = this.lighterMetalMaterial;
+            break;
           default:
-            child.material = this.metalMaterial;
+            child.material = this.blackMetalMaterial;
             break;
         }
+
+        child.geometry.computeVertexNormals(true);
       }
+
 
       // console.log(child);
     });
@@ -230,11 +231,25 @@ export default class Renderer {
 
   // Configurator utilities for selections
   async selectModel(selection, key) {
+    console.log(this.modelLoader);
     console.log('Configuring new model', selection);
     const model = _.find(this.assets.models, m => m.id === selection.asset);
-    const response = await Axios.get(model.location, { responseType: 'arraybuffer' });
-    const fbxScene = await this.modelLoader.parse(response.data);
-    this.prepareModel(fbxScene);
+    // const response = await Axios.get(model.location, { responseType: 'arraybuffer' });
+    // const fbxScene = await this.modelLoader.parse(response.data);
+    console.log(model);
+
+    await new Promise((resolve, reject) => {
+      try {
+        this.modelLoader.load(model.location, obj => {
+          console.log(obj);
+          this.prepareModel(obj);
+  
+          resolve('Success');
+        }, (progress) => this.updatePercent((progress.loaded / progress.total * 100)), true, false);
+      } catch (ex) {
+        console.log(ex);
+      }
+    })
   }
 
   async selectMaterial(selection, key) {
@@ -263,11 +278,9 @@ export default class Renderer {
     const layerKey = LayerMap[key];
 
     this.models.current.traverse((child) => {
-      if (child instanceof Three.Mesh && child.name === layerKey) {
-        child.material = new Three.MeshBasicMaterial({
-          map: texture,
-          
-        });
+      if (child instanceof Three.Mesh && (child.name === layerKey || layerKey.indexOf(child.name) !== -1)) {
+        child.material = Materials.metalWithoutColor(this.reflectionCube);
+        child.material.map = texture;
       }
     });
   }
@@ -278,8 +291,16 @@ export default class Renderer {
     const layerKey = LayerMap[key];
 
     this.models.current.traverse((child) => {
-      if (child instanceof Three.Mesh && child.name === layerKey) {
-        child.material = Materials.metalWithColor(this.reflectionCube, colorToSigned24Bit(selection.color));
+      if (child instanceof Three.Mesh && (child.name === layerKey || layerKey.indexOf(child.name) !== -1)) {
+        if (selection.transparent) {
+          const oldMaterial = child.material;
+          
+          child.material = Materials.metalWithColor(this.reflectionCube, colorToSigned24Bit(selection.color));
+          child.material.map = oldMaterial.map;
+          console.log('Creating new transparent texture layer');
+        } else {
+          child.material = Materials.metalWithColor(this.reflectionCube, colorToSigned24Bit(selection.color));
+        }
       }
     });
   }

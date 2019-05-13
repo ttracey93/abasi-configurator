@@ -20,6 +20,7 @@ class ManageConfiguration extends React.Component {
     this.moveDown = this.moveDown.bind(this);
     this.save = this.save.bind(this);
     this.sort = this.sort.bind(this);
+    this.deleteConfig = this.deleteConfig.bind(this);
   }
 
   componentDidMount() {
@@ -29,6 +30,13 @@ class ManageConfiguration extends React.Component {
   async getConfiguration() {
     const config = await ConfigurationService.getAll();
     this.sort(config);
+  }
+
+  async deleteConfig(id) {
+    console.log(id);
+    await ConfigurationService.delete(id);
+    await this.getConfiguration();
+    toast.success('Removed configuration item');
   }
 
   sort(config) {
@@ -112,6 +120,11 @@ class ManageConfiguration extends React.Component {
             Edit
           </Link>
         </td>
+        <td>
+          <button onClick={() => this.deleteConfig(config.id)} className="abasi-delete-config">
+            Delete
+          </button>
+        </td>
       </tr>
     );
   }
@@ -130,6 +143,7 @@ class ManageConfiguration extends React.Component {
             <th className="options">Options</th>
             <th className="shuffle">Move</th>
             <th>Edit</th>
+            <th>Delete</th>
           </tr>
         </thead>
 

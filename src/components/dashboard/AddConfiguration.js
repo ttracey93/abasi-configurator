@@ -125,7 +125,7 @@ class AddConfiguration extends React.Component {
     return _.map(items, item => (
       <LineItem 
         data={item}
-        key={`lineitem-${item.name}`}
+        key={`lineitem-${item.id}`}
         delete={this.removeLineItem}
         metadata={this.state.metadata}
         callback={this.updateLineItem}
@@ -135,6 +135,7 @@ class AddConfiguration extends React.Component {
   }
   
   updateLineItem(item) {
+    console.log(item);
     const { config } = this.state;
     config.options = _.filter(config.options, o => o.id !== item.id).concat([item]);
   }
@@ -169,7 +170,7 @@ class AddConfiguration extends React.Component {
           </button>
         </Link>
 
-        <form onSubmit={this.save} className="flex">
+        <form onSubmit={this.save} className="">
           <div className="flex columns">
             <label htmlFor="title">
               <span className="label">Title:</span>

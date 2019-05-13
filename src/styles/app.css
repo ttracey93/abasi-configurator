@@ -495,8 +495,9 @@ body {
 
 .configurator-spinner {
   position: absolute;
+  text-align: center;
   top: calc(50% - 22px);
-  left: calc(50% - 22px);
+  left: calc(50% - 120px);
   z-index: 5; }
 
 .configurator-info {
@@ -890,10 +891,19 @@ label {
   .abasi-config .abasi-config-wrapper {
     align-items: center; }
     .abasi-config .abasi-config-wrapper .abasi-config-items {
+      font-size: 1.3em;
       width: 100%; }
     .abasi-config .abasi-config-wrapper .abasi-config-item .position {
       width: 30px;
       text-align: left; }
+    .abasi-config .abasi-config-wrapper .abasi-config-item .abasi-delete-config {
+      background-color: #eb5c5c;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s linear; }
+      .abasi-config .abasi-config-wrapper .abasi-config-item .abasi-delete-config:hover {
+        background-color: #ffffff;
+        color: #eb5c5c; }
   .abasi-config button.up, .abasi-config button.down {
     background-color: #000000;
     color: #ffffff;
@@ -911,7 +921,7 @@ label {
   .abasi-add h1 {
     font-size: 1.5em; }
   .abasi-add form {
-    max-width: 800px; }
+    max-width: calc(100% - 20px); }
     .abasi-add form select {
       text-align-last: center; }
     .abasi-add form .abasi-add-button {
@@ -939,6 +949,8 @@ label {
         .abasi-add .abasi-selections .lineitems .abasi-lineitem .name {
           width: 200px; }
         .abasi-add .abasi-selections .lineitems .abasi-lineitem .color {
+          width: 200px; }
+        .abasi-add .abasi-selections .lineitems .abasi-lineitem .transparent {
           width: 200px; }
         .abasi-add .abasi-selections .lineitems .abasi-lineitem .price {
           width: 200px; }

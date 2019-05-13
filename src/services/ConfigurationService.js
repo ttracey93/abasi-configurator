@@ -86,6 +86,10 @@ class ConfigurationService extends Service {
       config.options = [item];
     }
   }
+
+  async delete(id) {
+    await DB.collection('configuration').doc(id).delete();
+  }
 }
 
 export default new ConfigurationService();

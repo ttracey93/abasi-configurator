@@ -8,7 +8,7 @@ class LineItem extends React.Component {
     super(props);
 
     this.state = {
-      color: '#000',
+      color: null,
       metadata: this.props.metadata,
       ...this.props.data,
     };
@@ -21,8 +21,15 @@ class LineItem extends React.Component {
   }
 
   handleChange(event) {
-    const { name, value } = event.target;
+    const { name } = event.target;
+    let { value } = event.target;
 
+    if (event.target.type === 'checkbox') {
+      console.log('Checkbox!');
+
+      value = event.target.checked;
+    }
+    
     const data = _.cloneDeep(this.state);
     delete data.metadata;
     data[name] = value;
@@ -58,6 +65,10 @@ class LineItem extends React.Component {
 
           <div className="color">
             Color
+          </div>
+
+          <div className="transparent">
+            Transparent?
           </div>
 
           <div className="delete">
@@ -112,8 +123,17 @@ class LineItem extends React.Component {
         
         <div className="color">
           <FinishPicker 
-            color={ this.state.color }
+            color={ this.state.color || '#000' }
             onChangeComplete={ this.handleColor }
+          />
+        </div>
+
+        <div className="transparent">
+          <input
+            type="checkbox"
+            name="transparent"
+            checked={data.transparent}
+            onChange={this.handleChange}
           />
         </div>
 

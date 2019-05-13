@@ -34,12 +34,29 @@ class Materials {
     });
   }
 
+  static metalWithoutColor(reflectionCube) {
+    return new Three.MeshStandardMaterial( {
+      roughness: 0,
+      metalness: 0.5,
+  
+      envMap: reflectionCube, // important -- especially for metals!
+      
+      aoMapIntensity: 1.0,
+      envMapIntensity: 1.0,
+      // displacementScale: 2.436143, // from original model
+      normalScale: 1.0,
+
+      // flatShading: false,
+    });
+  }
+
   static withColor(reflectionCube, color) {
     return new Three.MeshStandardMaterial( {
       color: color,
+      envMap: reflectionCube,
   
       roughness: 0.8,
-      metalness: 0,
+      metalness: 0.3,
       
       flatShading: false,
     });
