@@ -54,6 +54,7 @@ class AddConfiguration extends React.Component {
         metadata = await AssetService.getModelMetadata();
         break;
       case 'texture':
+      case 'finish':
         metadata = await AssetService.getTextureMetadata();
         break;
       default:

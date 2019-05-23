@@ -63,13 +63,10 @@ class Materials {
   }
 
   static loadTexture(path, loader, renderer) {
-    console.log('Loading texture...', path);
-
     const texture = loader.load(path);
     texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-    console.log(texture.anisotropy);
     texture.wrapS = texture.wrapT = Three.MirroredRepeatWrapping;
-    texture.minFilter = texture.magFilter = Three.LinearMipMapNearestFilter;
+    texture.minFilter = texture.magFilter = Three.LinearFilter;
     return texture;
   }
 }

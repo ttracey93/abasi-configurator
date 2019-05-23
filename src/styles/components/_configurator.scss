@@ -99,27 +99,19 @@ body {
 
 /* Home View */
 .home {
-  // position: relative;
-  // height: calc(100% - 5px);
-  // height: 100%;
+
 }
 
 .home-viewport {
-  flex: 1;
-  // position: relative;
+  position: relative;
+  width: 1200px;
+  flex-shrink: 1;
 }
 
 .home-menu {
-  /* align-self: bottom; */
-  position: absolute;
-  top: 50px;
-  right: 0;
-  width: 300px;
-  height: auto;
-  // max-height: 300px;
-  // overflow-y: scroll;
-  z-index: 1;
-  opacity: 0.8;
+  height: 100%;
+  width: 350px;
+  background-color: gray;
 }
 
 /* Option View */
@@ -142,12 +134,12 @@ body {
 
 /* Viewport */
 .viewport {
-  position: relative;
+  height: 100%;
+  width: 100%;
 }
 
-.viewport-review {
+.review-btn {
   align-self: flex-end;
-  position: absolute;
   right: 160px;
   border: none;
   width: 150px;
@@ -158,6 +150,7 @@ body {
   text-align: center;
   z-index: 100;
   transition: all 0.3s linear;
+  display: inline-block;
 
   &:hover {
     color: $primary-color;
@@ -165,10 +158,11 @@ body {
   }
 }
 
-.viewport-price {
+.price-btn {
   align-self: flex-end;
-  position: absolute;
   right: 0px;
+  display: inline-block;
+
 
   width: 150px;
   color: $anchor-color;
@@ -181,7 +175,6 @@ body {
 }
 
 .viewport-view {
-  position: absolute;
   text-align: center;
   align-self: center;
   width: 100%;
@@ -191,48 +184,6 @@ body {
 #renderer-container {
   width: 100%;
   height: 100%;
-  
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#7d7e7d+0,0e0e0e+100;Black+3D */
-  // background: rgb(125,126,125); /* Old browsers */
-  // background: -moz-linear-gradient(top, rgba(125,126,125,1) 0%, rgba(14,14,14,1) 100%); /* FF3.6-15 */
-  // background: -webkit-linear-gradient(top, rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); /* Chrome10-25,Safari5.1-6 */
-  // background: linear-gradient(to bottom, rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=0 ); /* IE6-9 */
-}
-
-.reset-button {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-}
-
-.rotate-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-
-.back-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-  z-index: 6;
-
-  &:disabled {
-    color: grey;
-    cursor: default;
-
-    &:hover {
-      background-color: white;
-    }
-  }
-}
-
-.forward-button {
-  position: absolute;
-  bottom: 10px;
-  left: 105px;
 }
 
 /* Price */
@@ -323,7 +274,6 @@ body {
 }
 
 .logo-container {
-  /* position: absolute; */
   height: 50px;
 }
 

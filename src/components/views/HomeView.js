@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import ViewPort from '../Viewport';
 import Menu from '../Menu';
+import Price from '../Price';
 
 export default class HomeView extends React.Component {
   constructor(props) {
@@ -22,32 +23,32 @@ export default class HomeView extends React.Component {
 
   render() {
     return (
-      <div className="container home">
-        {!this.props.loading &&
-          <div>
-            {this.props.canGoBack &&
-              <button disabled={!this.props.canGoBack} onClick={this.props.goBack} className="btn back-button">
-                Go Back
-              </button>
-            }
-
-            <div className="container home-menu">
-              <Menu
-                items={this.props.getItems()}
-                columns
-                renderer={this.props.renderer}
-                callback={this.props.makeSelection}
-              />
-            </div>
-          </div>
-        }
-
-        <div className="container home-viewport">
+      <div className="flex home">
+        <div className="home-viewport">
           <ViewPort
             price={this.props.price}
             handlePrice={this.props.handlePrice}
           />
         </div>
+
+        {!this.props.loading &&
+          <div className="home-menu">
+            <Menu
+              items={this.props.getItems()}
+              columns
+              renderer={this.props.renderer}
+              callback={this.props.makeSelection}
+            />
+
+            <button type="button" className="review-btn" onClick={this.props.handlePrice}>
+              Review and Submit Order
+            </button>
+
+            <div className="price-btn">  
+              <Price price={this.props.price} handlePrice={this.props.handlePrice} />
+            </div>
+          </div>
+        }
       </div>
     );
   }

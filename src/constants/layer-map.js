@@ -8,4 +8,5 @@ export default {
   battery: 'battery',
   'pickup-covers': ['PICKUPS'],
   finish: ['BODY', 'Body_top'],
+  'neck-full': ['NECK', 'Head_Top'],
 };

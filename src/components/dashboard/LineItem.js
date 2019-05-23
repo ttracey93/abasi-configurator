@@ -68,7 +68,11 @@ class LineItem extends React.Component {
           </div>
 
           <div className="transparent">
-            Transparent?
+            Type
+          </div>
+
+          <div className="asset">
+            Asset
           </div>
 
           <div className="delete">
@@ -100,6 +104,8 @@ class LineItem extends React.Component {
   }
 
   getFinishContent(data) {
+    const artSeries = data.type === 'artseries';
+
     return (
       <div className="flex abasi-lineitem">
         <div className="name">
@@ -129,13 +135,28 @@ class LineItem extends React.Component {
         </div>
 
         <div className="transparent">
-          <input
-            type="checkbox"
-            name="transparent"
-            checked={data.transparent}
+          <select
+            name="type"
+            value={data.type}
             onChange={this.handleChange}
-          />
+          >
+            <option value="standard">Standard</option>
+            <option value="premium">Premium</option>
+            <option value="artseries">Art Series</option>
+          </select>
         </div>
+
+        { artSeries &&
+          <div className="asset">
+            <select name="asset" value={data.asset} className="" onChange={this.handleChange}>
+              { _.map(data.metadata, m => <option value={m.id}>{m.filename}</option>)}
+            </select>
+          </div>
+        }
+
+        { !artSeries && 
+          <span className="asset">N/A</span>
+        }
 
         <div className="delete">
           <button className="btn" type="button" onClick={() => { this.props.delete(data) }}>

@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Configurator from './Configurator';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
-  BrowserRouter as Router, Route, Switch, withRouter,
+  BrowserRouter as Router, Route, withRouter,
 } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -52,10 +51,7 @@ const App = ({
           }
 
           {user &&
-            <Switch>
-              <Route exact path="/embed/:type" render={props => <Configurator {...props} />} />
-              <Route path="/" render={props => <Dashboard {...props} user={user} />} />
-            </Switch>
+            <Route path="/" render={props => <Dashboard {...props} user={user} />} />
           }
         </div>
       </div>
