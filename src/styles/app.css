@@ -712,10 +712,13 @@ label {
     .abasi-order-listing .specs .spec:hover {
       background: #000000;
       color: #ffffff; }
-    .abasi-order-listing .specs .spec .title {
+    .abasi-order-listing .specs .spec .key {
       font-size: 1.3em;
       font-weight: 600px;
-      width: 50%; }
+      width: 33%; }
+    .abasi-order-listing .specs .spec .title {
+      font-size: 1.3em;
+      width: 33%; }
     .abasi-order-listing .specs .spec .price {
       margin-left: 10px;
       font-weight: 300; }
@@ -923,7 +926,7 @@ label {
         .abasi-add .abasi-selections .lineitems .abasi-lineitem .price {
           width: 200px; }
         .abasi-add .abasi-selections .lineitems .abasi-lineitem .asset {
-          width: 200px; }
+          width: 300px; }
         .abasi-add .abasi-selections .lineitems .abasi-lineitem .delete {
           width: 200px; }
           .abasi-add .abasi-selections .lineitems .abasi-lineitem .delete .btn {

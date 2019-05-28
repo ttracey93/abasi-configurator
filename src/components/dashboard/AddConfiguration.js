@@ -123,20 +123,23 @@ class AddConfiguration extends React.Component {
       }];
     }
 
+    const artSeries = this.state.config.key === 'finish' && (this.state.config.title && this.state.config.title.toLowerCase().indexOf('art') !== -1);
+
     return _.map(items, item => (
       <LineItem 
         data={item}
         key={`lineitem-${item.id}`}
+        itemKey={this.state.config.key}
         delete={this.removeLineItem}
         metadata={this.state.metadata}
         callback={this.updateLineItem}
         type={this.state.config.type}
+        artSeries={artSeries}
       />
     ));
   }
   
   updateLineItem(item) {
-    console.log(item);
     const { config } = this.state;
     config.options = _.filter(config.options, o => o.id !== item.id).concat([item]);
   }

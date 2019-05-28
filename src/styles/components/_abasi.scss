@@ -298,10 +298,16 @@ label {
         color: $primary-color;
       }
 
-      .title {
+      .key {
         font-size: 1.3em;
         font-weight: 600px;
-        width: 50%;
+        width: 33%;
+      }
+
+      .title {
+        font-size: 1.3em;
+        // font-weight: 600px;
+        width: 33%;
       }
       
       .price {
@@ -615,7 +621,7 @@ label {
         }
 
         .asset {
-          width: 200px;
+          width: 300px;
         }
 
         .delete {

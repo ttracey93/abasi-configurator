@@ -52,11 +52,19 @@ class OrderListing extends React.Component {
   }
 
   getSpecs(specs) {
-    return _.map(specs, (spec) => {
+    return _.map(specs, (spec, key) => {
+      const prefix = key.slice(0, 1).toUpperCase();
+      const suffix = key.slice(1, key.length).replace(/-/g, ' ');
+      key = `${prefix}${suffix}`;
+
       return (
         <div className="spec" key={spec.id}>
+          <span className="key">
+            { key }
+          </span>
+
           <span className="title">
-            { spec.title }
+            { spec.name }
           </span>
 
           <span className="price">
@@ -86,7 +94,16 @@ class OrderListing extends React.Component {
 
         <div className="item address">
           <span className="label">Purchaser Address:</span>
-          <span className="value">{ purchaser.address.full }</span>
+          <span className="value">
+            { purchaser.address1 }. {purchaser.city}, {purchaser.state}, {purchaser.postalCode}
+          </span>
+        </div>
+
+        <div className="item notes">
+          <span className="label">Purchaser Notes:</span>
+          <span className="value">
+            { purchaser.notes }
+          </span>
         </div>
       </div>
     );

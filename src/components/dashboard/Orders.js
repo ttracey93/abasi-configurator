@@ -25,7 +25,6 @@ class Orders extends React.Component {
   getOrderContent(order) {
     return (
       <tr className="abasi-orders-row">
-        <td>{ order.orderNumber }</td>
         <td>{ order.id }</td>
         <td>${ order.total }</td>
         <td>{ order.status }</td>
@@ -60,7 +59,6 @@ class Orders extends React.Component {
         <table className="abasi-orders-table abasi-table" border="1" frame="void" rules="rows">
           <thead>
             <tr>
-              <th>Order Number</th>
               <th>Invoice ID</th>
               <th>Total</th>
               <th>Payment Status</th>
