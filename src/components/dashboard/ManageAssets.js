@@ -36,13 +36,11 @@ class ManageAssets extends React.Component {
   async getMetadata() {
     const textureMetadata = await AssetService.getTextureMetadata();
     const modelMetadata = await AssetService.getModelMetadata();
-    const mapMetadata = await AssetService.getMapMetadata();
 
     this.setState({
       loading: false,
       textureMetadata,
       modelMetadata,
-      mapMetadata,
     });
   }
 
@@ -184,7 +182,6 @@ class ManageAssets extends React.Component {
 
     const textureContent = _.map(this.state.textureMetadata, this.getTextureAssetContent);
     const modelContent = _.map(this.state.modelMetadata, this.getModelAssetContent);
-    // const mapContent = _.map(this.state.mapMetadata, this.getMapAssetContent)
 
     return (
       <div className="abasi-manage-assets flex columns">
@@ -223,23 +220,6 @@ class ManageAssets extends React.Component {
             { modelContent }
           </tbody>
         </table>
-
-        {/* <h1>Manage Maps</h1>
-
-        <table className="abasi-assets-table abasi-table" border="1" frame="void" rules="rows">
-          <thead>
-            <tr>
-              <th>Asset Name</th>
-              <th>Asset ID</th>
-              <th>File Size</th>
-              <th>Delete Asset</th>
-            </tr>
-          </thead>
-  
-          <tbody>
-            { mapContent }
-          </tbody>
-        </table> */}
       </div>
     );
   }

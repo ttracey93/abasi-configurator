@@ -6,23 +6,18 @@ import uuid from 'uuid';
 class ConfigurationService extends Service {
   constructor() {
     super();
-    this.clear();
-  }
-
-  clear() {
-    this.config = [];
   }
 
   loadConfigFromSnapshot(snapshot) {
-    this.clear();
+    const configs = [];
 
     snapshot.forEach((doc) => {
       const config = doc.data();
       config.id = doc.id;
-      this.config.push(config);
+      configs.push(config);
     });
 
-    return this.config;
+    return configs;
   }
 
   async getConfig() {
@@ -31,25 +26,13 @@ class ConfigurationService extends Service {
   }
 
   async getAll() {
-    const { config } = this;
-
-    if (!config || !config.length) {
-      await this.getConfig();
-    }
-
-    return this.config;
+    return this.getConfig();
   }
 
   async get(id) {
-    let config = _.find(this.config, c => c.id === id);
-
-    if (!config) {
-      const doc = await DB.collection('configuration').doc(id).get();
-      config = doc.data();
-      config.id = id;
-      this.config.push(config);
-    }
-    
+    const doc = await DB.collection('configuration').doc(id).get();
+    const config = doc.data();
+    config.id = id;
     return config;
   }
 
@@ -57,14 +40,10 @@ class ConfigurationService extends Service {
     if (data.id && typeof data.id === 'string' && data.id !== '') {
       await DB.collection('configuration').doc(data.id).set(data);
       this.config = _.filter(this.config, c => c.id !== data.id);
-      this.config.push(data);
-      return this.config;
     }
 
     delete data.id;
     await DB.collection('configuration').doc().set(data);
-    this.config.push(data);
-    return this.config;
   }
 
   async saveAll(configs) {
