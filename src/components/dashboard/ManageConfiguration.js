@@ -29,6 +29,9 @@ class ManageConfiguration extends React.Component {
 
   async getConfiguration() {
     const config = await ConfigurationService.getAll();
+
+    console.log(config);
+
     this.sort(config);
   }
 
@@ -40,11 +43,11 @@ class ManageConfiguration extends React.Component {
   }
 
   sort(config) {
-    config = _.sortBy(config, (c) => Number.parseInt(c.position));
+    config = _.sortBy(config, c => Number.parseInt(c.position));
 
     this.setState({
       config,
-    })
+    });
   }
 
   handleChange(event) {
@@ -108,11 +111,11 @@ class ManageConfiguration extends React.Component {
         <td className="options">{ options } Subitems</td>
         <td className="shuffle">
           <button className="move up" onClick={() => this.moveUp(config.id)}>
-            <i className="fa fa-arrow-up"></i>
+            <i className="fa fa-arrow-up" />
           </button>
 
           <button className="move down" onClick={() => this.moveDown(config.id)}>
-            <i className="fa fa-arrow-down"></i>
+            <i className="fa fa-arrow-down" />
           </button>
         </td>
         <td>
@@ -128,7 +131,7 @@ class ManageConfiguration extends React.Component {
       </tr>
     );
   }
-  
+
   getConfigContent(config) {
     const lineitems = _.map(config, this.getLineitem);
 
@@ -174,11 +177,11 @@ class ManageConfiguration extends React.Component {
         <h1>Configuration Management</h1>
 
         <button disabled={saving} className="abasi-save-config" onClick={this.save}>
-          { saving && 
+          { saving &&
             <ClipLoader />
           }
 
-          { !saving && 
+          { !saving &&
             <span>Save Configuration</span>
           }
         </button>
